@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RCM Mastery</title>
+<meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b1120">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="RCM Mastery">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f5fb; --surface:#ffffff; --surface2:#eceefa; --border:rgba(15,23,42,.12);
+  --text:#0f172a; --muted:#5b6785; --primary:#5457e6; --primary2:#c026d3; --primary-soft:rgba(84,87,230,.12);
+  --accent:#0891b2; --good:#059669; --good-soft:rgba(5,150,105,.12); --bad:#dc2626; --bad-soft:rgba(220,38,38,.10);
+  --warn:#d97706; --shadow:0 10px 30px rgba(15,23,42,.08); color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1120; --surface:#152036; --surface2:#1c2942; --border:rgba(255,255,255,.10);
+    --text:#f1f5f9; --muted:#94a3b8; --primary:#818cf8; --primary2:#f472b6; --primary-soft:rgba(129,140,248,.16);
+    --accent:#22d3ee; --good:#34d399; --good-soft:rgba(52,211,153,.14); --bad:#f87171; --bad-soft:rgba(248,113,113,.13);
+    --warn:#fbbf24; --shadow:0 10px 30px rgba(0,0,0,.35); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1120; --surface:#152036; --surface2:#1c2942; --border:rgba(255,255,255,.10);
+  --text:#f1f5f9; --muted:#94a3b8; --primary:#818cf8; --primary2:#f472b6; --primary-soft:rgba(129,140,248,.16);
+  --accent:#22d3ee; --good:#34d399; --good-soft:rgba(52,211,153,.14); --bad:#f87171; --bad-soft:rgba(248,113,113,.13);
+  --warn:#fbbf24; --shadow:0 10px 30px rgba(0,0,0,.35); color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:'Outfit',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.45;overflow:hidden}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+
+.app{display:flex;height:100vh;height:100dvh}
+.side{width:232px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:22px 14px}
+.brand{font-weight:800;font-size:1.25rem;padding:0 10px 22px;background:linear-gradient(90deg,var(--accent),var(--primary));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.brand small{display:block;font-weight:400;font-size:.72rem;-webkit-text-fill-color:var(--muted);letter-spacing:.04em}
+.nav-btn{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;margin-bottom:4px;border:0;border-radius:12px;background:transparent;color:var(--muted);font-weight:600;font-size:.98rem;text-align:left;transition:.2s}
+.nav-btn svg{width:22px;height:22px;flex-shrink:0}
+.nav-btn:hover{background:var(--surface2);color:var(--text)}
+.nav-btn.active{background:var(--primary-soft);color:var(--primary)}
+.side-foot{margin-top:auto;padding:10px}
+.icon-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);background:var(--surface2);border-radius:10px;padding:8px 12px;font-size:.85rem;color:var(--muted)}
+.icon-btn svg{width:16px;height:16px}
+
+.main{flex:1;overflow-y:auto;padding:30px 36px 48px;scroll-behavior:smooth}
+.wrap{max-width:820px;margin:0 auto}
+.view{display:none}
+.view.active{display:block;animation:rise .35s ease}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+h1.title{font-size:1.9rem;font-weight:800;letter-spacing:.2px}
+.sub{color:var(--muted);margin:2px 0 22px}
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:var(--shadow);margin-bottom:18px}
+.card h2{font-size:1.05rem;font-weight:600;margin-bottom:12px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px 16px}
+.stat .k{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.stat .v{font-size:1.75rem;font-weight:800;margin-top:2px}
+.split{display:grid;grid-template-columns:150px 1fr;gap:20px;align-items:center}
+.ring{width:140px;height:140px}
+.ring .pct{font-size:26px;font-weight:800;fill:var(--text)}
+.ring .lbl{font-size:10px;fill:var(--muted)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:999px;border:1px solid var(--border);background:var(--surface2);font-weight:600;transition:.2s}
+.btn:hover{transform:translateY(-2px)}
+.btn:disabled,.btn.off{opacity:.45;pointer-events:none}
+.btn.primary{background:linear-gradient(45deg,var(--primary),var(--primary2));border-color:transparent;color:#fff;box-shadow:0 8px 20px rgba(120,80,230,.28)}
+.btn.good{background:var(--good-soft);border-color:var(--good);color:var(--good)}
+.btn.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.btn.sm{padding:8px 14px;font-size:.88rem}
+.row-btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
+.row-btns.center{justify-content:center}
+
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;border:1px solid var(--border);background:var(--surface2);font-size:.85rem;font-weight:600;color:var(--muted)}
+button.chip:hover{color:var(--text)}
+.chip.on{background:var(--primary-soft);border-color:var(--primary);color:var(--primary)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.tag{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.75rem;font-weight:600;color:#fff}
+.lab{display:block;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:14px 0 8px}
+
+.bar{height:8px;border-radius:99px;background:var(--surface2);overflow:hidden}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--primary));border-radius:99px;transition:width .5s ease}
+.catrow{display:grid;grid-template-columns:110px 1fr 46px;gap:10px;align-items:center;margin-bottom:9px;font-size:.9rem}
+.catrow span:last-child{text-align:right;color:var(--muted);font-size:.8rem}
+
+/* flashcard */
+.fc{perspective:1200px;height:380px;max-width:620px;margin:0 auto 20px;cursor:pointer}
+.fc-in{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.2,.8,.3,1.1);transform-style:preserve-3d}
+.fc.flipped .fc-in{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;-webkit-backface-visibility:hidden;backface-visibility:hidden;border-radius:24px;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);padding:28px;display:flex;flex-direction:column;align-items:center;text-align:center;overflow-y:auto}
+.fc-face>.mid{margin:auto 0;width:100%}
+.fc-front{border-top:5px solid var(--accent)}
+.fc-back{transform:rotateY(180deg);border-top:5px solid var(--primary2)}
+.big{font-size:4rem;font-weight:800;color:var(--accent);line-height:1.05}
+.hint{font-size:.78rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-top:14px}
+.desc{font-size:1.25rem;line-height:1.5}
+.tipbox{margin-top:16px;text-align:left;background:var(--primary-soft);border-radius:14px;padding:12px 14px;font-size:.95rem}
+.tipbox b{color:var(--primary)}
+.counter{color:var(--muted);font-weight:600}
+
+/* quiz */
+.q-prompt{font-size:.85rem;color:var(--muted);margin-bottom:8px}
+.q-main{font-size:2.6rem;font-weight:800;color:var(--accent);margin-bottom:18px}
+.q-main.text{font-size:1.3rem;font-weight:600;color:var(--text);line-height:1.5}
+.opts{display:grid;gap:10px}
+.opt{display:block;width:100%;text-align:left;padding:14px 16px;border-radius:14px;border:1px solid var(--border);background:var(--surface2);transition:.15s;font-size:1.02rem}
+.opt:hover:not(:disabled){border-color:var(--accent);transform:translateX(4px)}
+.opt.correct{background:var(--good-soft);border-color:var(--good);color:var(--good)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.opt:disabled{cursor:default}
+.fb{margin-top:16px;padding:14px 16px;border-radius:14px;font-size:.95rem}
+.fb.ok{background:var(--good-soft)} .fb.no{background:var(--bad-soft)}
+.fb h4{margin-bottom:4px}
+.score{font-size:4rem;font-weight:800;text-align:center}
+.q-main.term{font-size:1.8rem}
+.big.term{font-size:2.1rem;line-height:1.2}
+.item-h .code.term{min-width:0;max-width:46%;white-space:normal;flex-shrink:0}
+optgroup{font-style:normal}
+.miss{padding:10px 0;border-bottom:1px solid var(--border);font-size:.92rem}
+.miss:last-child{border:0}
+.miss b{color:var(--accent)}
+
+/* library */
+.inp{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:var(--surface);outline:none}
+.inp:focus{border-color:var(--primary)}
+.filters{display:grid;grid-template-columns:1fr 180px;gap:10px;margin-bottom:12px}
+.item{background:var(--surface);border:1px solid var(--border);border-radius:14px;margin-bottom:8px;overflow:hidden}
+.item-h{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer}
+.item-h .code{font-weight:800;min-width:66px;color:var(--accent)}
+.item-h .d{flex:1;font-size:.92rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--border);flex-shrink:0}
+.dot.l{background:var(--warn)} .dot.m{background:var(--good)}
+.item-b{display:none;padding:0 14px 14px;font-size:.95rem}
+.item.open .item-b{display:block}
+.item.open .d{white-space:normal}
+.mini{color:var(--muted);font-size:.8rem;margin-top:10px}
+
+textarea.inp{min-height:90px;font-size:.8rem;font-family:ui-monospace,Consolas,monospace;resize:vertical}
+details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
+.note{color:var(--muted);font-size:.8rem;margin-top:16px}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 18px;border-radius:99px;font-size:.9rem;opacity:0;pointer-events:none;transition:.3s;z-index:20}
+.toast.show{opacity:1}
+
+@media (max-width:800px){
+  .app{flex-direction:column-reverse}
+  .side{width:100%;flex-direction:row;justify-content:space-around;padding:6px 6px calc(6px + env(safe-area-inset-bottom));border-right:0;border-top:1px solid var(--border)}
+  .brand,.side-foot{display:none}
+  .nav-btn{flex-direction:column;gap:2px;padding:8px 4px;margin:0;font-size:.72rem;text-align:center;flex:1;justify-content:center}
+  .main{padding:18px 16px 24px}
+  h1.title{font-size:1.5rem}
+  .grid4{grid-template-columns:repeat(2,1fr)}
+  .split{grid-template-columns:1fr;justify-items:center}
+  .split>div:last-child{width:100%}
+  .fc{height:400px}
+  .big{font-size:3rem}
+  .filters{grid-template-columns:1fr}
+  .desc{font-size:1.1rem}
+  .toast{bottom:80px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.gate{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:20px;overflow-y:auto}
+.gate-card{width:100%;max-width:380px;background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:28px;box-shadow:var(--shadow)}
+.gbrand{font-size:1.7rem;font-weight:800;background:linear-gradient(90deg,var(--accent),var(--primary));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2px}
+.gerr{color:var(--bad);font-size:.88rem;min-height:1.2em;margin-bottom:10px}
+.urow select.inp{padding:8px 10px}
+#navAdmin{position:relative}
+#navAdmin[data-count]:not([data-count="0"])::after{content:attr(data-count);background:var(--bad);color:#fff;font-size:.7rem;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;padding:0 5px;margin-left:auto}
+@media (max-width:800px){#navAdmin[data-count]:not([data-count="0"])::after{position:absolute;top:2px;left:calc(50% + 8px);margin:0}}
+.toast{z-index:60}
+.netbanner{position:fixed;top:0;left:0;right:0;z-index:40;background:var(--warn);color:#111;text-align:center;font-size:.8rem;font-weight:600;padding:calc(4px + env(safe-area-inset-top,0px)) 8px 4px}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">RCM Mastery<small>Medical &amp; dental billing</small></div>
+    <button class="nav-btn active" data-view="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Home</button>
+    <button class="nav-btn" data-view="learn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>Learn</button>
+    <button class="nav-btn" data-view="library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Library</button>
+    <button class="nav-btn" data-view="quiz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Quiz</button>
+    <button class="nav-btn" data-view="admin" id="navAdmin" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.5a3.5 3.5 0 010 7M18.5 14.5c1.7.7 3 2.4 3 5.5"/></svg>Admin</button>
+    <div class="side-foot"><button class="icon-btn" id="themeBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 13A9 9 0 1111 3a7 7 0 0010 10z"/></svg>Theme</button><button class="icon-btn" id="logoutBtn" style="display:none;margin-top:8px">Sign out</button></div>
+  </aside>
+
+  <main class="main" id="scroll">
+    <div class="wrap">
+
+      <!-- HOME -->
+      <section class="view active" id="v-home">
+        <div class="head">
+          <div><h1 class="title">Your progress</h1><p class="sub" id="homeSub"></p></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end"><button class="icon-btn" id="installBtn" style="display:none">Install app</button><button class="icon-btn" id="logoutBtn2" style="display:none">Sign out</button></div>
+        </div>
+        <div class="grid4" id="statGrid"></div>
+        <div class="card">
+          <div class="split">
+            <svg class="ring" viewBox="0 0 100 100" id="ring"></svg>
+            <div>
+              <h2>Ready for a session?</h2>
+              <p class="sub" style="margin-bottom:14px">Learn mode picks your weakest cards first. Quizzes feed the same mastery tracker.</p>
+              <div class="row-btns">
+                <button class="btn primary" id="goLearn">Start learning</button>
+                <button class="btn" id="goQuiz">Take a quiz</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card"><h2>Code of the day</h2><div id="cotd"></div></div>
+        <div class="card"><h2>Mastery by category</h2><div id="catBars"></div></div>
+        <div class="card"><h2>Codes to review</h2><div id="weak"></div></div>
+        <div class="card"><h2>Recent quiz scores</h2><div id="hist"></div></div>
+        <details class="card">
+          <summary>Backup &amp; reset</summary>
+          <p class="sub" style="margin:8px 0 12px">Progress is saved in this browser only. Export it to move to another device.</p>
+          <textarea class="inp" id="bk" placeholder="Export text appears here. Paste here to import."></textarea>
+          <div class="row-btns">
+            <button class="btn sm" id="exBtn">Export</button>
+            <button class="btn sm" id="imBtn">Import</button>
+            <button class="btn sm bad" id="rsBtn">Reset progress</button>
+          </div>
+        </details>
+      </section>
+
+      <!-- LEARN -->
+      <section class="view" id="v-learn">
+        <div class="head"><div><h1 class="title">Learn</h1><p class="sub">Flip the card, then rate yourself honestly.</p></div><span class="counter" id="lCount"></span></div>
+        <div id="lSetup" class="card">
+          <h2>Pick a focus</h2>
+          <select class="inp" id="lCat" style="margin-bottom:14px"></select>
+          <p class="sub" style="margin:0 0 14px">10 cards per session, weakest and unseen first.</p>
+          <button class="btn primary" id="lStart">Start session</button>
+        </div>
+        <div id="lSession" style="display:none">
+          <div class="bar" style="margin-bottom:20px"><i id="lBar"></i></div>
+          <div class="fc" id="fc">
+            <div class="fc-in">
+              <div class="fc-face fc-front"><div class="mid"><div id="fcTag" style="margin-bottom:12px"></div><div class="big" id="fcCode"></div><div class="hint">Tap to reveal</div></div></div>
+              <div class="fc-face fc-back"><div class="mid"><p class="desc" id="fcDesc"></p><div class="tipbox" id="fcTip"></div></div></div>
+            </div>
+          </div>
+          <div class="row-btns center">
+            <button class="btn bad off" id="lAgain">Again</button>
+            <button class="btn good off" id="lGot">Got it</button>
+          </div>
+          <p class="note" style="text-align:center">Shortcuts: Space flip · 1 Again · 2 Got it</p>
+        </div>
+        <div id="lDone" class="card" style="display:none;text-align:center">
+          <h2>Session complete</h2>
+          <div class="score" id="lScore"></div>
+          <p class="sub" id="lMsg"></p>
+          <div class="row-btns center"><button class="btn primary" id="lAgainSess">New session</button><button class="btn" id="lHome">Home</button></div>
+        </div>
+      </section>
+
+      <!-- LIBRARY -->
+      <section class="view" id="v-library">
+        <div class="head"><div><h1 class="title">Code library</h1><p class="sub" id="libCount"></p></div></div>
+        <div class="filters">
+          <input class="inp" id="libQ" type="search" placeholder="Search a code, term or keyword (e.g. 45, CAQH, deductible)">
+          <select class="inp" id="libCat"></select>
+        </div>
+        <div class="chips" id="libGrp"></div>
+        <div id="libList"></div>
+        <p class="note">Group codes (CO/PR/OA) can differ by payer. Always read the remark code (RARC) and the payer's EOB before acting.</p>
+      </section>
+
+      <!-- QUIZ -->
+      <section class="view" id="v-quiz">
+        <div class="head"><div><h1 class="title">Quiz</h1><p class="sub">Test yourself. Every answer updates your mastery.</p></div><span class="counter" id="qCount"></span></div>
+        <div id="qSetup" class="card">
+          <span class="lab" style="margin-top:0">Mode</span>
+          <div class="chips" id="qMode"></div>
+          <span class="lab">Questions</span>
+          <div class="chips" id="qLen"></div>
+          <span class="lab">Category</span>
+          <select class="inp" id="qCat" style="margin-bottom:18px"></select>
+          <button class="btn primary" id="qStart">Start quiz</button>
+        </div>
+        <div id="qRun" style="display:none">
+          <div class="bar" style="margin-bottom:18px"><i id="qBar"></i></div>
+          <div class="card">
+            <p class="q-prompt" id="qPrompt"></p>
+            <div class="q-main" id="qMain"></div>
+            <div class="opts" id="qOpts"></div>
+            <div id="qFb"></div>
+            <div class="row-btns" style="margin-top:14px"><button class="btn primary" id="qNext" style="display:none">Next</button></div>
+          </div>
+        </div>
+        <div id="qDone" class="card" style="display:none">
+          <div class="score" id="qScore"></div>
+          <p class="sub" id="qMsg" style="text-align:center"></p>
+          <div id="qMissed"></div>
+          <div class="row-btns center" style="margin-top:16px">
+            <button class="btn primary" id="qRetry">Retry missed</button>
+            <button class="btn" id="qNew">New quiz</button>
+            <button class="btn" id="qHome">Home</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ADMIN (owner only) -->
+      <section class="view" id="v-admin">
+        <div class="head"><div><h1 class="title">Admin</h1><p class="sub">Users, access and usage</p></div><button class="btn sm" id="admRefresh">Refresh</button></div>
+        <div class="grid4" id="admStats"></div>
+        <div id="admList"></div>
+      </section>
+
+    </div>
+  </main>
+</div>
+<div class="netbanner" id="netBanner" style="display:none">Offline - your progress is saved on this device and will sync when you are back online.</div>
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <div class="gbrand">RCM Mastery</div>
+    <p class="sub" style="margin-bottom:18px">Medical &amp; dental billing trainer</p>
+    <div id="gForm">
+      <div class="chips"><button class="chip on" id="tabIn" type="button">Sign in</button><button class="chip" id="tabUp" type="button">Request access</button></div>
+      <input class="inp" id="gUser" placeholder="Username" autocomplete="username" autocapitalize="none" spellcheck="false" style="margin-bottom:10px">
+      <input class="inp" id="gPass" type="password" placeholder="Password" autocomplete="current-password" style="margin-bottom:10px">
+      <input class="inp" id="gPass2" type="password" placeholder="Confirm password" autocomplete="new-password" style="margin-bottom:10px;display:none">
+      <div class="gerr" id="gErr"></div>
+      <button class="btn primary" id="gGo" type="button" style="width:100%">Sign in</button>
+    </div>
+    <div id="gStatus" style="display:none">
+      <h2 id="gsTitle" style="margin-bottom:8px"></h2>
+      <p class="sub" id="gsText"></p>
+      <div class="row-btns"><button class="btn primary" id="gsCheck" type="button">Check again</button><button class="btn" id="gsOut" type="button">Sign out</button></div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- DATA: [CARC number, typical group, category, description, what to do] ---------- */
+var CATS = {
+  Patient:{c:'#d97706'}, Coding:{c:'#5457e6'}, Eligibility:{c:'#0891b2'}, Authorization:{c:'#db2777'},
+  COB:{c:'#7c3aed'}, Billing:{c:'#059669'}, Coverage:{c:'#ea580c'}, Payment:{c:'#475569'},
+  'RCM Basics':{c:'#2563eb'}, 'Coding Systems':{c:'#9333ea'}, 'Claims & Forms':{c:'#0d9488'}, 'Payer & Contracts':{c:'#b45309'},
+  'Payments & Posting':{c:'#16a34a'}, 'A/R & Collections':{c:'#e11d48'}, 'Denial Mgmt':{c:'#dc2626'}, Credentialing:{c:'#0e7490'},
+  'Dental Billing':{c:'#c026d3'}, Compliance:{c:'#64748b'}
+};
+var RAW = [
+ ['1','PR','Patient','Deductible amount.','Patient owes this. Verify remaining deductible at eligibility check and collect at the visit.'],
+ ['2','PR','Patient','Coinsurance amount.','Patient share of the allowed amount. Bill after insurance posts. Dental plans often split 100/80/50 by procedure class.'],
+ ['3','PR','Patient','Co-payment amount.','Fixed patient copay. Collect at time of service; do not write it off.'],
+ ['4','CO','Coding','The procedure code is inconsistent with the modifier used, or a required modifier is missing.','Check modifier requirements (dental: tooth, surface, quadrant). Correct and resubmit.'],
+ ['5','CO','Coding','The procedure code/bill type is inconsistent with the place of service.','Verify the place-of-service code on the claim and correct it.'],
+ ['6','CO','Coding','The procedure/revenue code is inconsistent with the patient\'s age.','Confirm DOB on file and the code\'s age limits (sealants, fluoride, ortho). Fix DOB or appeal with records.'],
+ ['7','CO','Coding','The procedure/revenue code is inconsistent with the patient\'s gender.','Compare patient sex in your system against payer records; correct registration and resubmit.'],
+ ['8','CO','Coding','The procedure code is inconsistent with the provider type/specialty (taxonomy).','Check the rendering provider\'s taxonomy in payer enrollment (CAQH/PECOS) versus the service billed.'],
+ ['9','CO','Coding','The diagnosis is inconsistent with the patient\'s age.','Verify DOB and diagnosis. Correct the claim or appeal with documentation.'],
+ ['10','CO','Coding','The diagnosis is inconsistent with the patient\'s gender.','Verify patient sex and diagnosis. Correct the claim and resubmit.'],
+ ['11','CO','Coding','The diagnosis is inconsistent with the procedure.','Match the diagnosis to the procedure. Add or correct the supporting diagnosis code.'],
+ ['12','CO','Coding','The diagnosis is inconsistent with the provider type.','Confirm the provider is appropriate for this diagnosis. Correct the claim or route to the right provider.'],
+ ['15','CO','Authorization','The authorization number is missing, invalid, or does not apply to the billed services or provider.','Confirm the auth covers the billed code, dates and rendering provider. Correct the number and resubmit.'],
+ ['16','CO','Billing','Claim/service lacks information or has submission/billing error(s).','Read the attached remark code (RARC) for the exact missing item. Fix and resubmit; do not just rebill unchanged.'],
+ ['18','CO','Billing','Exact duplicate claim/service.','Check whether the original paid or is pending. For corrections use a replacement claim, not a new one.'],
+ ['19','CO','COB','This is a work-related injury/illness and thus the liability of the Worker\'s Compensation Carrier.','Get the workers\' comp claim number and adjuster; bill that carrier.'],
+ ['20','CO','COB','This injury/illness is covered by the liability carrier.','Bill the liability carrier; collect accident details from the patient.'],
+ ['22','CO','COB','This care may be covered by another payer per coordination of benefits.','Verify primary/secondary order with the patient, update COB, and bill the correct payer first.'],
+ ['23','CO','COB','The impact of prior payer(s) adjudication including payments and/or adjustments.','Usually informational on a secondary claim. Post the primary payment and adjustments correctly.'],
+ ['24','CO','Coverage','Charges are covered under a capitation agreement/managed care plan.','Bill the capitated plan or IPA. Patient owes only the copay.'],
+ ['26','CO','Eligibility','Expenses incurred prior to coverage.','Check the effective date. Find prior coverage or bill the patient if none.'],
+ ['27','CO','Eligibility','Expenses incurred after coverage terminated.','Check the term date and look for new coverage. If none, the patient is responsible.'],
+ ['29','CO','Billing','The time limit for filing has expired.','Check the payer\'s timely filing limit. Appeal with proof of timely filing (clearinghouse acceptance, prior EOB).'],
+ ['31','CO','Eligibility','Patient cannot be identified as our insured.','Verify member ID, name spelling, DOB and group number; confirm with the payer.'],
+ ['32','CO','Eligibility','Our records indicate that this dependent is not an eligible dependent as defined.','Confirm dependent status and age limits with the payer and subscriber. Update records.'],
+ ['35','CO','Coverage','Lifetime benefit maximum has been reached.','Patient is responsible. Common with orthodontic lifetime maximums.'],
+ ['39','CO','Authorization','Services denied at the time authorization/pre-certification was requested.','Review the denial reason; request peer-to-peer or appeal with clinical documentation.'],
+ ['45','CO','Payment','Charge exceeds fee schedule/maximum allowable or contracted/legislated fee arrangement.','In-network: contractual write-off, do not bill the patient the difference. Verify the contract rate.'],
+ ['49','CO','Coverage','This is a non-covered service because it is a routine/preventive exam or a diagnostic/screening procedure done in conjunction with a routine/preventive exam.','Check the diagnosis (preventive vs problem-focused) and whether a modifier is appropriate.'],
+ ['50','CO','Coverage','These are non-covered services because this is not deemed a \'medical necessity\' by the payer.','Appeal with clinical notes, radiographs and a narrative. Request peer review if needed.'],
+ ['55','CO','Coverage','Procedure/treatment/drug is deemed experimental/investigational by the payer.','Appeal with clinical literature and documentation, or inform the patient of responsibility.'],
+ ['58','CO','Coding','Treatment was deemed by the payer to have been rendered in an inappropriate or invalid place of service.','Verify the place-of-service code and correct it, or appeal if the POS was accurate.'],
+ ['59','CO','Payment','Processed based on multiple or concurrent procedure rules.','Multiple-procedure reduction. Usually informational; verify the payment is correct.'],
+ ['96','CO','Coverage','Non-covered charge(s).','Read the RARC. Confirm the plan exclusion; patient responsibility depends on contract and any signed waiver.'],
+ ['97','CO','Payment','The benefit for this service is included in the payment/allowance for another service/procedure that has already been adjudicated.','Bundling. Check NCCI/CDT bundling rules; appeal with a modifier or documentation if separately reportable.'],
+ ['109','CO','Eligibility','Claim/service not covered by this payer/contractor. You must send the claim/service to the correct payer/contractor.','Wrong payer. Verify the carrier and payer ID, then resubmit to the correct one.'],
+ ['119','CO','Coverage','Benefit maximum for this time period or occurrence has been reached.','Annual maximum is used up. Bill the patient, note the reset date, and consider phasing treatment.'],
+ ['125','CO','Billing','Submission/billing error(s).','Read the RARC for the specific error, correct the claim and resubmit.'],
+ ['131','CO','Payment','Claim specific negotiated discount.','Contractual discount. Post as an adjustment.'],
+ ['138','CO','Billing','Claim/service denied. Appeal procedures not followed or time limits not met.','Check the appeal deadline and required format. Often final; escalate to the payer rep if valid.'],
+ ['140','CO','Eligibility','Patient/Insured health identification number and name do not match.','Correct the name and ID exactly as on the insurance card.'],
+ ['146','CO','Coding','Diagnosis was invalid for the date(s) of service reported.','Check the ICD-10 code validity and effective dates.'],
+ ['151','CO','Coverage','Payment adjusted because the payer deems the information submitted does not support this many/frequency of services.','Frequency limit (dental: prophy, bitewings, FMX). Check history; appeal only when clinically justified.'],
+ ['167','CO','Coverage','This (these) diagnosis(es) is (are) not covered.','Confirm coding accuracy. If correct, the diagnosis is excluded under the plan.'],
+ ['170','CO','Coding','Payment is denied when performed/billed by this type of provider.','Provider type not eligible. Verify credentialing and taxonomy.'],
+ ['181','CO','Coding','Procedure code was invalid on the date of service.','Code is wrong or expired. Use the current-year CDT/CPT code.'],
+ ['182','CO','Coding','Procedure modifier was invalid on the date of service.','Use a valid modifier for that date of service and resubmit.'],
+ ['185','CO','Eligibility','The rendering provider is not eligible to perform the service billed.','Check the provider\'s enrollment and credentialing status and effective date with this payer.'],
+ ['197','CO','Authorization','Precertification/authorization/notification/pre-treatment absent.','Request a retro-authorization if allowed, or appeal. In dental, use predetermination for major work.'],
+ ['198','CO','Authorization','Precertification/notification/authorization/pre-treatment exceeded.','Services exceeded what was authorized. Request an auth extension or amendment.'],
+ ['204','CO','Coverage','This service/equipment/drug is not covered under the patient\'s current benefit plan.','Plan exclusion. Verify benefits; patient is responsible if they were informed.'],
+ ['206','CO','Billing','National Provider Identifier - missing.','Add the billing or rendering NPI and resubmit.'],
+ ['207','CO','Billing','National Provider identifier - Invalid format.','Correct the 10-digit NPI format and resubmit.'],
+ ['208','CO','Billing','National Provider Identifier - Not matched.','NPI does not match payer records. Check enrollment and taxonomy, then resubmit.'],
+ ['222','CO','Coverage','Exceeds the contracted maximum number of hours/days/units by this provider for this period.','Unit limit reached. Review the contract limits and appeal if medically justified.'],
+ ['226','CO','Billing','Information requested from the Billing/Rendering Provider was not provided or not provided timely or was insufficient/incomplete.','Send the requested documents within the payer\'s deadline.'],
+ ['227','CO','Billing','Information requested from the patient/insured/responsible party was not provided or was insufficient/incomplete.','Contact the patient for the missing information (COB form, accident details).'],
+ ['234','CO','Payment','This procedure is not paid separately.','Bundled or incidental. Write off per contract.'],
+ ['236','CO','Coding','This procedure or procedure/modifier combination is not compatible with another procedure or procedure/modifier combination provided on the same day.','NCCI-type edit. Review the code pair; use an appropriate modifier only when documentation supports it.'],
+ ['242','CO','Coverage','Services not provided by network/primary care providers.','Out-of-network. Verify network status and referral requirements.'],
+ ['243','CO','Authorization','Services not authorized by network/primary care providers.','A referral or authorization from the PCP is needed. Obtain it and appeal.'],
+ ['252','CO','Billing','An attachment/other documentation is required to adjudicate this claim/service.','Send X-rays, narrative or perio charting through the attachment portal and resubmit.'],
+ ['253','CO','Payment','Sequestration - reduction in federal payment.','Post the sequestration adjustment. Do not bill the patient.'],
+ ['256','CO','Payment','Service not payable per managed care contract.','Review the managed care contract; typically a write-off if the service is not payable.'],
+ ['B7','CO','Eligibility','This provider was not certified/eligible to be paid for this procedure/service on this date of service.','Check the provider\'s credentialing effective date against the DOS.'],
+ ['B9','CO','Eligibility','Patient is enrolled in a Hospice.','Bill the hospice unless the service is unrelated to the terminal diagnosis.'],
+ ['B13','CO','Billing','Previously paid. Payment for this claim/service may have been provided in a previous payment.','Search earlier remittances for the payment before rebilling.'],
+ ['B15','CO','Coverage','This service/procedure requires that a qualifying service/procedure be received and covered. The qualifying other service/procedure has not been received/adjudicated.','Check the claim sequence. A prerequisite procedure may be missing or denied.'],
+ ['B16','CO','Coding','\'New Patient\' qualifications were not met.','Patient was seen recently by the same group or specialty. Use an established patient code.']
+];
+var DENIALS = RAW.map(function(r){return {id:r[0],kind:'code',grp:r[1],label:r[1]+'-'+r[0],cat:r[2],desc:r[3],tip:r[4]};});
+/* ---------- CONCEPT CARDS: [term, topic, definition, in practice] ---------- */
+var TERMS_RAW = [
+["Revenue Cycle Management (RCM)","RCM Basics","The end-to-end process of tracking a patient encounter from scheduling and registration through coding, billing, payment and account resolution.","Three phases: front end (before care), mid-cycle (documentation and coding), back end (claims, posting, A/R, denials)."],
+["Front-End RCM","RCM Basics","Work done before care: scheduling, registration, insurance verification, authorizations and patient cost estimates.","A large share of denials start here. Clean registration and eligibility checks prevent rework later."],
+["Mid-Cycle RCM","RCM Basics","The bridge between care and billing: charge capture, clinical documentation review and code assignment.","Coding accuracy and complete documentation decide whether the claim can be paid."],
+["Back-End RCM","RCM Basics","Claim submission, payment posting, denial management, A/R follow-up and patient billing.","This is where cash is actually collected and problems are fixed."],
+["Charge Capture","RCM Basics","Recording every billable service and supply provided during an encounter so it can be billed.","Missed charges are lost revenue. Reconcile the schedule against posted charges daily."],
+["Clean Claim","RCM Basics","A claim with no errors or missing information that can be processed without extra work.","Aim for a clean claim rate of 95% or higher. A claim scrubber helps."],
+["First-Pass Resolution Rate","RCM Basics","The percentage of claims paid correctly on the first submission, with no resubmission or appeal.","A low rate points to registration, coding or billing errors upstream."],
+["Days in A/R","RCM Basics","Average number of days it takes to collect payment: total A/R divided by average daily charges.","Lower is better. Roughly 30 to 40 days is a commonly cited healthy range for medical practices."],
+["Net Collection Rate","RCM Basics","Payments collected divided by the amount you were entitled to collect after contractual adjustments.","The best measure of billing performance. A target of 95% or higher is common."],
+["Gross Collection Rate","RCM Basics","Payments collected divided by total gross charges, before contractual adjustments.","Less useful than the net rate because in-network write-offs pull it down naturally."],
+["Denial Rate","RCM Basics","The percentage of submitted claims that payers deny.","Track it by reason code, payer and provider to find root causes."],
+["Superbill (Encounter Form)","RCM Basics","A form listing the services performed and diagnoses for a visit, used to capture charges.","Incomplete superbills are a common source of missed or wrong charges."],
+["Practice Fee Schedule","RCM Basics","The practice's own standard charge for each procedure code.","Charges are usually higher than allowed amounts; the difference becomes a contractual adjustment."],
+["Point-of-Service Collection","RCM Basics","Collecting copays, deductibles and estimated patient portions at the time of the visit.","Collecting up front is cheaper and more reliable than chasing statements later."],
+
+["CPT","Coding Systems","Current Procedural Terminology: five-character codes maintained by the AMA that describe medical services and procedures.","Updated every year. Always use the code set valid for the date of service."],
+["HCPCS Level II","Coding Systems","Alphanumeric codes (a letter plus four digits) for supplies, equipment, drugs and services not described by CPT.","Common in DME, injectables and ambulance billing."],
+["ICD-10-CM","Coding Systems","The US diagnosis code set (up to seven characters) that explains why the patient was seen or treated.","Code to the highest specificity the documentation supports."],
+["ICD-10-PCS","Coding Systems","Seven-character procedure code set used for inpatient hospital procedures.","Not used on professional (CMS-1500) claims, which use CPT."],
+["CDT","Coding Systems","Current Dental Terminology: ADA-maintained procedure codes that begin with the letter D.","Updated annually. Payers may apply their own frequency rules per code."],
+["Modifier","Coding Systems","A two-character addition to a procedure code that gives more detail without changing its definition.","Wrong or missing modifiers commonly trigger CO-4 denials."],
+["Modifier 25","Coding Systems","Significant, separately identifiable evaluation and management service by the same provider on the same day as another procedure.","Documentation must show the E/M went beyond the usual work of the procedure."],
+["Modifier 59","Coding Systems","Distinct procedural service: shows that a procedure was separate from others that would normally bundle.","Overuse draws audits. Some payers require the X modifiers (XE, XS, XP, XU) instead."],
+["E/M Services","Coding Systems","Evaluation and Management codes (for example 99213) that report office visits and other patient encounters.","The level is chosen by medical decision making or total time."],
+["NCCI Edits","Coding Systems","CMS edits that stop unbundled or mutually exclusive code pairs from being paid together.","Check the edit before appending a modifier to bypass it."],
+["Medical Necessity","Coding Systems","Services that are reasonable and needed to diagnose or treat a condition under accepted standards of care.","If it is not documented, it is hard to defend on appeal."],
+["Unbundling","Coding Systems","Billing components separately when one comprehensive code describes the whole service.","A compliance risk that NCCI edits are built to catch."],
+["Upcoding","Coding Systems","Reporting a higher-paying code than the service or documentation supports.","Can amount to fraud when done knowingly or repeatedly."],
+["Place of Service (POS)","Coding Systems","Two-digit code showing where the service was performed, such as 11 for office or 22 for on-campus outpatient hospital.","POS can change payment rates, so it must match where care happened."],
+["Taxonomy Code","Coding Systems","Ten-character code that classifies a provider's type and specialty.","Must match payer enrollment or claims can deny for provider type."],
+
+["CMS-1500 (837P)","Claims & Forms","The professional claim form for physicians and other non-institutional providers; 837P is the electronic version.","Used for medical office claims. Dental uses the ADA form."],
+["UB-04 (837I)","Claims & Forms","The institutional claim form (CMS-1450) for hospitals and facilities; 837I is the electronic version.","Reports revenue codes and bill type."],
+["ADA Dental Claim Form (837D)","Claims & Forms","The standard dental claim form; 837D is the electronic version.","Reports CDT codes, tooth numbers and surfaces."],
+["837","Claims & Forms","The HIPAA standard electronic claim transaction sent from provider to payer.","Three flavors: 837P professional, 837I institutional, 837D dental."],
+["835 (ERA)","Claims & Forms","The HIPAA standard electronic remittance advice that explains payments and adjustments.","Auto-posting relies on clean 835 files and correct CARC/RARC handling."],
+["270/271","Claims & Forms","Eligibility inquiry (270) and response (271) transactions.","Run before each visit to confirm active coverage and benefits."],
+["276/277","Claims & Forms","Claim status inquiry (276) and response (277) transactions.","Faster than calling the payer for routine status checks."],
+["Clearinghouse","Claims & Forms","An intermediary that checks, formats and routes claims between providers and payers.","Review its rejection reports daily."],
+["Claim Scrubber","Claims & Forms","Software that checks claims for coding and payer-rule errors before submission.","Catches many preventable denials."],
+["EOB","Claims & Forms","Explanation of Benefits: the payer statement showing how a claim was processed and what the patient owes.","Patient-facing. The provider receives an ERA or paper remittance."],
+["Claim Frequency Code","Claims & Forms","A digit that shows the claim's purpose: 1 original, 7 replacement, 8 void.","A wrong frequency code can cause a duplicate denial."],
+["Timely Filing","Claims & Forms","The deadline for submitting a claim after the date of service, set by the payer or law.","Limits vary widely. Medicare allows about 12 months; some commercial payers allow only 90 days."],
+
+["Allowed Amount","Payer & Contracts","The maximum amount a payer recognizes for a service under the contract or plan.","Payer payment plus patient responsibility should add up to this number."],
+["Contractual Adjustment","Payer & Contracts","The difference between the billed charge and the allowed amount that an in-network provider must write off.","Never bill this to the patient."],
+["Balance Billing","Payer & Contracts","Billing the patient for the difference between the charge and the payer's allowed amount.","Prohibited for in-network providers and restricted in many surprise-billing situations."],
+["Coordination of Benefits (COB)","Payer & Contracts","Rules that decide which plan pays first when a patient has more than one coverage.","Wrong order causes CO-22 denials. Confirm with the patient and payers."],
+["Birthday Rule","Payer & Contracts","For a child covered by both parents' plans, the plan of the parent whose birthday falls earlier in the calendar year is primary.","Uses month and day only, not the year of birth."],
+["HMO","Payer & Contracts","A plan that requires in-network care and usually a primary care physician referral for specialists.","Out-of-network care is generally not covered except in emergencies."],
+["PPO","Payer & Contracts","A plan with lower costs in-network but some coverage out of network, without referrals.","Out-of-network care usually means higher patient cost."],
+["EPO","Payer & Contracts","A plan that covers only in-network care (except emergencies) but usually needs no referrals.","Check the network before scheduling."],
+["Deductible","Payer & Contracts","The amount a patient pays each benefit year before the plan begins to pay.","Appears as PR-1 on remittances."],
+["Copay","Payer & Contracts","A fixed amount the patient pays for a service, such as a visit.","Collect at check-in. Appears as PR-3."],
+["Coinsurance","Payer & Contracts","The patient's percentage share of the allowed amount after the deductible.","Appears as PR-2. Calculated on the allowed amount, not the billed charge."],
+["Out-of-Pocket Maximum","Payer & Contracts","The most a patient pays in a benefit year for covered in-network services; after that the plan pays 100%.","In dental, an annual maximum caps what the plan pays instead."],
+["Prior Authorization","Payer & Contracts","Payer approval required before certain services for them to be covered.","Approval is not a guarantee of payment. Record the auth number and validity dates."],
+["Capitation","Payer & Contracts","A payment model where the provider receives a fixed amount per member per month regardless of services used.","Encounters may still be reported to the plan."],
+["Fee-for-Service","Payer & Contracts","A payment model where the provider is paid for each service performed.","Most traditional billing works this way."],
+["Assignment of Benefits (AOB)","Payer & Contracts","Patient authorization for the payer to send payment directly to the provider.","Keep a signed copy on file."],
+["ABN","Payer & Contracts","Advance Beneficiary Notice: a form telling a Medicare patient that Medicare may not pay, so they may be responsible.","Must be signed before the service to bill the patient after a denial."],
+["Participating (In-Network) Provider","Payer & Contracts","A provider contracted with a payer who accepts the payer's allowed amounts.","Non-participating providers are not bound by the contract but patients may face higher costs."],
+["Medicare Parts","Payer & Contracts","Part A hospital, Part B medical (physician and outpatient), Part C Medicare Advantage, Part D prescription drugs.","Original Medicare generally does not cover routine dental care."],
+["Medicaid","Payer & Contracts","Joint state and federal program covering eligible low-income people; the payer of last resort.","Rules differ by state. Verify eligibility every month."],
+
+["Payment Posting","Payments & Posting","Recording payments and adjustments from ERAs and EOBs to the right patient accounts.","Accurate posting is the base of all A/R reporting."],
+["CARC","Payments & Posting","Claim Adjustment Reason Code: explains why a claim or line was adjusted or denied.","Always read it together with the group code and RARC."],
+["RARC","Payments & Posting","Remittance Advice Remark Code: adds detail to the adjustment reason, often starting with N or M.","The RARC often tells you exactly what to fix."],
+["Group Codes","Payments & Posting","Two-letter codes on adjustments showing who is responsible: CO, PR, OA, PI, CR.","CO provider liability, PR patient, OA other, PI payer initiated, CR correction or reversal."],
+["Write-Off","Payments & Posting","Removing a balance from A/R, either as a contractual adjustment or as uncollectible.","Non-contractual write-offs need clear policy and approval."],
+["Bad Debt","Payments & Posting","A balance considered uncollectible after reasonable collection efforts.","Document each attempt before moving a balance to bad debt."],
+["Credit Balance","Payments & Posting","An account where payments exceed what is owed.","Refund to the correct payer or patient promptly."],
+["Recoupment","Payments & Posting","When a payer takes back a previous payment by deducting it from future payments.","Watch for PLB entries on the 835."],
+["PLB (Provider Level Balance)","Payments & Posting","The 835 section that reports payer adjustments not tied to a single claim, such as recoupments and interest.","Reconcile PLB lines to the deposit."],
+
+["A/R Aging Buckets","A/R & Collections","Report groups of open balances by age, commonly 0-30, 31-60, 61-90, 91-120 and over 120 days.","Focus effort on older buckets before they reach filing limits."],
+["Claim Follow-Up","A/R & Collections","Contacting the payer about claims that are unpaid or unresolved.","Set a routine, often starting around 30 days after submission."],
+["Claim Status Check","A/R & Collections","Verifying where a claim stands using the payer portal, a 276/277 transaction or a phone call.","Note the reference number and rep name for each call."],
+["Underpayment","A/R & Collections","A payment lower than the contracted or expected rate.","Compare to the fee schedule and dispute with the payer."],
+["Patient Statements","A/R & Collections","Bills sent to patients for their remaining balance after insurance processing.","Send promptly and offer payment options to improve collection."],
+["Payment Plan","A/R & Collections","An agreement letting a patient pay a balance in installments.","Put terms in writing and follow up on missed payments."],
+["Collections Agency","A/R & Collections","A third party engaged to recover past-due patient balances after internal efforts fail.","Third-party collectors must follow the FDCPA. Notify the patient first."],
+
+["Denial Management","Denial Mgmt","The process of tracking, correcting, appealing and preventing claim denials.","Fix the claim, then fix the cause."],
+["Claim Rejection","Denial Mgmt","A claim refused at intake because of formatting or data errors; it was never adjudicated.","Correct the error and resubmit. No appeal is needed."],
+["Soft Denial","Denial Mgmt","A temporary denial that can be corrected and paid, such as one caused by missing information.","Many CO-16 denials are soft."],
+["Hard Denial","Denial Mgmt","A denial that will not be overturned without an appeal or is effectively final, such as a non-covered service.","Write off or bill the patient only if the contract and plan allow."],
+["Root Cause Analysis","Denial Mgmt","Studying denial patterns by payer, code, provider and reason to find what is causing them.","The goal is prevention, not just rework."],
+["Appeal","Denial Mgmt","A formal request that a payer reverse a denial or reprocess a claim.","Note deadlines and levels. Include documentation and reference numbers."],
+["Corrected Claim","Denial Mgmt","A resubmitted claim that fixes errors on one already processed, sent with frequency code 7 and the original claim number.","Use when your data was wrong. Use an appeal when the payer's decision was wrong."],
+
+["Credentialing","Credentialing","Verifying a provider's qualifications, such as license, education, training and history.","Required before a payer will enroll a provider."],
+["Payer Enrollment","Credentialing","Getting a credentialed provider set up with a payer so claims can be paid.","Also called contracting. Timelines can run for months."],
+["CAQH ProView","Credentialing","An online database where providers keep credentialing information that payers can access.","Keep it complete and current; payers pull directly from it."],
+["Attestation","Credentialing","The provider's confirmation that the data in CAQH is accurate; it must be renewed every 120 days.","A missed attestation can stall credentialing."],
+["PECOS","Credentialing","Medicare's Provider Enrollment, Chain and Ownership System for enrolling and updating Medicare information.","Enrollment and ordering/referring status are managed here."],
+["CMS-855I","Credentialing","The Medicare enrollment application for individual practitioners.","Group applications use CMS-855B."],
+["CMS-855R","Credentialing","The form used to reassign a provider's Medicare benefits to a group or organization.","Needed so the group can receive payment for the provider."],
+["NPI","Credentialing","National Provider Identifier: a unique 10-digit ID for a provider; Type 1 for individuals, Type 2 for organizations.","Permanent number. Billing NPI and rendering NPI must be right on claims."],
+["NPPES","Credentialing","The National Plan and Provider Enumeration System where NPIs are issued and updated.","Keep taxonomy and address current."],
+["Primary Source Verification","Credentialing","Confirming credentials directly with the issuing source, such as a state licensing board.","Payers require it for items like licenses and education."],
+["Recredentialing","Credentialing","Periodic re-verification of a provider's credentials, commonly every three years.","Missing it can lead to network termination."],
+["Effective Date","Credentialing","The date a provider becomes eligible to be paid by a payer.","Claims for earlier dates may deny. Track it for every provider and payer."],
+["Delegated Credentialing","Credentialing","An agreement where a payer lets a group credential its own providers under agreed standards.","Speeds up enrollment but requires audits."],
+
+["CDT Code Ranges","Dental Billing","D0 diagnostic, D1 preventive, D2 restorative, D3 endodontics, D4 periodontics, D5 removable prosthodontics, D6 implants and fixed prosthodontics, D7 oral surgery, D8 orthodontics, D9 adjunctive.","The first digit after D tells you the service category."],
+["Tooth Numbering","Dental Billing","Universal system: permanent teeth 1 to 32 and primary teeth A to T.","Wrong tooth numbers are a common cause of denials."],
+["Tooth Surfaces","Dental Billing","M mesial, D distal, O occlusal, I incisal, B buccal, F facial, L lingual.","Surfaces determine restorative codes, such as one-surface versus two-surface fillings."],
+["Quadrants","Dental Billing","Mouth areas: UR, UL, LL and LR.","Used for periodontal and surgical codes billed per quadrant."],
+["Annual Maximum","Dental Billing","The most a dental plan pays in a benefit year, often around $1,000 to $2,000.","Check the remaining maximum before scheduling major work."],
+["Waiting Period","Dental Billing","Time after enrollment before certain services are covered.","Common for basic and major services."],
+["Missing Tooth Clause","Dental Billing","A plan exclusion for replacing a tooth that was lost before coverage began.","Affects bridges, dentures and implants."],
+["Frequency Limitation","Dental Billing","A cap on how often a service is covered, such as two cleanings per year.","Check history before treating and quoting."],
+["Alternate Benefit Provision","Dental Billing","The plan pays based on the least costly adequate treatment and the patient pays the difference.","Also called a downgrade. Common on posterior composites."],
+["Predetermination","Dental Billing","A payer's estimate of what it would pay for proposed treatment before it is done.","Not a guarantee of payment."],
+["Coverage Classes","Dental Billing","Dental plans group services into preventive, basic and major, often paid at about 100%, 80% and 50%.","Percentages vary by plan."],
+["Non-Duplication of Benefits","Dental Billing","A COB rule where the secondary plan pays only the amount by which its normal benefit exceeds what the primary paid.","Explains why secondary payments are often small."],
+["Medical-Dental Cross Coding","Dental Billing","Billing dental procedures to medical insurance using CPT and ICD-10 when they are medically necessary.","Common for surgery, sleep apnea appliances and trauma."],
+["Attachments and Narratives","Dental Billing","Radiographs, perio charts, photos and written narratives sent to support a dental claim.","Often needed for crowns, scaling and root planing, bone grafts and implants."],
+["Prophylaxis and Exams","Dental Billing","D1110 adult prophylaxis, D1120 child prophylaxis, D0120 periodic exam, D0150 comprehensive exam, D0140 limited exam.","Frequency limits often apply to D0120 and D1110."],
+["D4341 vs D4342","Dental Billing","D4341 is scaling and root planing for four or more teeth per quadrant; D4342 is for one to three teeth.","Perio charting and radiographs usually support the claim."],
+
+["HIPAA","Compliance","Federal law that protects patient health information and sets standards for electronic transactions.","Covers privacy, security and breach notification."],
+["PHI","Compliance","Protected Health Information: individually identifiable health information held or shared by covered entities.","Includes names, dates, account numbers and diagnoses tied to a patient."],
+["Minimum Necessary","Compliance","The rule to use or share only the minimum PHI needed for the task.","Do not send a full chart when one page will do."],
+["False Claims Act","Compliance","Federal law that penalizes knowingly submitting false claims to government programs.","Includes knowingly keeping overpayments."],
+["Anti-Kickback Statute","Compliance","Federal law that prohibits paying or receiving anything of value for referrals of federal program business.","Applies to referral incentives and routinely waived copays."],
+["OIG LEIE","Compliance","The OIG List of Excluded Individuals/Entities barred from federal healthcare programs.","Screen staff and providers monthly."],
+["No Surprises Act","Compliance","Federal law protecting patients from certain surprise out-of-network bills, such as emergency care.","Also requires good faith estimates for uninsured or self-pay patients."],
+["RAC Audit","Compliance","A Recovery Audit Contractor review that finds improper Medicare payments.","Keep documentation ready and respond within deadlines."],
+["Medicare 60-Day Rule","Compliance","Overpayments must be reported and returned within 60 days of being identified.","Applies to Medicare and Medicaid overpayments."]
+];
+var TERMS = TERMS_RAW.map(function(r,i){return {id:'k'+(i+1),kind:'term',label:r[0],cat:r[1],desc:r[2],tip:r[3]};});
+
+/* ---------- SCENARIO QUESTIONS: [topic, question, options, correct index, explanation] ---------- */
+var SCEN_RAW = [
+["Denial Mgmt","A claim is denied with CO-16 because the subscriber ID is missing. What is the best next step?",["Write off the balance","Bill the patient for the full amount","Correct the claim with the missing information and resubmit","Wait 90 days and rebill unchanged"],2,"CO-16 is a correctable billing error. Fix the data (the RARC shows the exact item) and resubmit. It is not the patient's responsibility, and rebilling unchanged will just deny again."],
+["Payer & Contracts","In-network claim: billed $120, allowed $80, deductible already met, 20% coinsurance. What does the patient owe and what is the contractual adjustment?",["$24 patient, $40 adjustment","$16 patient, $40 adjustment","$16 patient, no adjustment","$40 patient, $16 adjustment"],1,"Coinsurance is 20% of the allowed amount ($80 x 20% = $16). The adjustment is billed minus allowed ($120 - $80 = $40). The payer pays $64."],
+["Payer & Contracts","A child is covered under both parents' plans. Mom's birthday is March 3 and Dad's is November 20. Which plan is primary under the birthday rule?",["Dad's plan","Mom's plan","The plan with better benefits","Whichever plan was filed first"],1,"The birthday rule uses month and day, not year of birth. The parent whose birthday falls earlier in the calendar year has the primary plan."],
+["Claims & Forms","You need to send a corrected version of a claim that was already processed. Which claim frequency code is used?",["1 (original)","7 (replacement)","8 (void)","0 (none)"],1,"Frequency code 7 replaces a previously submitted claim and must include the original payer claim number. Code 8 voids it."],
+["Claims & Forms","Which form is used for professional (physician) claims on paper?",["UB-04","CMS-1500","ADA Dental Claim Form","835"],1,"The CMS-1500 (837P electronically) is for professional services. UB-04 is for institutions and the ADA form is for dental."],
+["Claims & Forms","Which electronic transaction carries the payer's payment and adjustment explanation back to the provider?",["837P","835","270","276"],1,"The 835 is the electronic remittance advice (ERA). 837 is the claim, 270/271 is eligibility and 276/277 is claim status."],
+["RCM Basics","Eligibility shows the patient's coverage ended last month, before today's visit. What should the front desk do first?",["Bill the old insurance anyway","Ask the patient for current coverage and re-verify before treatment","Write off the visit","Wait and see if the claim denies"],1,"Fixing coverage before service prevents eligibility denials. If no coverage is found, discuss self-pay options with the patient first."],
+["Denial Mgmt","A claim is denied CO-29 (timely filing), but you have a clearinghouse acceptance report dated within the limit. What is best?",["Write it off","Bill the patient","Appeal with the proof of timely filing","Resubmit as a brand new claim"],2,"Proof of timely filing (clearinghouse acceptance, prior EOB or portal timestamp) is the standard basis for overturning a timely filing denial."],
+["Dental Billing","A payer denies bitewings (D0274) billed the same day as a full mouth series (D0210), saying the benefit is included in another service. What is the usual outcome?",["Bill the patient for the bitewings","Write off per contract; bitewings are normally part of the full mouth series","Resubmit with modifier 25","Change the code to D0120"],1,"A full mouth series normally includes bitewings, so this bundling denial is generally a contractual write-off, not patient responsibility."],
+["Dental Billing","Which CDT code reports a periodic oral evaluation for an established patient?",["D0150","D0120","D1110","D0140"],1,"D0120 is a periodic evaluation. D0150 is comprehensive, D0140 is limited or problem-focused and D1110 is an adult prophylaxis."],
+["Dental Billing","Only two teeth in one quadrant need scaling and root planing. Which code applies?",["D4341","D4342","D1110","D4355"],1,"D4342 is for one to three teeth per quadrant; D4341 is for four or more teeth per quadrant."],
+["Dental Billing","A plan pays only the amalgam amount for a posterior composite and the patient pays the difference. What is this called?",["Missing tooth clause","Alternate benefit provision","Waiting period","Frequency limitation"],1,"The alternate benefit provision (downgrade) pays based on the least costly adequate treatment. Explain it in the patient estimate."],
+["Dental Billing","A patient has $50 left of a $1,500 annual maximum and needs a $1,100 crown. What is the best approach?",["Bill insurance the full amount and hope","Tell the patient the plan can pay at most the remaining $50 and discuss options such as phasing treatment","Write off the remainder","Refuse the treatment"],1,"Benefits stop at the annual maximum. Give an accurate estimate up front and consider phasing treatment across benefit years."],
+["Credentialing","A provider's CAQH attestation has expired. What is the likely impact?",["None","Payers cannot verify data and may delay enrollment or credentialing","Only Medicare is affected","CAQH renews it automatically"],1,"Payers pull data from CAQH. An expired attestation can stall credentialing and re-credentialing."],
+["Credentialing","How often must a provider re-attest their CAQH ProView data?",["Every 30 days","Every 120 days","Every 12 months","Every 5 years"],1,"CAQH requires re-attestation every 120 days."],
+["Credentialing","Which system is used to enroll and maintain enrollment with Medicare online?",["CAQH ProView","NPPES","PECOS","LEIE"],2,"PECOS is Medicare's enrollment system. NPPES issues NPIs and CAQH shares data with commercial payers."],
+["Credentialing","A group practice or clinic is assigned which type of NPI?",["Type 1","Type 2","Type 3","Taxonomy"],1,"Type 1 is for individuals; Type 2 is for organizations such as groups and clinics."],
+["RCM Basics","Which practice best prevents eligibility-related denials?",["Verify eligibility and benefits before every appointment","Verify only new patients","Verify after claim submission","Rely on the insurance card copy on file"],0,"Coverage changes often. Verifying before each visit catches terminations, plan changes and COB updates."],
+["A/R & Collections","How should A/R follow-up be prioritized?",["Alphabetically by patient","Newest claims first","High-dollar claims nearing timely filing or appeal deadlines first","Smallest balances first"],2,"Work by dollar value and deadline risk so the most recoverable money is not lost."],
+["Payments & Posting","You receive a payment above the contracted rate. What should you do?",["Keep it","Return the overpayment promptly per payer rules","Apply it to another patient","Write it off"],1,"Overpayments must be refunded. Medicare requires reporting and returning identified overpayments within 60 days."],
+["Compliance","Billing 99214 when the documentation only supports 99212 is an example of what?",["Unbundling","Upcoding","Downcoding","Rebilling"],1,"Upcoding means reporting a higher-paying code than the documentation supports and is a serious compliance risk."],
+["Compliance","Billing separately for procedures that are covered by one comprehensive code is called what?",["Unbundling","Upcoding","Capitation","Balance billing"],0,"Unbundling inflates payment and is flagged by NCCI edits."],
+["Compliance","Which list should be checked regularly to make sure staff and providers are not excluded from federal programs?",["NPPES","OIG LEIE","CAQH","PECOS"],1,"The OIG List of Excluded Individuals/Entities (LEIE) is updated monthly and should be screened monthly."],
+["Compliance","You accidentally emailed a patient's billing details to the wrong person. What is the first step?",["Delete the email and say nothing","Report it promptly to your privacy officer or supervisor","Ask the recipient to keep it quiet","Send another email with more details"],1,"Possible PHI disclosures must go through the incident process so breach risk can be assessed."],
+["Payer & Contracts","Which Medicare part covers physician visits and outpatient services?",["Part A","Part B","Part C","Part D"],1,"Part A is hospital insurance, Part B is medical insurance (physicians, outpatient), Part C is Medicare Advantage and Part D is prescription drugs."],
+["Payer & Contracts","Which payer is generally the payer of last resort?",["Medicare","Medicaid","A commercial PPO","Workers' compensation"],1,"Medicaid pays after other coverage has paid what it owes."],
+["Payer & Contracts","Which plan type usually requires in-network care and a PCP referral to see a specialist?",["PPO","HMO","Indemnity","Medigap"],1,"HMOs typically require a PCP and referrals, and cover little or nothing out of network."],
+["Payer & Contracts","A Medicare patient is about to receive a service Medicare likely will not cover as medically necessary. What should the provider obtain?",["HIPAA notice","ABN","AOB","Release of information"],1,"An Advance Beneficiary Notice tells the patient they may be responsible, so the provider can bill them if Medicare denies."],
+["Denial Mgmt","What is the key difference between a claim rejection and a denial?",["There is no difference","A rejection fails front-end edits and was never processed; a denial was processed and refused","A denial is always final","A rejection means partial payment"],1,"Rejected claims were not accepted for processing: fix and resubmit. Denials were adjudicated and need correction, appeal or write-off."],
+["Denial Mgmt","Many claims from one payer keep denying for the same procedure code. What is the best step?",["Appeal each one without looking","Do root cause analysis, check the payer policy and contract, then escalate","Stop billing the code","Bill the patient"],1,"A pattern points to a systemic cause such as a policy change, modifier rule or contract issue. Fix it at the source and appeal in bulk if needed."],
+["Denial Mgmt","CO-4 denies a procedure that requires a modifier. What should you do?",["Bill the patient","Add the correct modifier and send a corrected claim","Write it off","Call the patient"],1,"CO-4 means the modifier is missing or inconsistent. Confirm documentation supports it, then correct and resubmit."],
+["Payments & Posting","An adjustment posts as PR-1. Who is financially responsible?",["The provider (write-off)","The patient (deductible), or secondary insurance if one exists","The clearinghouse","Nobody"],1,"PR means patient responsibility and CARC 1 is the deductible. Bill secondary insurance first if there is one, otherwise the patient."],
+["Coding Systems","Which place of service code is used for a physician office?",["11","21","22","23"],0,"POS 11 is office. 21 is inpatient hospital, 22 is on-campus outpatient hospital and 23 is emergency room."],
+["Coding Systems","What does modifier 25 indicate?",["Bilateral procedure","Distinct procedural service","Significant, separately identifiable E/M service on the same day as another service","Reduced service"],2,"Modifier 25 is for an E/M service that is significant and separately identifiable from another procedure by the same provider that day. Modifier 59 is distinct procedural service."],
+["Claims & Forms","What is the Medicare timely filing limit for most claims?",["90 days","6 months","12 months from the date of service","24 months"],2,"Medicare generally requires claims within one calendar year of the date of service. Commercial payer limits vary and are often shorter."],
+["Payer & Contracts","An in-network provider may bill the patient for which amount?",["Billed charge minus insurance payment","Only the patient responsibility (deductible, coinsurance, copay)","The contractual adjustment","Any amount denied"],1,"In-network providers must write off the contractual adjustment and can only bill the patient's cost share."],
+["RCM Basics","How is Days in A/R calculated?",["Total charges divided by total payments","Total A/R divided by average daily charges","Payments divided by claims","Denials divided by claims"],1,"Total accounts receivable divided by average daily charges shows how long it takes to collect."],
+["RCM Basics","What does first-pass resolution rate measure?",["Percent of claims denied","Percent of claims paid on first submission without rework","Time to post payments","Patient collections"],1,"It shows how many claims are paid correctly the first time and is a key indicator of front-end quality."],
+["Dental Billing","Which statement about dental predetermination is correct?",["It guarantees payment","It is an estimate of benefits before treatment, not a payment guarantee","It is only for medical claims","It replaces eligibility verification"],1,"A predetermination estimates coverage but is subject to eligibility, maximums and plan rules at the time of service."],
+["Dental Billing","A dental oral appliance for obstructive sleep apnea is most often billed to which payer?",["Dental insurance","Medical insurance","Both automatically","Patient only"],1,"Sleep apnea appliances are usually covered under the medical plan with medical codes and diagnosis. This is medical-dental cross coding."],
+["Payments & Posting","A CO group code on an adjustment means what?",["Patient responsibility","Contractual obligation, so the provider is liable","Correction","Payer initiated reduction"],1,"CO = contractual obligation (provider write-off). PR = patient responsibility, OA = other adjustment, PI = payer initiated, CR = correction or reversal."],
+["Payments & Posting","Which code type gives the general reason for an adjustment, and which adds supplemental detail?",["RARC general, CARC supplemental","CARC general, RARC supplemental","Both are the same","Neither appears on the ERA"],1,"The CARC explains the adjustment reason; the RARC adds remark detail and often begins with N or M."],
+["Credentialing","A provider sees patients before their payer effective date. What is the likely result?",["Payment is retroactive automatically","Claims for earlier dates of service may deny","No impact","Claims pay at a higher rate"],1,"Payers pay from the effective date. Delays cause denials such as CARC B7 or 185, so track enrollment dates."]
+];
+var SCEN = SCEN_RAW.map(function(r,i){return {id:'s'+(i+1),kind:'scen',cat:r[0],q:r[1],opts:r[2],a:r[3],why:r[4]};});
+
+var CODES = DENIALS.concat(TERMS);
+var BYID = {}; CODES.forEach(function(c){BYID[c.id]=c;});
+var CODE_CATS = ['Patient','Coding','Eligibility','Authorization','COB','Billing','Coverage','Payment'];
+var TOPIC_CATS = ['RCM Basics','Coding Systems','Claims & Forms','Payer & Contracts','Payments & Posting','A/R & Collections','Denial Mgmt','Credentialing','Dental Billing','Compliance'];
+var CATNAMES = CODE_CATS.concat(TOPIC_CATS);
+
+/* ---------- STORAGE ---------- */
+var KEY = 'rcm-mastery-v2', memStore = null;
+function fresh(){return {cards:{},exams:[],streak:{last:'',n:0},days:{},theme:''};}
+function load(){
+  try{var r=localStorage.getItem(KEY); if(r){var o=JSON.parse(r); if(o&&o.cards) return Object.assign(fresh(),o);}}catch(e){}
+  return memStore||fresh();
+}
+var S = load();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){memStore=S;}}
+
+/* ---------- HELPERS ---------- */
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/[&<>"']/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];});}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function dstr(d){var m=d.getMonth()+1,day=d.getDate();return d.getFullYear()+'-'+(m<10?'0':'')+m+'-'+(day<10?'0':'')+day;}
+function today(){return dstr(new Date());}
+function yesterday(){var d=new Date();d.setDate(d.getDate()-1);return dstr(d);}
+function toast(msg){var t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(function(){t.classList.remove('show');},2200);}
+function tag(cat){return '<span class="tag" style="background:'+CATS[cat].c+'">'+esc(cat)+'</span>';}
+function st(id){return S.cards[id]||{b:0,s:0,c:0,w:0,t:0};}
+function record(id,ok){
+  var s=S.cards[id]||(S.cards[id]={b:0,s:0,c:0,w:0,t:0});
+  s.s++; s.t=Date.now();
+  if(ok){s.c++; s.b=Math.min(5,s.b+1);} else {s.w++; s.b=0;}
+  var t=today();
+  if(S.streak.last!==t){S.streak.n=(S.streak.last===yesterday())?S.streak.n+1:1; S.streak.last=t;}
+  S.days[t]=(S.days[t]||0)+1;
+  save();
+}
+function tipHtml(c){return (c.kind==='term'?'<b>In practice:</b> ':'<b>What to do:</b> ')+esc(c.tip);}
+
+/* ---------- THEME ---------- */
+function effectiveTheme(){
+  var a=document.documentElement.getAttribute('data-theme');
+  if(a) return a;
+  return (window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';
+}
+function applyTheme(){if(S.theme) document.documentElement.setAttribute('data-theme',S.theme);}
+$('themeBtn').onclick=function(){S.theme=effectiveTheme()==='dark'?'light':'dark';applyTheme();save();};
+applyTheme();
+
+/* ---------- NAV ---------- */
+var current='home';
+function showView(v){
+  current=v;
+  document.querySelectorAll('.view').forEach(function(el){el.classList.toggle('active',el.id==='v-'+v);});
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-view')===v);});
+  $('scroll').scrollTop=0;
+  if(v==='home') renderHome();
+  if(v==='learn') learnReset();
+  if(v==='library') renderLib();
+  if(v==='quiz') quizReset();
+  if(v==='admin'&&window.renderAdmin) window.renderAdmin();
+}
+document.querySelectorAll('.nav-btn').forEach(function(b){b.onclick=function(){showView(b.getAttribute('data-view'));};});
+
+/* ---------- HOME ---------- */
+function renderHome(){
+  var N=CODES.length, mastered=0, c=0, w=0;
+  CODES.forEach(function(x){var s=S.cards[x.id]; if(s){if(s.b>=4)mastered++; c+=s.c; w+=s.w;}});
+  SCEN.forEach(function(x){var s=S.cards[x.id]; if(s){c+=s.c; w+=s.w;}});
+  var acc=(c+w)?Math.round(c/(c+w)*100)+'%':'-';
+  var streak=(S.streak.last===today()||S.streak.last===yesterday())?S.streak.n:0;
+  var todayCount=S.days[today()]||0;
+  $('homeSub').textContent=todayCount?('You answered '+todayCount+' card'+(todayCount>1?'s':'')+' today. Keep going.'):'No cards yet today. Ten minutes is enough.';
+  $('statGrid').innerHTML=
+    '<div class="stat"><div class="k">Mastered</div><div class="v">'+mastered+'<span style="font-size:1rem;color:var(--muted)"> / '+N+'</span></div></div>'+
+    '<div class="stat"><div class="k">Accuracy</div><div class="v">'+acc+'</div></div>'+
+    '<div class="stat"><div class="k">Day streak</div><div class="v">'+streak+'</div></div>'+
+    '<div class="stat"><div class="k">Quizzes</div><div class="v">'+S.exams.length+'</div></div>';
+  var p=mastered/N, C=2*Math.PI*42;
+  $('ring').innerHTML='<circle cx="50" cy="50" r="42" fill="none" stroke="var(--surface2)" stroke-width="9"/>'+
+    '<circle cx="50" cy="50" r="42" fill="none" stroke="var(--primary)" stroke-width="9" stroke-linecap="round" stroke-dasharray="'+(C*p).toFixed(1)+' '+C.toFixed(1)+'" transform="rotate(-90 50 50)"/>'+
+    '<text x="50" y="52" text-anchor="middle" class="pct">'+Math.round(p*100)+'%</text><text x="50" y="66" text-anchor="middle" class="lbl">mastered</text>';
+
+  var idx=Math.floor(Date.now()/86400000)%N, cd=CODES[idx];
+  $('cotd').innerHTML='<div style="display:flex;gap:10px;align-items:center;margin-bottom:8px"><b style="font-size:1.4rem;color:var(--accent)">'+esc(cd.label)+'</b>'+tag(cd.cat)+'</div><p>'+esc(cd.desc)+'</p><div class="tipbox">'+tipHtml(cd)+'</div>';
+
+  $('catBars').innerHTML=CATNAMES.map(function(cn){
+    var tot=0,m=0; CODES.forEach(function(x){if(x.cat===cn){tot++; if(st(x.id).b>=4)m++;}});
+    var pc=tot?Math.round(m/tot*100):0;
+    return '<div class="catrow"><span>'+esc(cn)+'</span><div class="bar"><i style="width:'+pc+'%;background:'+CATS[cn].c+'"></i></div><span>'+m+'/'+tot+'</span></div>';
+  }).join('');
+
+  var weak=CODES.filter(function(x){return st(x.id).w>0;}).sort(function(a,b){
+    var sa=st(a.id),sb=st(b.id); return (sb.w/(sb.c+sb.w))-(sa.w/(sa.c+sa.w))||sb.w-sa.w;}).slice(0,8);
+  $('weak').innerHTML=weak.length?'<div class="chips">'+weak.map(function(x){return '<button class="chip" data-open="'+esc(x.id)+'">'+esc(x.label)+'</button>';}).join('')+'</div>':'<p class="sub" style="margin:0">Nothing here yet. Missed answers will show up as you study.</p>';
+  document.querySelectorAll('[data-open]').forEach(function(b){b.onclick=function(){openInLibrary(b.getAttribute('data-open'));};});
+
+  var ex=S.exams.slice(-10);
+  if(!ex.length){$('hist').innerHTML='<p class="sub" style="margin:0">Take a quiz to see your trend.</p>';}
+  else{
+    var bw=300/ex.length, svg='<svg viewBox="0 0 300 90" style="width:100%;height:auto">';
+    ex.forEach(function(e,i){
+      var pc=Math.round(e.s/e.n*100), h=Math.max(3,pc*0.62), x=i*bw+bw*0.15, col=pc>=80?'var(--good)':(pc>=50?'var(--accent)':'var(--bad)');
+      svg+='<rect x="'+x.toFixed(1)+'" y="'+(70-h).toFixed(1)+'" width="'+(bw*0.7).toFixed(1)+'" height="'+h.toFixed(1)+'" rx="3" fill="'+col+'"/>'+
+           '<text x="'+(x+bw*0.35).toFixed(1)+'" y="83" text-anchor="middle" font-size="8" fill="var(--muted)">'+pc+'</text>';
+    });
+    $('hist').innerHTML=svg+'</svg>';
+  }
+}
+$('goLearn').onclick=function(){showView('learn');};
+$('goQuiz').onclick=function(){showView('quiz');};
+
+/* backup */
+$('exBtn').onclick=function(){
+  var t=JSON.stringify(S); $('bk').value=t; $('bk').select();
+  try{navigator.clipboard.writeText(t).then(function(){toast('Copied to clipboard');},function(){toast('Select and copy the text');});}catch(e){toast('Select and copy the text');}
+};
+$('imBtn').onclick=function(){
+  try{var o=JSON.parse($('bk').value); if(!o||typeof o.cards!=='object') throw 0; S=Object.assign(fresh(),o); save(); applyTheme(); renderHome(); toast('Progress imported');}
+  catch(e){toast('That text is not valid backup data');}
+};
+var rsArmed=false;
+$('rsBtn').onclick=function(){
+  if(!rsArmed){rsArmed=true;$('rsBtn').textContent='Tap again to confirm';setTimeout(function(){rsArmed=false;$('rsBtn').textContent='Reset progress';},4000);return;}
+  var th=S.theme; S=fresh(); S.theme=th; save(); rsArmed=false; $('rsBtn').textContent='Reset progress'; renderHome(); toast('Progress reset');
+};
+
+/* ---------- LEARN ---------- */
+var L={cat:'All',queue:[],i:0,got:0,again:0,flipped:false,active:false};
+function catOptions(){
+  var o=function(n){return '<option>'+esc(n)+'</option>';};
+  return '<option value="All">Everything</option><option value="Weak">My weak items</option><option value="Codes">All denial codes</option><option value="Concepts">All RCM concepts</option>'+
+    '<optgroup label="Denial code categories">'+CODE_CATS.map(o).join('')+'</optgroup>'+
+    '<optgroup label="RCM concept topics">'+TOPIC_CATS.map(o).join('')+'</optgroup>';
+}
+function learnChips(){
+  var sel=$('lCat'); sel.innerHTML=catOptions(); sel.value=L.cat;
+  sel.onchange=function(){L.cat=sel.value;};
+}
+function learnReset(){
+  L.active=false; $('lSetup').style.display='block'; $('lSession').style.display='none'; $('lDone').style.display='none'; $('lCount').textContent=''; learnChips();
+}
+function pool(cat){
+  if(cat==='All') return CODES.slice();
+  if(cat==='Codes') return DENIALS.slice();
+  if(cat==='Concepts') return TERMS.slice();
+  if(cat==='Weak') return CODES.filter(function(x){var s=st(x.id);return s.w>0&&s.b<4;});
+  return CODES.filter(function(x){return x.cat===cat;});
+}
+$('lStart').onclick=function(){
+  var p=pool(L.cat);
+  if(!p.length){toast('No cards match yet. Study a few first.');return;}
+  p=shuffle(p).sort(function(a,b){var sa=st(a.id),sb=st(b.id);return sa.b-sb.b||sa.t-sb.t;}).slice(0,10);
+  L.queue=shuffle(p); L.i=0; L.got=0; L.again=0; L.active=true;
+  $('lSetup').style.display='none'; $('lDone').style.display='none'; $('lSession').style.display='block';
+  loadCard(true);
+};
+function loadCard(instant){
+  var c=L.queue[L.i]; if(!c) return finishLearn();
+  L.flipped=false; $('fc').classList.remove('flipped'); setBtns(false);
+  var fill=function(){
+    $('fcTag').innerHTML=tag(c.cat); $('fcCode').textContent=c.label; $('fcCode').className='big'+(c.kind==='term'?' term':'');
+    $('fcDesc').textContent=c.desc; $('fcTip').innerHTML=tipHtml(c);
+  };
+  if(instant) fill(); else setTimeout(fill,250);
+  $('lCount').textContent='Card '+(L.i+1)+' / '+L.queue.length;
+  $('lBar').style.width=(L.i/L.queue.length*100)+'%';
+}
+function setBtns(on){$('lAgain').classList.toggle('off',!on);$('lGot').classList.toggle('off',!on);}
+function flip(){if(!L.active)return; L.flipped=!L.flipped; $('fc').classList.toggle('flipped',L.flipped); if(L.flipped) setBtns(true);}
+$('fc').onclick=flip;
+function grade(ok){
+  if(!L.active||!L.flipped) return;
+  var c=L.queue[L.i]; record(c.id,ok);
+  if(ok) L.got++; else {L.again++; L.queue.splice(Math.min(L.i+4,L.queue.length),0,c);}
+  L.i++; loadCard(false);
+}
+$('lGot').onclick=function(){grade(true);};
+$('lAgain').onclick=function(){grade(false);};
+function finishLearn(){
+  L.active=false; $('lSession').style.display='none'; $('lDone').style.display='block'; $('lCount').textContent='';
+  $('lScore').textContent=L.got+' / '+(L.got+L.again);
+  $('lMsg').textContent=L.again?('You marked '+L.again+' for another look. They will come back first next time.'):'Clean run. Try a quiz to lock it in.';
+}
+$('lAgainSess').onclick=learnReset;
+$('lHome').onclick=function(){showView('home');};
+document.addEventListener('keydown',function(e){
+  if(current!=='learn'||!L.active) return;
+  var tg=e.target.tagName; if(tg==='INPUT'||tg==='TEXTAREA'||tg==='SELECT') return;
+  if(e.key===' '||e.key==='Enter'){e.preventDefault();flip();}
+  else if(e.key==='1'||e.key==='ArrowLeft') grade(false);
+  else if(e.key==='2'||e.key==='ArrowRight') grade(true);
+});
+
+/* ---------- LIBRARY ---------- */
+var libGrp='All';
+function libInit(){
+  $('libCat').innerHTML='<option value="All">All categories</option>'+CATNAMES.map(function(c){return '<option>'+c+'</option>';}).join('');
+  $('libGrp').innerHTML=['All','CO','PR','Concepts'].map(function(g){return '<button class="chip'+(libGrp===g?' on':'')+'" data-g="'+g+'">'+(g==='All'?'Everything':(g==='Concepts'?'Concepts':g+' codes'))+'</button>';}).join('');
+  document.querySelectorAll('#libGrp .chip').forEach(function(b){b.onclick=function(){libGrp=b.getAttribute('data-g');libInit();renderLib();};});
+}
+function renderLib(){
+  var q=$('libQ').value.trim().toLowerCase(), cat=$('libCat').value||'All';
+  var list=CODES.filter(function(c){
+    if(cat!=='All'&&c.cat!==cat) return false;
+    if(libGrp==='Concepts'){if(c.kind!=='term') return false;} else if(libGrp!=='All'&&c.grp!==libGrp) return false;
+    if(!q) return true;
+    return (c.label+' '+c.id+' '+c.desc+' '+c.tip+' '+c.cat).toLowerCase().indexOf(q)>-1;
+  });
+  $('libCount').textContent='Showing '+list.length+' of '+CODES.length+' codes';
+  $('libList').innerHTML=list.map(function(c){
+    var s=st(c.id), dc=s.b>=4?'m':(s.s?'l':'');
+    var acc=s.s?Math.round(s.c/s.s*100)+'% correct over '+s.s+' attempt'+(s.s>1?'s':''):'Not studied yet';
+    return '<div class="item" data-id="'+esc(c.id)+'"><div class="item-h"><span class="code'+(c.kind==='term'?' term':'')+'">'+esc(c.label)+'</span><span class="d">'+esc(c.desc)+'</span><span class="dot '+dc+'"></span></div>'+
+      '<div class="item-b">'+tag(c.cat)+'<p style="margin-top:10px">'+esc(c.desc)+'</p><div class="tipbox">'+tipHtml(c)+'</div><p class="mini">'+acc+'</p></div></div>';
+  }).join('')||'<p class="sub">No codes match your search.</p>';
+}
+$('libList').addEventListener('click',function(e){
+  var h=e.target.closest('.item-h'); if(h) h.parentNode.classList.toggle('open');
+});
+$('libQ').oninput=renderLib; $('libCat').onchange=renderLib;
+function openInLibrary(id){
+  $('libQ').value=''; $('libCat').value='All'; libGrp='All'; libInit(); showView('library');
+  var el=document.querySelector('#libList .item[data-id="'+id+'"]');
+  if(el){el.classList.add('open'); el.scrollIntoView({block:'center'});}
+}
+
+/* ---------- QUIZ ---------- */
+var Q={mode:'c2d',len:10,qs:[],i:0,score:0,missed:[],done:false,answered:false};
+var MODES=[['c2d','Term to meaning'],['d2c','Meaning to term'],['mix','Mixed cards'],['scen','Scenarios']];
+function quizReset(){
+  $('qSetup').style.display='block'; $('qRun').style.display='none'; $('qDone').style.display='none'; $('qCount').textContent='';
+  $('qMode').innerHTML=MODES.map(function(m){return '<button class="chip'+(Q.mode===m[0]?' on':'')+'" data-m="'+m[0]+'">'+m[1]+'</button>';}).join('');
+  $('qLen').innerHTML=[10,20,30].map(function(n){return '<button class="chip'+(Q.len===n?' on':'')+'" data-n="'+n+'">'+n+'</button>';}).join('');
+  var keep=$('qCat').value||'All';
+  $('qCat').innerHTML=catOptions();
+  $('qCat').value=keep;
+  document.querySelectorAll('#qMode .chip').forEach(function(b){b.onclick=function(){Q.mode=b.getAttribute('data-m');quizReset();};});
+  document.querySelectorAll('#qLen .chip').forEach(function(b){b.onclick=function(){Q.len=parseInt(b.getAttribute('data-n'),10);quizReset();};});
+}
+function distractors(c,type){
+  var same=shuffle(CODES.filter(function(x){return x.id!==c.id&&x.cat===c.cat;}));
+  var rest=shuffle(CODES.filter(function(x){return x.id!==c.id&&x.cat!==c.cat;}));
+  return same.concat(rest).slice(0,3);
+}
+function buildQs(p,len,mode){
+  return shuffle(p).slice(0,len).map(function(c){
+    if(mode==='scen') return {c:c,type:'scen',opts:shuffle(c.opts.map(function(t,i){return {t:t,ok:i===c.a};}))};
+    var type=mode==='mix'?(Math.random()<0.5?'c2d':'d2c'):mode;
+    return {c:c,type:type,opts:shuffle([c].concat(distractors(c,type)))};
+  });
+}
+function startQuiz(p,mode,len){
+  Q.qs=buildQs(p,len,mode); Q.i=0; Q.score=0; Q.missed=[]; Q.mode=mode; Q.pool=p;
+  $('qSetup').style.display='none'; $('qDone').style.display='none'; $('qRun').style.display='block';
+  renderQ();
+}
+$('qStart').onclick=function(){
+  var cat=$('qCat').value||'All', p;
+  if(Q.mode==='scen'){
+    p=scenPool(cat);
+    if(!p.length){toast('No scenarios for that selection. Try Everything or a concept topic.');return;}
+  } else {
+    p=pool(cat);
+    if(!p.length){toast('Nothing to quiz yet. Study or take a quiz first.');return;}
+  }
+  startQuiz(p,Q.mode,Q.len);
+};
+function scenPool(cat){
+  if(cat==='All'||cat==='Concepts') return SCEN.slice();
+  if(cat==='Codes') return [];
+  if(cat==='Weak') return SCEN.filter(function(x){var s=st(x.id);return s.w>0&&s.b<4;});
+  return SCEN.filter(function(x){return x.cat===cat;});
+}
+function isOk(q,o){return q.type==='scen'?o.ok:o.id===q.c.id;}
+function renderQ(){
+  var q=Q.qs[Q.i]; Q.answered=false;
+  $('qCount').textContent='Q '+(Q.i+1)+' / '+Q.qs.length;
+  $('qBar').style.width=(Q.i/Q.qs.length*100)+'%';
+  $('qFb').innerHTML=''; $('qNext').style.display='none';
+  if(q.type==='scen'){
+    $('qPrompt').textContent='Scenario - '+q.c.cat+'. Choose the best answer.';
+    $('qMain').className='q-main text'; $('qMain').textContent=q.c.q;
+  } else if(q.type==='c2d'){
+    var isT=q.c.kind==='term';
+    $('qPrompt').textContent=isT?'What does this term mean?':'What does this code mean?';
+    $('qMain').className='q-main'+(isT?' term':''); $('qMain').textContent=q.c.label;
+  } else {
+    $('qPrompt').textContent=q.c.kind==='term'?'Which term matches this definition?':'Which code matches this description?';
+    $('qMain').className='q-main text'; $('qMain').textContent=q.c.desc;
+  }
+  $('qOpts').innerHTML=q.opts.map(function(o,i){
+    var t=q.type==='scen'?o.t:(q.type==='c2d'?o.desc:o.label);
+    return '<button class="opt" data-i="'+i+'">'+esc(t)+'</button>';}).join('');
+  document.querySelectorAll('#qOpts .opt').forEach(function(b){b.onclick=function(){answerQ(parseInt(b.getAttribute('data-i'),10));};});
+}
+function answerQ(i){
+  if(Q.answered) return; Q.answered=true;
+  var q=Q.qs[Q.i], ok=isOk(q,q.opts[i]);
+  document.querySelectorAll('#qOpts .opt').forEach(function(b,k){
+    b.disabled=true;
+    if(isOk(q,q.opts[k])) b.classList.add('correct');
+    else if(k===i) b.classList.add('wrong');
+  });
+  record(q.c.id,ok);
+  if(ok) Q.score++; else Q.missed.push(q.c);
+  $('qFb').innerHTML=q.type==='scen'
+    ? '<div class="fb '+(ok?'ok':'no')+'"><h4>'+(ok?'Correct':'Not quite')+'</h4><p>'+esc(q.c.why)+'</p></div>'
+    : '<div class="fb '+(ok?'ok':'no')+'"><h4>'+(ok?'Correct':'Not quite')+' - '+esc(q.c.label)+'</h4><p>'+esc(q.c.desc)+'</p><p style="margin-top:6px">'+tipHtml(q.c)+'</p></div>';
+  var last=Q.i===Q.qs.length-1;
+  $('qNext').textContent=last?'See results':'Next question'; $('qNext').style.display='inline-flex';
+}
+$('qNext').onclick=function(){
+  if(Q.i>=Q.qs.length-1) return finishQuiz();
+  Q.i++; renderQ();
+};
+function finishQuiz(){
+  var n=Q.qs.length, pc=Math.round(Q.score/n*100);
+  S.exams.push({d:Date.now(),s:Q.score,n:n,m:Q.mode}); if(S.exams.length>30) S.exams=S.exams.slice(-30); save();
+  $('qRun').style.display='none'; $('qDone').style.display='block'; $('qCount').textContent='';
+  $('qScore').textContent=pc+'%'; $('qScore').style.color=pc>=80?'var(--good)':(pc>=50?'var(--accent)':'var(--bad)');
+  $('qMsg').textContent=Q.score+' of '+n+' correct. '+(pc>=80?'Strong work.':(pc>=50?'Getting there. Review the misses below.':'Spend a Learn session on the misses, then retry.'));
+  $('qMissed').innerHTML=Q.missed.length?'<span class="lab">Missed</span>'+Q.missed.map(function(c){
+    if(c.kind==='scen') return '<div class="miss"><b>'+esc(c.cat)+'</b> - '+esc(c.q)+'<div class="mini" style="margin-top:4px">'+esc(c.why)+'</div></div>';
+    return '<div class="miss"><b>'+esc(c.label)+'</b> - '+esc(c.desc)+'<div class="mini" style="margin-top:4px">'+esc(c.tip)+'</div></div>';
+  }).join(''):'';
+  $('qRetry').style.display=Q.missed.length?'inline-flex':'none';
+}
+$('qRetry').onclick=function(){startQuiz(Q.missed.slice(),Q.mode,Q.missed.length);};
+$('qNew').onclick=quizReset;
+$('qHome').onclick=function(){showView('home');};
+
+/* ---------- INIT ---------- */
+libInit();
+showView('home');
+</script>
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
+window.__bip=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();window.__bip=e;var b=document.getElementById('installBtn');if(b)b.style.display='inline-flex';});
+window.addEventListener('appinstalled',function(){var b=document.getElementById('installBtn');if(b)b.style.display='none';});
+document.getElementById('installBtn').onclick=function(){var e=window.__bip;if(!e)return;e.prompt();e.userChoice.then(function(){window.__bip=null;document.getElementById('installBtn').style.display='none';});};
+</script>
+<script>setTimeout(function(){if(!window.__gateReady){var e=document.getElementById('gErr');if(e)e.textContent='Could not reach the server. Check your internet connection and reload.';}},8000);</script>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getFirestore,doc,getDoc,setDoc,updateDoc,collection,getDocs,serverTimestamp,increment,Timestamp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* ====== 1) PASTE YOUR FIREBASE WEB CONFIG HERE (Project settings > Your apps > Web) ====== */
+const firebaseConfig = {
+  apiKey: "AIzaSyDT3ucJRNWkBq_ezKSkWT-rnwdqbH1o4DM",
+  authDomain: "appkhan-cd499.firebaseapp.com",
+  projectId: "appkhan-cd499",
+  appId: "1:722467440800:web:c0c25276d3a49e62b961c5"
+};
+/* ========================================================================================= */
+
+/* ====== 2) OPTIONAL: email alert to you on each new request. Get a free key at web3forms.com ====== */
+const NOTIFY_ACCESS_KEY = '';
+/* ================================================================================================ */
+const DOMAIN = '@rcm-mastery.app';   // usernames become fake emails: username@rcm-mastery.app
+const $g = function(id){return document.getElementById(id);};
+window.__gateReady = true;
+
+if (firebaseConfig.apiKey.indexOf('PASTE') === 0) {
+  $g('gate').style.display = 'none';   // demo mode: no login until Firebase is configured
+  console.warn('Firebase not configured: running without login.');
+} else {
+  start();
+}
+
+function start(){
+  const app = initializeApp(firebaseConfig), auth = getAuth(app), db = getFirestore(app);
+  let ME = null, dirty = false, pend = {answered:0,correct:0,quizzes:0,sessions:0}, hb = null, pushT = null, mode = 'in';
+
+  /* ---- wrap app functions so usage + progress are tracked ---- */
+  const _save = window.save;
+  window.save = function(){ _save(); schedulePush(); };
+  const _rec = window.record;
+  window.record = function(id, ok){ _rec(id, ok); if(ME){ pend.answered++; if(ok) pend.correct++; } };
+  const _fin = window.finishQuiz;
+  window.finishQuiz = function(){ _fin(); if(ME) pend.quizzes++; };
+
+  /* ---- gate UI ---- */
+  function setMode(m){
+    mode = m;
+    $g('tabIn').classList.toggle('on', m==='in');
+    $g('tabUp').classList.toggle('on', m==='up');
+    $g('gPass2').style.display = m==='up' ? 'block' : 'none';
+    $g('gPass').setAttribute('autocomplete', m==='up' ? 'new-password' : 'current-password');
+    $g('gGo').textContent = m==='up' ? 'Request access' : 'Sign in';
+    $g('gErr').textContent = '';
+  }
+  function showForm(){ $g('gate').style.display='flex'; $g('gForm').style.display='block'; $g('gStatus').style.display='none'; }
+  function showStatus(title, text){
+    $g('gate').style.display='flex'; $g('gForm').style.display='none'; $g('gStatus').style.display='block';
+    $g('gsTitle').textContent = title; $g('gsText').textContent = text;
+  }
+  function fail(msg){ $g('gErr').textContent = msg; }
+  function friendly(e){
+    const c = (e && e.code) || '';
+    if(c.indexOf('email-already-in-use')>-1) return 'That username is taken.';
+    if(c.indexOf('invalid-credential')>-1 || c.indexOf('wrong-password')>-1 || c.indexOf('user-not-found')>-1) return 'Wrong username or password.';
+    if(c.indexOf('weak-password')>-1) return 'Password is too weak.';
+    if(c.indexOf('too-many')>-1) return 'Too many attempts. Try again later.';
+    if(c.indexOf('network')>-1) return 'Network problem. You need internet to sign in the first time.';
+    return 'Something went wrong (' + c + ').';
+  }
+  async function go(){
+    const u = $g('gUser').value.trim().toLowerCase(), p = $g('gPass').value;
+    if(!/^[a-z0-9._]{3,20}$/.test(u)) return fail('Username: 3-20 letters, numbers, dot or underscore.');
+    if(p.length < 6) return fail('Password must be at least 6 characters.');
+    if(mode==='up' && p !== $g('gPass2').value) return fail('Passwords do not match.');
+    $g('gGo').disabled = true; fail('');
+    try{
+      if(mode==='up') await createUserWithEmailAndPassword(auth, u+DOMAIN, p);
+      else await signInWithEmailAndPassword(auth, u+DOMAIN, p);
+    }catch(e){ fail(friendly(e)); }
+    $g('gGo').disabled = false;
+  }
+  $g('tabIn').onclick = function(){ setMode('in'); };
+  $g('tabUp').onclick = function(){ setMode('up'); };
+  $g('gGo').onclick = go;
+  ['gUser','gPass','gPass2'].forEach(function(id){ $g(id).addEventListener('keydown', function(e){ if(e.key==='Enter') go(); }); });
+  $g('gsCheck').onclick = function(){ if(auth.currentUser) route(auth.currentUser); };
+  $g('gsOut').onclick = doOut;
+  $g('logoutBtn').onclick = doOut;
+  $g('logoutBtn2').onclick = doOut;
+
+  /* ---- auth routing ---- */
+  onAuthStateChanged(auth, function(user){
+    if(!user){
+      ME = null; stopTracking();
+      window.KEY = 'rcm-mastery-v2-guest'; window.S = window.fresh();
+      $g('navAdmin').style.display = 'none'; $g('logoutBtn').style.display = 'none'; $g('logoutBtn2').style.display = 'none';
+      $g('gPass').value = ''; $g('gPass2').value = '';
+      showForm(); return;
+    }
+    route(user);
+  });
+
+  /* ---- offline helpers ---- */
+  const withTimeout = function(p, ms){
+    return Promise.race([p, new Promise(function(_, rej){ setTimeout(function(){ rej(new Error('timeout')); }, ms); })]);
+  };
+  const ACC = function(uid){ return 'rcm-acc-' + uid; };
+  function cacheAcc(uid, u, exp){
+    try{ localStorage.setItem(ACC(uid), JSON.stringify({u:u.username, role:u.role, status:u.status, exp:exp, ts:Date.now()})); }catch(e){}
+  }
+  function readAcc(uid){
+    try{
+      const c = JSON.parse(localStorage.getItem(ACC(uid)) || 'null');
+      // offline access is allowed for 14 days after the last time the server confirmed it
+      if(c && c.status==='approved' && !(c.exp && c.exp < Date.now()) && (Date.now() - c.ts) < 14*864e5) return c;
+    }catch(e){}
+    return null;
+  }
+  function setNet(){ $g('netBanner').style.display = navigator.onLine ? 'none' : 'block'; }
+  window.addEventListener('offline', setNet);
+  window.addEventListener('online', function(){ setNet(); if(ME) verifyAccess(); });
+  setNet();
+
+  async function route(user){
+    const ref = doc(db, 'users', user.uid);
+    let snap = null;
+    if(navigator.onLine){
+      try{
+        snap = await withTimeout(getDoc(ref), 8000);
+        if(!snap.exists()){
+          await withTimeout(setDoc(ref, {username:(user.email||'').split('@')[0], status:'pending', role:'user', expiresAt:null,
+            createdAt:serverTimestamp(), lastSeen:serverTimestamp(), sessions:0, answered:0, correct:0, quizzes:0}), 8000);
+          snap = await withTimeout(getDoc(ref), 8000);
+          notifyOwner((user.email||'').split('@')[0]);
+        }
+      }catch(e){ snap = null; }
+    }
+    if(!snap){
+      const c = readAcc(user.uid);
+      if(c) return enter(user, {username:c.u, role:c.role}, ref, true);
+      return showStatus('Could not load your account', navigator.onLine ? 'Check your connection and tap Check again.' : 'You are offline. Connect to the internet for your first sign-in. After that the app works offline.');
+    }
+    const u = snap.data();
+    const exp = (u.expiresAt && u.expiresAt.toMillis) ? u.expiresAt.toMillis() : 0;
+    cacheAcc(user.uid, u, exp);
+    if(u.status==='approved' && !(exp && exp < Date.now())) return enter(user, u, ref, false);
+    if(u.status==='blocked') return showStatus('Access turned off', 'Your access has been turned off. Contact the owner.');
+    if(u.status==='approved') return showStatus('Access expired', 'Your access period has ended. Ask the owner to renew it.');
+    showStatus('Waiting for approval', 'Your request was sent. The owner will approve it soon. Tap Check again later.');
+  }
+
+  async function verifyAccess(){
+    const user = auth.currentUser; if(!user || !ME) return;
+    try{
+      const snap = await withTimeout(getDoc(ME.ref), 8000);
+      const u = snap.data();
+      const exp = (u.expiresAt && u.expiresAt.toMillis) ? u.expiresAt.toMillis() : 0;
+      cacheAcc(user.uid, u, exp);
+      if(!(u.status==='approved' && !(exp && exp < Date.now()))){ ME = null; stopTracking(); route(user); return; }
+      await pushNow(); await flush();
+    }catch(e){}
+  }
+
+  async function enter(user, u, ref, offline){
+    ME = {uid:user.uid, username:u.username, role:u.role, ref:ref};
+    window.KEY = 'rcm-mastery-v2-' + user.uid;
+    const local = window.load();
+    let cloud = null;
+    if(!offline && navigator.onLine){
+      try{ const ps = await withTimeout(getDoc(doc(db,'progress',user.uid)), 8000); if(ps.exists()) cloud = JSON.parse(ps.data().json); }catch(e){}
+    }
+    const tot = function(o){ return Object.values((o && o.cards) || {}).reduce(function(a,c){return a+(c.s||0);},0); };
+    window.S = (cloud && tot(cloud) >= tot(local)) ? Object.assign(window.fresh(), cloud) : local;
+    window.save();
+    window.applyTheme();
+    $g('gate').style.display = 'none';
+    $g('navAdmin').style.display = ME.role==='owner' ? 'flex' : 'none';
+    $g('logoutBtn').style.display = 'inline-flex'; $g('logoutBtn2').style.display = 'inline-flex';
+    window.showView('home');
+    startTracking();
+    if(ME.role==='owner'){ checkPending(); window.__pt = setInterval(checkPending, 120000); }
+    pend.sessions++;
+    flush();
+  }
+
+  async function doOut(){
+    if(!navigator.onLine){ window.toast('You are offline. Sign out when connected, otherwise you cannot sign back in.'); return; }
+    try{ await pushNow(); await flush(); }catch(e){}
+    await signOut(auth);
+  }
+
+  /* ---- usage tracking + progress sync ---- */
+  async function flush(){
+    if(!ME || !navigator.onLine) return;
+    const d = {lastSeen:serverTimestamp()};
+    if(pend.answered){ d.answered = increment(pend.answered); d.correct = increment(pend.correct); }
+    if(pend.quizzes) d.quizzes = increment(pend.quizzes);
+    if(pend.sessions) d.sessions = increment(pend.sessions);
+    const snap = pend; pend = {answered:0,correct:0,quizzes:0,sessions:0};
+    try{ await withTimeout(updateDoc(ME.ref, d), 8000); }
+    catch(e){ pend.answered += snap.answered; pend.correct += snap.correct; pend.quizzes += snap.quizzes; pend.sessions += snap.sessions; }
+  }
+  function startTracking(){
+    stopTracking();
+    hb = setInterval(function(){ if(document.visibilityState==='visible') flush(); }, 60000);
+  }
+  function stopTracking(){ if(hb){ clearInterval(hb); hb = null; } if(window.__pt){ clearInterval(window.__pt); window.__pt = null; } }
+  function setBadge(n){ $g('navAdmin').setAttribute('data-count', String(n)); }
+  async function checkPending(){
+    if(!navigator.onLine) return;
+    try{
+      const qs = await getDocs(collection(db,'users')); let n = 0;
+      qs.forEach(function(d){ if(d.data().status==='pending') n++; });
+      setBadge(n);
+    }catch(e){}
+  }
+  function notifyOwner(name){
+    if(!NOTIFY_ACCESS_KEY) return;
+    fetch('https://api.web3forms.com/submit', {method:'POST', headers:{'Content-Type':'application/json', 'Accept':'application/json'},
+      body: JSON.stringify({access_key:NOTIFY_ACCESS_KEY, subject:'RCM Mastery: new access request', from_name:'RCM Mastery',
+        message:'User "'+name+'" requested access. Open the Admin tab in the app to approve.'})}).catch(function(){});
+  }
+  function schedulePush(){ if(!ME) return; clearTimeout(pushT); pushT = setTimeout(pushNow, 2500); }
+  async function pushNow(){
+    if(!ME) return; clearTimeout(pushT);
+    if(!navigator.onLine){ dirty = true; return; }
+    try{ await withTimeout(setDoc(doc(db,'progress',ME.uid), {json:JSON.stringify(window.S), updatedAt:serverTimestamp()}), 8000); dirty = false; }
+    catch(e){ dirty = true; }
+  }
+  document.addEventListener('visibilitychange', function(){
+    if(document.visibilityState==='hidden'){ flush(); pushNow(); }
+  });
+
+  /* ---- owner admin panel ---- */
+  const ms = function(t){ return (t && t.toMillis) ? t.toMillis() : 0; };
+  function ago(t){
+    const m = ms(t); if(!m) return 'never';
+    const s = Math.max(0, Math.round((Date.now()-m)/1000));
+    if(s<90) return 'just now'; if(s<3600) return Math.round(s/60)+' min ago';
+    if(s<86400) return Math.round(s/3600)+' h ago'; return Math.round(s/86400)+' d ago';
+  }
+  window.renderAdmin = async function(){
+    if(!ME || ME.role!=='owner') return;
+    $g('admList').innerHTML = '<p class="sub">Loading...</p>';
+    try{
+      const qs = await getDocs(collection(db,'users')); const rows = [];
+      qs.forEach(function(d){ const o = d.data(); o.id = d.id; rows.push(o); });
+      const wk = Date.now() - 7*864e5;
+      const approved = rows.filter(function(r){return r.status==='approved';}).length;
+      const pending = rows.filter(function(r){return r.status==='pending';}).length;
+      setBadge(pending);
+      const active = rows.filter(function(r){return ms(r.lastSeen) > wk;}).length;
+      const ans = rows.reduce(function(a,r){return a+(r.answered||0);},0);
+      $g('admStats').innerHTML =
+        '<div class="stat"><div class="k">Users</div><div class="v">'+rows.length+'</div></div>'+
+        '<div class="stat"><div class="k">Active 7d</div><div class="v">'+active+'</div></div>'+
+        '<div class="stat"><div class="k">Pending</div><div class="v" style="color:'+(pending?'var(--warn)':'inherit')+'">'+pending+'</div></div>'+
+        '<div class="stat"><div class="k">Answers</div><div class="v">'+ans+'</div></div>';
+      const order = {pending:0, approved:1, blocked:2};
+      rows.sort(function(a,b){ return (order[a.status]-order[b.status]) || (ms(b.lastSeen)-ms(a.lastSeen)); });
+      const col = {pending:'#d97706', approved:'#059669', blocked:'#dc2626'};
+      $g('admList').innerHTML = rows.map(function(r){
+        const acc = r.answered ? Math.round((r.correct||0)/r.answered*100)+'%' : '-';
+        const exp = ms(r.expiresAt) ? new Date(ms(r.expiresAt)).toLocaleDateString() : 'no expiry';
+        let ctl = '';
+        if(r.role!=='owner'){
+          ctl = '<div class="row-btns" style="margin-top:10px"><select class="inp" style="width:auto" data-sel="'+esc(r.id)+'">'+
+            '<option value="0">No expiry</option><option value="30">30 days</option><option value="90">90 days</option><option value="365">1 year</option></select>'+
+            '<button class="btn sm good" data-act="approve" data-uid="'+esc(r.id)+'">'+(r.status==='approved'?'Update':'Approve')+'</button>'+
+            (r.status==='blocked'?'':'<button class="btn sm bad" data-act="block" data-uid="'+esc(r.id)+'">Block</button>')+'</div>';
+        }
+        return '<div class="card" style="padding:16px"><div><b style="font-size:1.05rem">'+esc(r.username||'?')+'</b> '+
+          '<span class="tag" style="background:'+(col[r.status]||'#64748b')+'">'+esc(r.status||'?')+(r.role==='owner'?' - owner':'')+'</span></div>'+
+          '<div class="mini">Last seen '+ago(r.lastSeen)+' - '+(r.sessions||0)+' sessions - '+(r.answered||0)+' answers ('+acc+') - '+(r.quizzes||0)+' quizzes - expires: '+exp+'</div>'+ctl+'</div>';
+      }).join('') || '<p class="sub">No users yet.</p>';
+    }catch(e){
+      $g('admList').innerHTML = '<p class="sub">Could not load users. Check your Firestore rules.</p>';
+    }
+  };
+  $g('admRefresh').onclick = function(){ window.renderAdmin(); };
+  $g('admList').addEventListener('click', async function(e){
+    const b = e.target.closest('button[data-act]'); if(!b) return;
+    const uid = b.getAttribute('data-uid'), act = b.getAttribute('data-act');
+    b.disabled = true;
+    try{
+      if(act==='approve'){
+        const days = parseInt($g('admList').querySelector('select[data-sel="'+uid+'"]').value, 10);
+        await updateDoc(doc(db,'users',uid), {status:'approved', expiresAt: days ? Timestamp.fromMillis(Date.now()+days*864e5) : null});
+      } else if(act==='block'){
+        await updateDoc(doc(db,'users',uid), {status:'blocked'});
+      }
+      window.toast('Saved'); window.renderAdmin();
+    }catch(err){ window.toast('Could not save'); b.disabled = false; }
+  });
+}
+
+</script>
+</body>
+</html>
