@@ -332,6 +332,7 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
       <input class="inp" id="gPass" type="password" placeholder="Password" autocomplete="current-password" style="margin-bottom:10px">
       <input class="inp" id="gPass2" type="password" placeholder="Confirm password" autocomplete="new-password" style="margin-bottom:10px;display:none">
       <div class="gerr" id="gErr"></div>
+      <div class="mini" id="gHint" style="display:none;margin:-4px 0 12px">You are offline. You can sign in with a username you have already used on this device.</div>
       <button class="btn primary" id="gGo" type="button" style="width:100%">Sign in</button>
     </div>
     <div id="gStatus" style="display:none">
@@ -980,7 +981,7 @@ if (firebaseConfig.apiKey.indexOf('PASTE') === 0) {
 
 function start(){
   const app = initializeApp(firebaseConfig), auth = getAuth(app), db = getFirestore(app);
-  let ME = null, dirty = false, pend = {answered:0,correct:0,quizzes:0,sessions:0}, hb = null, pushT = null, mode = 'in';
+  let ME = null, offlinePass = null, dirty = false, pend = {answered:0,correct:0,quizzes:0,sessions:0}, hb = null, pushT = null, mode = 'in';
 
   /* ---- wrap app functions so usage + progress are tracked ---- */
   const _save = window.save;
@@ -1022,8 +1023,12 @@ function start(){
     if(mode==='up' && p !== $g('gPass2').value) return fail('Passwords do not match.');
     $g('gGo').disabled = true; fail('');
     try{
-      if(mode==='up') await createUserWithEmailAndPassword(auth, u+DOMAIN, p);
-      else await signInWithEmailAndPassword(auth, u+DOMAIN, p);
+      if(!navigator.onLine){
+        if(mode==='up') fail('You need internet to request access.'); else await offlineLogin(u, p);
+      } else {
+        const cred = (mode==='up') ? await createUserWithEmailAndPassword(auth, u+DOMAIN, p) : await signInWithEmailAndPassword(auth, u+DOMAIN, p);
+        await saveCred(u, cred.user.uid, p);
+      }
     }catch(e){ fail(friendly(e)); }
     $g('gGo').disabled = false;
   }
@@ -1038,13 +1043,8 @@ function start(){
 
   /* ---- auth routing ---- */
   onAuthStateChanged(auth, function(user){
-    if(!user){
-      ME = null; stopTracking();
-      window.KEY = 'rcm-mastery-v2-guest'; window.S = window.fresh();
-      $g('navAdmin').style.display = 'none'; $g('logoutBtn').style.display = 'none'; $g('logoutBtn2').style.display = 'none';
-      $g('gPass').value = ''; $g('gPass2').value = '';
-      showForm(); return;
-    }
+    if(!user){ signedOutUI(); return; }
+    if(ME && ME.uid === user.uid){ verifyAccess(); return; }   // offline session reconnected
     route(user);
   });
 
@@ -1064,10 +1064,54 @@ function start(){
     }catch(e){}
     return null;
   }
-  function setNet(){ $g('netBanner').style.display = navigator.onLine ? 'none' : 'block'; }
+  function setNet(){ $g('netBanner').style.display = navigator.onLine ? 'none' : 'block'; $g('gHint').style.display = navigator.onLine ? 'none' : 'block'; }
   window.addEventListener('offline', setNet);
-  window.addEventListener('online', function(){ setNet(); if(ME) verifyAccess(); });
+  window.addEventListener('online', function(){
+    setNet();
+    if(!ME) return;
+    if(!auth.currentUser && offlinePass){
+      signInWithEmailAndPassword(auth, offlinePass.u + DOMAIN, offlinePass.p).catch(function(){});
+    } else { verifyAccess(); }
+  });
   setNet();
+
+  /* ---- offline sign-in: a salted password hash is saved on this device after each online sign-in ---- */
+  const b64 = function(buf){ return btoa(String.fromCharCode.apply(null, new Uint8Array(buf))); };
+  const unb64 = function(t){ return Uint8Array.from(atob(t), function(c){ return c.charCodeAt(0); }); };
+  async function hashPw(pw, salt){
+    const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveBits']);
+    return b64(await crypto.subtle.deriveBits({name:'PBKDF2', salt:salt, iterations:150000, hash:'SHA-256'}, key, 256));
+  }
+  async function saveCred(username, uid, pw){
+    try{
+      const salt = crypto.getRandomValues(new Uint8Array(16));
+      localStorage.setItem('rcm-cred-' + username, JSON.stringify({uid:uid, salt:b64(salt), h:await hashPw(pw, salt)}));
+    }catch(e){}
+  }
+  // returns the saved record if the password matches, false if wrong, null if no record on this device
+  async function checkCred(username, pw){
+    try{
+      const c = JSON.parse(localStorage.getItem('rcm-cred-' + username) || 'null');
+      if(!c) return null;
+      return (await hashPw(pw, unb64(c.salt))) === c.h ? c : false;
+    }catch(e){ return null; }
+  }
+  async function offlineLogin(u, p){
+    const c = await checkCred(u, p);
+    if(c === null) return fail('No saved login for this username on this device. Connect to the internet and sign in once.');
+    if(c === false) return fail('Wrong username or password.');
+    const acc = readAcc(c.uid);
+    if(!acc) return fail('Your offline access needs renewing. Connect to the internet and sign in.');
+    offlinePass = {u:u, p:p};
+    enter({uid:c.uid, email:u+DOMAIN}, {username:acc.u, role:acc.role}, doc(db,'users',c.uid), true);
+  }
+  function signedOutUI(){
+    ME = null; offlinePass = null; stopTracking();
+    window.KEY = 'rcm-mastery-v2-guest'; window.S = window.fresh();
+    $g('navAdmin').style.display = 'none'; $g('logoutBtn').style.display = 'none'; $g('logoutBtn2').style.display = 'none';
+    $g('gPass').value = ''; $g('gPass2').value = '';
+    showForm();
+  }
 
   async function route(user){
     const ref = doc(db, 'users', user.uid);
@@ -1132,9 +1176,14 @@ function start(){
   }
 
   async function doOut(){
-    if(!navigator.onLine){ window.toast('You are offline. Sign out when connected, otherwise you cannot sign back in.'); return; }
+    if(!navigator.onLine){
+      const name = ME ? ME.username : '';
+      let saved = false; try{ saved = !!localStorage.getItem('rcm-cred-' + name); }catch(e){}
+      if(!saved){ window.toast('You are offline. Sign out when connected, otherwise you cannot sign back in.'); return; }
+    }
     try{ await pushNow(); await flush(); }catch(e){}
-    await signOut(auth);
+    try{ if(auth.currentUser) await signOut(auth); }catch(e){}
+    signedOutUI();
   }
 
   /* ---- usage tracking + progress sync ---- */
