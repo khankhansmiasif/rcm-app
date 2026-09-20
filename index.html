@@ -191,6 +191,7 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
     <button class="nav-btn" data-view="learn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>Learn</button>
     <button class="nav-btn" data-view="library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Library</button>
     <button class="nav-btn" data-view="quiz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Quiz</button>
+    <button class="nav-btn" data-view="contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg>Contact</button>
     <button class="nav-btn" data-view="admin" id="navAdmin" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.5a3.5 3.5 0 010 7M18.5 14.5c1.7.7 3 2.4 3 5.5"/></svg>Admin</button>
     <div class="side-foot"><button class="icon-btn" id="themeBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 13A9 9 0 1111 3a7 7 0 0010 10z"/></svg>Theme</button><button class="icon-btn" id="logoutBtn" style="display:none;margin-top:8px">Sign out</button></div>
   </aside>
@@ -311,6 +312,22 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
         </div>
       </section>
 
+      <!-- CONTACT -->
+      <section class="view" id="v-contact">
+        <div class="head"><div><h1 class="title">Contact the owner</h1><p class="sub">Need access, renewal or help? Message me.</p></div></div>
+        <div class="card">
+          <h2>WhatsApp</h2>
+          <p style="font-size:1.4rem;font-weight:800;margin-bottom:12px">0346 6006016</p>
+          <a class="btn good" href="https://wa.me/923466006016?text=Hello%2C%20I%20am%20using%20RCM%20Mastery." target="_blank" rel="noopener" style="text-decoration:none">Open WhatsApp</a>
+        </div>
+        <div class="card">
+          <h2>Email</h2>
+          <p style="font-size:1.1rem;font-weight:600;margin-bottom:12px;word-break:break-all">khankhansmi261@gmail.com</p>
+          <a class="btn" href="mailto:khankhansmi261@gmail.com?subject=RCM%20Mastery" style="text-decoration:none">Send email</a>
+        </div>
+        <p class="note">Send your username when you ask for access or renewal so it can be found quickly.</p>
+      </section>
+
       <!-- ADMIN (owner only) -->
       <section class="view" id="v-admin">
         <div class="head"><div><h1 class="title">Admin</h1><p class="sub">Users, access and usage</p></div><button class="btn sm" id="admRefresh">Refresh</button></div>
@@ -342,6 +359,7 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
       <p class="sub" id="gsContact" style="display:none;font-weight:600;color:var(--text)"></p>
       <div class="row-btns"><a class="btn good" id="gsWa" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none">Message owner on WhatsApp</a><button class="btn primary" id="gsCheck" type="button">Check again</button><button class="btn" id="gsOut" type="button">Sign out</button></div>
     </div>
+    <div class="mini" style="margin-top:20px;text-align:center;line-height:1.7">Need access or help?<br>WhatsApp <a href="https://wa.me/923466006016?text=Hello%2C%20I%20am%20using%20RCM%20Mastery." target="_blank" rel="noopener" style="color:var(--accent)">0346 6006016</a><br><a href="mailto:khankhansmi261@gmail.com?subject=RCM%20Mastery" style="color:var(--accent)">khankhansmi261@gmail.com</a></div>
   </div>
 </div>
 <div class="toast" id="toast"></div>
@@ -1014,7 +1032,7 @@ function start(){
     $g('gsWa').style.display = contact ? 'inline-flex' : 'none';
     if(contact){
       const name = (auth.currentUser && auth.currentUser.email || '').split('@')[0];
-      $g('gsContact').textContent = 'Please contact the owner for access. WhatsApp: ' + OWNER_WHATSAPP_SHOW;
+      $g('gsContact').textContent = 'Please contact the owner for access. WhatsApp: ' + OWNER_WHATSAPP_SHOW + '. Email: khankhansmi261@gmail.com';
       $g('gsWa').href = 'https://wa.me/' + OWNER_WHATSAPP + '?text=' + encodeURIComponent('Hello, I requested access to RCM Mastery. My username is ' + name + '. Please approve my access.');
     }
   }
