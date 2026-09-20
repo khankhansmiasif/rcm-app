@@ -182,6 +182,22 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
 .toast{z-index:60}
 .netbanner{position:fixed;top:0;left:0;right:0;z-index:40;background:var(--warn);color:#111;text-align:center;font-size:.8rem;font-weight:600;padding:calc(4px + env(safe-area-inset-top,0px)) 8px 4px}
 .pricebox{background:var(--primary-soft);border:1px solid var(--primary);border-radius:12px;padding:10px 12px;font-size:.92rem;margin-bottom:16px;text-align:center;font-weight:600}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+.grid3 .stat{padding:12px 14px}.grid3 .v{font-size:1.5rem}.grid3 .k{font-size:.7rem}
+.bigopts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bigopt{display:flex;flex-direction:column;gap:4px;text-align:left;padding:18px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);transition:.15s}
+.bigopt b{font-size:1.1rem}
+.bigopt span{color:var(--muted);font-size:.88rem}
+.bigopt:hover{border-color:var(--primary);transform:translateY(-2px)}
+.steps{margin:6px 0 14px 20px;line-height:1.8}
+.showpw{display:flex;align-items:center;gap:8px;font-size:.9rem;color:var(--muted);margin:0 0 12px}
+.showpw input{width:18px;height:18px}
+.morebox{margin-bottom:18px}
+.morebox>summary{cursor:pointer;font-weight:600;color:var(--primary);padding:10px 4px}
+.faq details{border-top:1px solid var(--border);padding:12px 0}
+.faq summary{color:var(--text)}
+.faq p{color:var(--muted);margin-top:8px;font-size:.93rem}
+@media (max-width:800px){.bigopts{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -189,10 +205,10 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
   <aside class="side">
     <div class="brand">RCM Mastery<small>Medical &amp; dental billing</small></div>
     <button class="nav-btn active" data-view="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Home</button>
-    <button class="nav-btn" data-view="learn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>Learn</button>
-    <button class="nav-btn" data-view="library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Library</button>
-    <button class="nav-btn" data-view="quiz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Quiz</button>
-    <button class="nav-btn" data-view="contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg>Contact</button>
+    <button class="nav-btn" data-view="learn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>Study</button>
+    <button class="nav-btn" data-view="quiz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Practice</button>
+    <button class="nav-btn" data-view="library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Look up</button>
+    <button class="nav-btn" data-view="contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg>Help</button>
     <button class="nav-btn" data-view="admin" id="navAdmin" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.5a3.5 3.5 0 010 7M18.5 14.5c1.7.7 3 2.4 3 5.5"/></svg>Admin</button>
     <div class="side-foot"><button class="icon-btn" id="themeBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 13A9 9 0 1111 3a7 7 0 0010 10z"/></svg>Theme</button><button class="icon-btn" id="logoutBtn" style="display:none;margin-top:8px">Sign out</button></div>
   </aside>
@@ -203,30 +219,34 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
       <!-- HOME -->
       <section class="view active" id="v-home">
         <div class="head">
-          <div><h1 class="title">Your progress</h1><p class="sub" id="homeSub"></p></div>
+          <div><h1 class="title" id="homeTitle">Welcome</h1><p class="sub" id="homeSub"></p></div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end"><button class="icon-btn" id="installBtn" style="display:none">Install app</button><button class="icon-btn" id="logoutBtn2" style="display:none">Sign out</button></div>
         </div>
-        <div class="grid4" id="statGrid"></div>
+        <div id="welcome"></div>
         <div class="card">
           <div class="split">
             <svg class="ring" viewBox="0 0 100 100" id="ring"></svg>
             <div>
-              <h2>Ready for a session?</h2>
-              <p class="sub" style="margin-bottom:14px">Learn mode picks your weakest cards first. Quizzes feed the same mastery tracker.</p>
+              <h2>Ready to learn?</h2>
+              <p class="sub" style="margin-bottom:14px">Just 10 minutes a day makes a big difference.</p>
               <div class="row-btns">
-                <button class="btn primary" id="goLearn">Start learning</button>
-                <button class="btn" id="goQuiz">Take a quiz</button>
+                <button class="btn primary" id="goLearn">Start studying</button>
+                <button class="btn" id="goQuiz">Take a quick quiz</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="card"><h2>Code of the day</h2><div id="cotd"></div></div>
-        <div class="card"><h2>Mastery by category</h2><div id="catBars"></div></div>
-        <div class="card"><h2>Codes to review</h2><div id="weak"></div></div>
-        <div class="card"><h2>Recent quiz scores</h2><div id="hist"></div></div>
+        <div class="grid3" id="statGrid"></div>
+        <details class="morebox">
+          <summary>See more details (today's card, topics, scores)</summary>
+          <div class="card" style="margin-top:8px"><h2>Today's card</h2><div id="cotd"></div></div>
+          <div class="card"><h2>Progress by topic</h2><div id="catBars"></div></div>
+          <div class="card"><h2>Needs review</h2><div id="weak"></div></div>
+          <div class="card"><h2>Recent quiz scores</h2><div id="hist"></div></div>
+        </details>
         <details class="card">
-          <summary>Backup &amp; reset</summary>
-          <p class="sub" style="margin:8px 0 12px">Progress is saved in this browser only. Export it to move to another device.</p>
+          <summary>Backup &amp; reset (optional)</summary>
+          <p class="sub" style="margin:8px 0 12px">Your progress is saved to your account automatically. You only need this to keep a copy yourself.</p>
           <textarea class="inp" id="bk" placeholder="Export text appears here. Paste here to import."></textarea>
           <div class="row-btns">
             <button class="btn sm" id="exBtn">Export</button>
@@ -238,26 +258,35 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
 
       <!-- LEARN -->
       <section class="view" id="v-learn">
-        <div class="head"><div><h1 class="title">Learn</h1><p class="sub">Flip the card, then rate yourself honestly.</p></div><span class="counter" id="lCount"></span></div>
+        <div class="head"><div><h1 class="title">Study</h1><p class="sub">One card at a time. Tap the card to see the answer.</p></div><span class="counter" id="lCount"></span></div>
         <div id="lSetup" class="card">
-          <h2>Pick a focus</h2>
-          <select class="inp" id="lCat" style="margin-bottom:14px"></select>
-          <p class="sub" style="margin:0 0 14px">10 cards per session, weakest and unseen first.</p>
-          <button class="btn primary" id="lStart">Start session</button>
+          <h2>What do you want to study?</h2>
+          <p class="sub">Tap a choice. You get 10 cards at a time.</p>
+          <div class="bigopts">
+            <button class="bigopt" data-l="All"><b>Everything</b><span>A mix of all cards</span></button>
+            <button class="bigopt" data-l="Codes"><b>Denial codes</b><span>CO-45, PR-1 and more</span></button>
+            <button class="bigopt" data-l="Concepts"><b>Billing basics</b><span>Claims, coding, payers, credentialing</span></button>
+            <button class="bigopt" data-l="Weak"><b>My weak cards</b><span>The ones you missed</span></button>
+          </div>
+          <details style="margin-top:16px">
+            <summary>Pick a specific topic</summary>
+            <select class="inp" id="lCat" style="margin:12px 0"></select>
+            <button class="btn primary" id="lStart">Start</button>
+          </details>
         </div>
         <div id="lSession" style="display:none">
           <div class="bar" style="margin-bottom:20px"><i id="lBar"></i></div>
           <div class="fc" id="fc">
             <div class="fc-in">
-              <div class="fc-face fc-front"><div class="mid"><div id="fcTag" style="margin-bottom:12px"></div><div class="big" id="fcCode"></div><div class="hint">Tap to reveal</div></div></div>
+              <div class="fc-face fc-front"><div class="mid"><div id="fcTag" style="margin-bottom:12px"></div><div class="big" id="fcCode"></div><div class="hint">Tap to see the answer</div></div></div>
               <div class="fc-face fc-back"><div class="mid"><p class="desc" id="fcDesc"></p><div class="tipbox" id="fcTip"></div></div></div>
             </div>
           </div>
           <div class="row-btns center">
-            <button class="btn bad off" id="lAgain">Again</button>
-            <button class="btn good off" id="lGot">Got it</button>
+            <button class="btn bad off" id="lAgain">Not yet</button>
+            <button class="btn good off" id="lGot">I knew it</button>
           </div>
-          <p class="note" style="text-align:center">Shortcuts: Space flip · 1 Again · 2 Got it</p>
+          <p class="note" style="text-align:center">Tap the card to see the answer, then choose one.</p>
         </div>
         <div id="lDone" class="card" style="display:none;text-align:center">
           <h2>Session complete</h2>
@@ -269,27 +298,38 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
 
       <!-- LIBRARY -->
       <section class="view" id="v-library">
-        <div class="head"><div><h1 class="title">Code library</h1><p class="sub" id="libCount"></p></div></div>
+        <div class="head"><div><h1 class="title">Look up</h1><p class="sub" id="libCount"></p></div></div>
         <div class="filters">
-          <input class="inp" id="libQ" type="search" placeholder="Search a code, term or keyword (e.g. 45, CAQH, deductible)">
+          <input class="inp" id="libQ" type="search" placeholder="Search a code or word, like 45 or deductible">
           <select class="inp" id="libCat"></select>
         </div>
         <div class="chips" id="libGrp"></div>
         <div id="libList"></div>
-        <p class="note">Group codes (CO/PR/OA) can differ by payer. Always read the remark code (RARC) and the payer's EOB before acting.</p>
+        <p class="note">Tip: CO means the provider writes it off. PR means the patient pays. Always read the payer's remark code (RARC) before acting.</p>
       </section>
 
       <!-- QUIZ -->
       <section class="view" id="v-quiz">
-        <div class="head"><div><h1 class="title">Quiz</h1><p class="sub">Test yourself. Every answer updates your mastery.</p></div><span class="counter" id="qCount"></span></div>
+        <div class="head"><div><h1 class="title">Practice</h1><p class="sub">Test yourself. You see the right answer after each question.</p></div><span class="counter" id="qCount"></span></div>
         <div id="qSetup" class="card">
-          <span class="lab" style="margin-top:0">Mode</span>
-          <div class="chips" id="qMode"></div>
-          <span class="lab">Questions</span>
-          <div class="chips" id="qLen"></div>
-          <span class="lab">Category</span>
-          <select class="inp" id="qCat" style="margin-bottom:18px"></select>
-          <button class="btn primary" id="qStart">Start quiz</button>
+          <h2>Choose a quiz</h2>
+          <p class="sub">10 questions each. Take your time.</p>
+          <div class="bigopts">
+            <button class="bigopt" data-qp="mix"><b>Quick quiz</b><span>Codes and billing words</span></button>
+            <button class="bigopt" data-qp="scen"><b>Real-life questions</b><span>What would you do?</span></button>
+            <button class="bigopt" data-qp="codes"><b>Denial codes</b><span>Match each code to its meaning</span></button>
+            <button class="bigopt" data-qp="weak"><b>My weak items</b><span>Practice what you missed</span></button>
+          </div>
+          <details style="margin-top:16px">
+            <summary>More options</summary>
+            <span class="lab" style="margin-top:12px">Type of question</span>
+            <div class="chips" id="qMode"></div>
+            <span class="lab">How many questions</span>
+            <div class="chips" id="qLen"></div>
+            <span class="lab">Topic</span>
+            <select class="inp" id="qCat" style="margin-bottom:14px"></select>
+            <button class="btn primary" id="qStart">Start quiz</button>
+          </details>
         </div>
         <div id="qRun" style="display:none">
           <div class="bar" style="margin-bottom:18px"><i id="qBar"></i></div>
@@ -315,7 +355,29 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
 
       <!-- CONTACT -->
       <section class="view" id="v-contact">
-        <div class="head"><div><h1 class="title">Contact the owner</h1><p class="sub">Need access, renewal or help? Message me.</p></div></div>
+        <div class="head"><div><h1 class="title">Help</h1><p class="sub">How the app works, and how to reach us.</p></div></div>
+        <div class="card">
+          <h2>How to use this app</h2>
+          <ol class="steps">
+            <li><b>Study</b>: flip a card, then tap "I knew it" or "Not yet".</li>
+            <li><b>Practice</b>: take a short quiz. You see the right answer after each question.</li>
+            <li><b>Look up</b>: search any denial code or billing word while you work.</li>
+          </ol>
+          <p class="sub" style="margin:0">Your progress saves automatically on your account.</p>
+        </div>
+        <div class="card">
+          <h2>What is inside</h2>
+          <p class="sub" style="margin:0">69 denial codes with what to do, 122 billing words (coding, claims, payers, A/R, credentialing, dental) and 43 real-life questions.</p>
+        </div>
+        <div class="card faq">
+          <h2>Common questions</h2>
+          <details><summary>Does it work without internet?</summary><p>Yes. Sign in once with internet, then it works offline. Your progress syncs when you are back online.</p></details>
+          <details><summary>How do I put it on my phone?</summary><p>Android (Chrome): tap the 3 dots menu, then "Install app". iPhone (Safari): tap Share, then "Add to Home Screen".</p></details>
+          <details><summary>I forgot my password</summary><p>Message us on WhatsApp with your username and we will help you get back in.</p></details>
+          <details><summary>How long is it free?</summary><p>Free for 24 hours. After that it is Rs 200 for lifetime access. Message us on WhatsApp to upgrade.</p></details>
+          <details><summary>What do CO and PR mean?</summary><p>CO means the provider writes it off. PR means the patient is responsible.</p></details>
+          <details><summary>Something is not working</summary><p>Close the app and open it again with internet on. If it still does not work, message us on WhatsApp.</p></details>
+        </div>
         <div class="card">
           <h2>Access plans</h2>
           <p style="margin-bottom:6px"><b>Free</b> for the first 24 hours.</p>
@@ -354,12 +416,14 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
     <p class="sub" style="margin-bottom:12px">Medical &amp; dental billing trainer</p>
     <div class="pricebox">Free for 24 hours. Then Rs 200 for lifetime access.</div>
     <div id="gForm">
-      <div class="chips"><button class="chip on" id="tabIn" type="button">Sign in</button><button class="chip" id="tabUp" type="button">Request access</button></div>
-      <input class="inp" id="gUser" placeholder="Username" autocomplete="username" autocapitalize="none" spellcheck="false" style="margin-bottom:10px">
+      <div class="chips"><button class="chip on" id="tabIn" type="button">Sign in</button><button class="chip" id="tabUp" type="button">New here? Get access</button></div>
+      <input class="inp" id="gUser" placeholder="Username" autocomplete="username" autocapitalize="none" spellcheck="false" style="margin-bottom:6px">
+      <div class="mini" id="gUserHelp" style="margin:0 0 10px">Use the username and password you created.</div>
       <input class="inp" id="gPass" type="password" placeholder="Password" autocomplete="current-password" style="margin-bottom:10px">
-      <input class="inp" id="gPass2" type="password" placeholder="Confirm password" autocomplete="new-password" style="margin-bottom:10px;display:none">
+      <input class="inp" id="gPass2" type="password" placeholder="Type the password again" autocomplete="new-password" style="margin-bottom:10px;display:none">
+      <label class="showpw"><input type="checkbox" id="gShow"> Show password</label>
       <div class="gerr" id="gErr"></div>
-      <div class="mini" id="gReq" style="display:none;margin:-4px 0 12px">After you request access, message the owner on WhatsApp (0346 6006016 or 0335 9955634) to get approved.</div>
+      <div class="mini" id="gReq" style="display:none;margin:-4px 0 12px;line-height:1.7"><b>How it works:</b><br>1. Create your account here.<br>2. Send us a WhatsApp message (0346 6006016 or 0335 9955634).<br>3. We approve you, then you start learning.</div>
       <div class="mini" id="gHint" style="display:none;margin:-4px 0 12px">You are offline. You can sign in with a username you have already used on this device.</div>
       <button class="btn primary" id="gGo" type="button" style="width:100%">Sign in</button>
     </div>
@@ -367,7 +431,7 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
       <h2 id="gsTitle" style="margin-bottom:8px"></h2>
       <p class="sub" id="gsText"></p>
       <p class="sub" id="gsContact" style="display:none;font-weight:600;color:var(--text)"></p>
-      <div class="row-btns"><a class="btn good" id="gsWa" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none">WhatsApp 0346 6006016</a><a class="btn good" id="gsWa2" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none">WhatsApp 0335 9955634</a><button class="btn primary" id="gsCheck" type="button">Check again</button><button class="btn" id="gsOut" type="button">Sign out</button></div>
+      <div class="row-btns"><a class="btn good" id="gsWa" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none">WhatsApp 0346 6006016</a><a class="btn good" id="gsWa2" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none">WhatsApp 0335 9955634</a><button class="btn primary" id="gsCheck" type="button">Open app</button><button class="btn" id="gsOut" type="button">Use another account</button></div>
     </div>
     <div class="mini" style="margin-top:20px;text-align:center;line-height:1.7">Need access or help?<br>WhatsApp <a href="https://wa.me/923466006016?text=Hello%2C%20I%20am%20using%20RCM%20Mastery." target="_blank" rel="noopener" style="color:var(--accent)">0346 6006016</a> or <a href="https://wa.me/923359955634?text=Hello%2C%20I%20am%20using%20RCM%20Mastery." target="_blank" rel="noopener" style="color:var(--accent)">0335 9955634</a><br><a href="mailto:khankhansmi261@gmail.com?subject=RCM%20Mastery" style="color:var(--accent)">khankhansmi261@gmail.com</a></div>
   </div>
@@ -674,7 +738,8 @@ function record(id,ok){
   S.days[t]=(S.days[t]||0)+1;
   save();
 }
-function tipHtml(c){return (c.kind==='term'?'<b>In practice:</b> ':'<b>What to do:</b> ')+esc(c.tip);}
+var GRPNOTE={CO:'CO means the provider writes this off. The patient is not billed.',PR:'PR means the patient is responsible for this amount.'};
+function tipHtml(c){return (c.kind==='term'?'<b>In practice:</b> ':'<b>What to do:</b> ')+esc(c.tip)+((c.kind==='code'&&GRPNOTE[c.grp])?'<div class="mini" style="margin-top:8px">'+GRPNOTE[c.grp]+'</div>':'');}
 
 /* ---------- THEME ---------- */
 function effectiveTheme(){
@@ -709,16 +774,18 @@ function renderHome(){
   var acc=(c+w)?Math.round(c/(c+w)*100)+'%':'-';
   var streak=(S.streak.last===today()||S.streak.last===yesterday())?S.streak.n:0;
   var todayCount=S.days[today()]||0;
-  $('homeSub').textContent=todayCount?('You answered '+todayCount+' card'+(todayCount>1?'s':'')+' today. Keep going.'):'No cards yet today. Ten minutes is enough.';
+  $('homeTitle').textContent=window.__user?('Hi, '+window.__user):'Welcome';
+  $('homeSub').textContent=todayCount?('You studied '+todayCount+' card'+(todayCount>1?'s':'')+' today. Great work!'):'Start with one short session today.';
+  $('welcome').innerHTML=S.welcomed?'':'<div class="card" style="border-color:var(--primary)"><h2>Welcome! Here is how it works</h2><ol class="steps"><li><b>Study</b>: flip a card and learn one code or word at a time.</li><li><b>Practice</b>: take a short quiz to test yourself.</li><li><b>Look up</b>: search any code when you are working.</li></ol><p class="sub" style="margin-bottom:12px">Your progress saves automatically.</p><button class="btn primary" id="welcomeOk">Got it, let us start</button></div>';
+  if(!S.welcomed) $('welcomeOk').onclick=function(){S.welcomed=true;save();renderHome();};
   $('statGrid').innerHTML=
-    '<div class="stat"><div class="k">Mastered</div><div class="v">'+mastered+'<span style="font-size:1rem;color:var(--muted)"> / '+N+'</span></div></div>'+
-    '<div class="stat"><div class="k">Accuracy</div><div class="v">'+acc+'</div></div>'+
-    '<div class="stat"><div class="k">Day streak</div><div class="v">'+streak+'</div></div>'+
-    '<div class="stat"><div class="k">Quizzes</div><div class="v">'+S.exams.length+'</div></div>';
+    '<div class="stat"><div class="k">Learned</div><div class="v">'+mastered+'<span style="font-size:.9rem;color:var(--muted)"> / '+N+'</span></div></div>'+
+    '<div class="stat"><div class="k">Correct answers</div><div class="v">'+acc+'</div></div>'+
+    '<div class="stat"><div class="k">Days in a row</div><div class="v">'+streak+'</div></div>';
   var p=mastered/N, C=2*Math.PI*42;
   $('ring').innerHTML='<circle cx="50" cy="50" r="42" fill="none" stroke="var(--surface2)" stroke-width="9"/>'+
     '<circle cx="50" cy="50" r="42" fill="none" stroke="var(--primary)" stroke-width="9" stroke-linecap="round" stroke-dasharray="'+(C*p).toFixed(1)+' '+C.toFixed(1)+'" transform="rotate(-90 50 50)"/>'+
-    '<text x="50" y="52" text-anchor="middle" class="pct">'+Math.round(p*100)+'%</text><text x="50" y="66" text-anchor="middle" class="lbl">mastered</text>';
+    '<text x="50" y="52" text-anchor="middle" class="pct">'+Math.round(p*100)+'%</text><text x="50" y="66" text-anchor="middle" class="lbl">learned</text>';
 
   var idx=Math.floor(Date.now()/86400000)%N, cd=CODES[idx];
   $('cotd').innerHTML='<div style="display:flex;gap:10px;align-items:center;margin-bottom:8px"><b style="font-size:1.4rem;color:var(--accent)">'+esc(cd.label)+'</b>'+tag(cd.cat)+'</div><p>'+esc(cd.desc)+'</p><div class="tipbox">'+tipHtml(cd)+'</div>';
@@ -746,8 +813,8 @@ function renderHome(){
     $('hist').innerHTML=svg+'</svg>';
   }
 }
-$('goLearn').onclick=function(){showView('learn');};
-$('goQuiz').onclick=function(){showView('quiz');};
+$('goLearn').onclick=function(){showView('learn');L.cat='All';startLearn();};
+$('goQuiz').onclick=function(){showView('quiz');startPreset('mix');};
 
 /* backup */
 $('exBtn').onclick=function(){
@@ -786,14 +853,16 @@ function pool(cat){
   if(cat==='Weak') return CODES.filter(function(x){var s=st(x.id);return s.w>0&&s.b<4;});
   return CODES.filter(function(x){return x.cat===cat;});
 }
-$('lStart').onclick=function(){
+function startLearn(){
   var p=pool(L.cat);
-  if(!p.length){toast('No cards match yet. Study a few first.');return;}
+  if(!p.length){toast(L.cat==='Weak'?'No weak cards yet. Great! Try Everything.':'No cards match yet.');return;}
   p=shuffle(p).sort(function(a,b){var sa=st(a.id),sb=st(b.id);return sa.b-sb.b||sa.t-sb.t;}).slice(0,10);
   L.queue=shuffle(p); L.i=0; L.got=0; L.again=0; L.active=true;
   $('lSetup').style.display='none'; $('lDone').style.display='none'; $('lSession').style.display='block';
   loadCard(true);
-};
+}
+$('lStart').onclick=startLearn;
+document.querySelectorAll('#lSetup [data-l]').forEach(function(b){b.onclick=function(){L.cat=b.getAttribute('data-l');startLearn();};});
 function loadCard(instant){
   var c=L.queue[L.i]; if(!c) return finishLearn();
   L.flipped=false; $('fc').classList.remove('flipped'); setBtns(false);
@@ -835,14 +904,14 @@ document.addEventListener('keydown',function(e){
 var libGrp='All';
 function libInit(){
   $('libCat').innerHTML='<option value="All">All categories</option>'+CATNAMES.map(function(c){return '<option>'+c+'</option>';}).join('');
-  $('libGrp').innerHTML=['All','CO','PR','Concepts'].map(function(g){return '<button class="chip'+(libGrp===g?' on':'')+'" data-g="'+g+'">'+(g==='All'?'Everything':(g==='Concepts'?'Concepts':g+' codes'))+'</button>';}).join('');
+  $('libGrp').innerHTML=['All','Codes','Concepts'].map(function(g){return '<button class="chip'+(libGrp===g?' on':'')+'" data-g="'+g+'">'+(g==='All'?'Everything':(g==='Codes'?'Denial codes':'Billing basics'))+'</button>';}).join('');
   document.querySelectorAll('#libGrp .chip').forEach(function(b){b.onclick=function(){libGrp=b.getAttribute('data-g');libInit();renderLib();};});
 }
 function renderLib(){
   var q=$('libQ').value.trim().toLowerCase(), cat=$('libCat').value||'All';
   var list=CODES.filter(function(c){
     if(cat!=='All'&&c.cat!==cat) return false;
-    if(libGrp==='Concepts'){if(c.kind!=='term') return false;} else if(libGrp!=='All'&&c.grp!==libGrp) return false;
+    if(libGrp==='Concepts'&&c.kind!=='term') return false; if(libGrp==='Codes'&&c.kind!=='code') return false;
     if(!q) return true;
     return (c.label+' '+c.id+' '+c.desc+' '+c.tip+' '+c.cat).toLowerCase().indexOf(q)>-1;
   });
@@ -905,6 +974,14 @@ $('qStart').onclick=function(){
   }
   startQuiz(p,Q.mode,Q.len);
 };
+function startPreset(kind){
+  var p;
+  if(kind==='scen'){ startQuiz(SCEN.slice(),'scen',10); return; }
+  if(kind==='codes') p=DENIALS.slice(); else if(kind==='weak') p=pool('Weak'); else p=CODES.slice();
+  if(!p.length){toast('No weak items yet. Try a quick quiz first.');return;}
+  startQuiz(p,'mix',10);
+}
+document.querySelectorAll('#qSetup [data-qp]').forEach(function(b){b.onclick=function(){startPreset(b.getAttribute('data-qp'));};});
 function scenPool(cat){
   if(cat==='All'||cat==='Concepts') return SCEN.slice();
   if(cat==='Codes') return [];
@@ -976,6 +1053,7 @@ showView('home');
 <script>
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
 window.__bip=null;
+document.getElementById('gShow').onchange=function(){var t=this.checked?'text':'password';document.getElementById('gPass').type=t;document.getElementById('gPass2').type=t;};
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();window.__bip=e;var b=document.getElementById('installBtn');if(b)b.style.display='inline-flex';});
 window.addEventListener('appinstalled',function(){var b=document.getElementById('installBtn');if(b)b.style.display='none';});
 document.getElementById('installBtn').onclick=function(){var e=window.__bip;if(!e)return;e.prompt();e.userChoice.then(function(){window.__bip=null;document.getElementById('installBtn').style.display='none';});};
@@ -1032,7 +1110,8 @@ function start(){
     $g('tabUp').classList.toggle('on', m==='up');
     $g('gPass2').style.display = m==='up' ? 'block' : 'none';
     $g('gPass').setAttribute('autocomplete', m==='up' ? 'new-password' : 'current-password');
-    $g('gGo').textContent = m==='up' ? 'Request access' : 'Sign in';
+    $g('gGo').textContent = m==='up' ? 'Create my account' : 'Sign in';
+    $g('gUserHelp').textContent = m==='up' ? 'Choose a username: letters and numbers only, no spaces. Example: asif123' : 'Use the username and password you created.';
     $g('gErr').textContent = '';
     $g('gReq').style.display = m==='up' ? 'block' : 'none';
   }
@@ -1054,8 +1133,8 @@ function start(){
   function fail(msg){ $g('gErr').textContent = msg; }
   function friendly(e){
     const c = (e && e.code) || '';
-    if(c.indexOf('email-already-in-use')>-1) return 'That username is taken.';
-    if(c.indexOf('invalid-credential')>-1 || c.indexOf('wrong-password')>-1 || c.indexOf('user-not-found')>-1) return 'Wrong username or password.';
+    if(c.indexOf('email-already-in-use')>-1) return 'That username is already taken. Try another one, for example add some numbers.';
+    if(c.indexOf('invalid-credential')>-1 || c.indexOf('wrong-password')>-1 || c.indexOf('user-not-found')>-1) return 'Wrong username or password. Please check and try again.';
     if(c.indexOf('weak-password')>-1) return 'Password is too weak.';
     if(c.indexOf('too-many')>-1) return 'Too many attempts. Try again later.';
     if(c.indexOf('network')>-1) return 'Network problem. You need internet to sign in the first time.';
@@ -1063,7 +1142,7 @@ function start(){
   }
   async function go(){
     const u = $g('gUser').value.trim().toLowerCase(), p = $g('gPass').value;
-    if(!/^[a-z0-9._]{3,20}$/.test(u)) return fail('Username: 3-20 letters, numbers, dot or underscore.');
+    if(!/^[a-z0-9._]{3,20}$/.test(u)) return fail('Username must be 3 to 20 characters: letters and numbers only, no spaces.');
     if(p.length < 6) return fail('Password must be at least 6 characters.');
     if(mode==='up' && p !== $g('gPass2').value) return fail('Passwords do not match.');
     $g('gGo').disabled = true; fail('');
@@ -1151,7 +1230,7 @@ function start(){
     enter({uid:c.uid, email:u+DOMAIN}, {username:acc.u, role:acc.role}, doc(db,'users',c.uid), true);
   }
   function signedOutUI(){
-    ME = null; offlinePass = null; stopTracking();
+    ME = null; offlinePass = null; window.__user = null; stopTracking();
     window.KEY = 'rcm-mastery-v2-guest'; window.S = window.fresh();
     $g('navAdmin').style.display = 'none'; $g('logoutBtn').style.display = 'none'; $g('logoutBtn2').style.display = 'none';
     $g('gPass').value = ''; $g('gPass2').value = '';
@@ -1183,7 +1262,7 @@ function start(){
     if(u.status==='approved' && !(exp && exp < Date.now())) return enter(user, u, ref, false);
     if(u.status==='blocked') return showStatus('Access turned off', 'Your access has been turned off.', true);
     if(u.status==='approved') return showStatus('Access expired', 'Your free access has ended. Get lifetime access for Rs 200 by contacting the owner on WhatsApp.', true);
-    showStatus('Waiting for approval', 'Your request was sent. Once the owner approves it, tap Check again.', true);
+    showStatus('Almost there!', 'Your account is created. Next: send us a WhatsApp message using a button below. When we approve you, tap Open app.', true);
   }
 
   async function verifyAccess(){
@@ -1200,6 +1279,7 @@ function start(){
 
   async function enter(user, u, ref, offline){
     ME = {uid:user.uid, username:u.username, role:u.role, ref:ref};
+    window.__user = u.username;
     window.KEY = 'rcm-mastery-v2-' + user.uid;
     const local = window.load();
     let cloud = null;
