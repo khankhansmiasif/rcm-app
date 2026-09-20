@@ -332,13 +332,15 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
       <input class="inp" id="gPass" type="password" placeholder="Password" autocomplete="current-password" style="margin-bottom:10px">
       <input class="inp" id="gPass2" type="password" placeholder="Confirm password" autocomplete="new-password" style="margin-bottom:10px;display:none">
       <div class="gerr" id="gErr"></div>
+      <div class="mini" id="gReq" style="display:none;margin:-4px 0 12px">After you request access, message the owner on WhatsApp (0346 6006016) to get approved.</div>
       <div class="mini" id="gHint" style="display:none;margin:-4px 0 12px">You are offline. You can sign in with a username you have already used on this device.</div>
       <button class="btn primary" id="gGo" type="button" style="width:100%">Sign in</button>
     </div>
     <div id="gStatus" style="display:none">
       <h2 id="gsTitle" style="margin-bottom:8px"></h2>
       <p class="sub" id="gsText"></p>
-      <div class="row-btns"><button class="btn primary" id="gsCheck" type="button">Check again</button><button class="btn" id="gsOut" type="button">Sign out</button></div>
+      <p class="sub" id="gsContact" style="display:none;font-weight:600;color:var(--text)"></p>
+      <div class="row-btns"><a class="btn good" id="gsWa" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none">Message owner on WhatsApp</a><button class="btn primary" id="gsCheck" type="button">Check again</button><button class="btn" id="gsOut" type="button">Sign out</button></div>
     </div>
   </div>
 </div>
@@ -968,6 +970,8 @@ const firebaseConfig = {
 /* ====== 2) OPTIONAL: email alert to you on each new request. Get a free key at web3forms.com ====== */
 const NOTIFY_ACCESS_KEY = '';
 /* ================================================================================================ */
+const OWNER_WHATSAPP = '923466006016';          // international format, no + or spaces
+const OWNER_WHATSAPP_SHOW = '0346 6006016';    // how the number is shown on screen
 const DOMAIN = '@rcm-mastery.app';   // usernames become fake emails: username@rcm-mastery.app
 const $g = function(id){return document.getElementById(id);};
 window.__gateReady = true;
@@ -1000,11 +1004,19 @@ function start(){
     $g('gPass').setAttribute('autocomplete', m==='up' ? 'new-password' : 'current-password');
     $g('gGo').textContent = m==='up' ? 'Request access' : 'Sign in';
     $g('gErr').textContent = '';
+    $g('gReq').style.display = m==='up' ? 'block' : 'none';
   }
   function showForm(){ $g('gate').style.display='flex'; $g('gForm').style.display='block'; $g('gStatus').style.display='none'; }
-  function showStatus(title, text){
+  function showStatus(title, text, contact){
     $g('gate').style.display='flex'; $g('gForm').style.display='none'; $g('gStatus').style.display='block';
     $g('gsTitle').textContent = title; $g('gsText').textContent = text;
+    $g('gsContact').style.display = contact ? 'block' : 'none';
+    $g('gsWa').style.display = contact ? 'inline-flex' : 'none';
+    if(contact){
+      const name = (auth.currentUser && auth.currentUser.email || '').split('@')[0];
+      $g('gsContact').textContent = 'Please contact the owner for access. WhatsApp: ' + OWNER_WHATSAPP_SHOW;
+      $g('gsWa').href = 'https://wa.me/' + OWNER_WHATSAPP + '?text=' + encodeURIComponent('Hello, I requested access to RCM Mastery. My username is ' + name + '. Please approve my access.');
+    }
   }
   function fail(msg){ $g('gErr').textContent = msg; }
   function friendly(e){
@@ -1136,9 +1148,9 @@ function start(){
     const exp = (u.expiresAt && u.expiresAt.toMillis) ? u.expiresAt.toMillis() : 0;
     cacheAcc(user.uid, u, exp);
     if(u.status==='approved' && !(exp && exp < Date.now())) return enter(user, u, ref, false);
-    if(u.status==='blocked') return showStatus('Access turned off', 'Your access has been turned off. Contact the owner.');
-    if(u.status==='approved') return showStatus('Access expired', 'Your access period has ended. Ask the owner to renew it.');
-    showStatus('Waiting for approval', 'Your request was sent. The owner will approve it soon. Tap Check again later.');
+    if(u.status==='blocked') return showStatus('Access turned off', 'Your access has been turned off.', true);
+    if(u.status==='approved') return showStatus('Access expired', 'Your access period has ended.', true);
+    showStatus('Waiting for approval', 'Your request was sent. Once the owner approves it, tap Check again.', true);
   }
 
   async function verifyAccess(){
@@ -1258,11 +1270,11 @@ function start(){
       const col = {pending:'#d97706', approved:'#059669', blocked:'#dc2626'};
       $g('admList').innerHTML = rows.map(function(r){
         const acc = r.answered ? Math.round((r.correct||0)/r.answered*100)+'%' : '-';
-        const exp = ms(r.expiresAt) ? new Date(ms(r.expiresAt)).toLocaleDateString() : 'no expiry';
+        const exp = ms(r.expiresAt) ? new Date(ms(r.expiresAt)).toLocaleString([], {dateStyle:'medium', timeStyle:'short'}) : 'no expiry';
         let ctl = '';
         if(r.role!=='owner'){
           ctl = '<div class="row-btns" style="margin-top:10px"><select class="inp" style="width:auto" data-sel="'+esc(r.id)+'">'+
-            '<option value="0">No expiry</option><option value="30">30 days</option><option value="90">90 days</option><option value="365">1 year</option></select>'+
+            '<option value="0">No expiry</option><option value="1">24 hours</option><option value="30">30 days</option><option value="90">90 days</option><option value="365">1 year</option></select>'+
             '<button class="btn sm good" data-act="approve" data-uid="'+esc(r.id)+'">'+(r.status==='approved'?'Update':'Approve')+'</button>'+
             (r.status==='blocked'?'':'<button class="btn sm bad" data-act="block" data-uid="'+esc(r.id)+'">Block</button>')+'</div>';
         }
