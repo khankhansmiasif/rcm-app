@@ -181,6 +181,7 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
 @media (max-width:800px){#navAdmin[data-count]:not([data-count="0"])::after{position:absolute;top:2px;left:calc(50% + 8px);margin:0}}
 .toast{z-index:60}
 .netbanner{position:fixed;top:0;left:0;right:0;z-index:40;background:var(--warn);color:#111;text-align:center;font-size:.8rem;font-weight:600;padding:calc(4px + env(safe-area-inset-top,0px)) 8px 4px}
+.pricebox{background:var(--primary-soft);border:1px solid var(--primary);border-radius:12px;padding:10px 12px;font-size:.92rem;margin-bottom:16px;text-align:center;font-weight:600}
 </style>
 </head>
 <body>
@@ -316,9 +317,17 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
       <section class="view" id="v-contact">
         <div class="head"><div><h1 class="title">Contact the owner</h1><p class="sub">Need access, renewal or help? Message me.</p></div></div>
         <div class="card">
+          <h2>Access plans</h2>
+          <p style="margin-bottom:6px"><b>Free</b> for the first 24 hours.</p>
+          <p style="margin-bottom:12px"><b>Rs 200</b> for lifetime access.</p>
+          <a class="btn primary" href="https://wa.me/923466006016?text=Hello%2C%20I%20want%20lifetime%20access%20to%20RCM%20Mastery." target="_blank" rel="noopener" style="text-decoration:none">Get lifetime access</a>
+        </div>
+        <div class="card">
           <h2>WhatsApp</h2>
           <p style="font-size:1.4rem;font-weight:800;margin-bottom:12px">0346 6006016</p>
           <a class="btn good" href="https://wa.me/923466006016?text=Hello%2C%20I%20am%20using%20RCM%20Mastery." target="_blank" rel="noopener" style="text-decoration:none">Open WhatsApp</a>
+          <p style="font-size:1.4rem;font-weight:800;margin:18px 0 12px">0335 9955634</p>
+          <a class="btn good" href="https://wa.me/923359955634?text=Hello%2C%20I%20am%20using%20RCM%20Mastery." target="_blank" rel="noopener" style="text-decoration:none">Open WhatsApp</a>
         </div>
         <div class="card">
           <h2>Email</h2>
@@ -342,14 +351,15 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
 <div class="gate" id="gate">
   <div class="gate-card">
     <div class="gbrand">RCM Mastery</div>
-    <p class="sub" style="margin-bottom:18px">Medical &amp; dental billing trainer</p>
+    <p class="sub" style="margin-bottom:12px">Medical &amp; dental billing trainer</p>
+    <div class="pricebox">Free for 24 hours. Then Rs 200 for lifetime access.</div>
     <div id="gForm">
       <div class="chips"><button class="chip on" id="tabIn" type="button">Sign in</button><button class="chip" id="tabUp" type="button">Request access</button></div>
       <input class="inp" id="gUser" placeholder="Username" autocomplete="username" autocapitalize="none" spellcheck="false" style="margin-bottom:10px">
       <input class="inp" id="gPass" type="password" placeholder="Password" autocomplete="current-password" style="margin-bottom:10px">
       <input class="inp" id="gPass2" type="password" placeholder="Confirm password" autocomplete="new-password" style="margin-bottom:10px;display:none">
       <div class="gerr" id="gErr"></div>
-      <div class="mini" id="gReq" style="display:none;margin:-4px 0 12px">After you request access, message the owner on WhatsApp (0346 6006016) to get approved.</div>
+      <div class="mini" id="gReq" style="display:none;margin:-4px 0 12px">After you request access, message the owner on WhatsApp (0346 6006016 or 0335 9955634) to get approved.</div>
       <div class="mini" id="gHint" style="display:none;margin:-4px 0 12px">You are offline. You can sign in with a username you have already used on this device.</div>
       <button class="btn primary" id="gGo" type="button" style="width:100%">Sign in</button>
     </div>
@@ -357,9 +367,9 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
       <h2 id="gsTitle" style="margin-bottom:8px"></h2>
       <p class="sub" id="gsText"></p>
       <p class="sub" id="gsContact" style="display:none;font-weight:600;color:var(--text)"></p>
-      <div class="row-btns"><a class="btn good" id="gsWa" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none">Message owner on WhatsApp</a><button class="btn primary" id="gsCheck" type="button">Check again</button><button class="btn" id="gsOut" type="button">Sign out</button></div>
+      <div class="row-btns"><a class="btn good" id="gsWa" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none">WhatsApp 0346 6006016</a><a class="btn good" id="gsWa2" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none">WhatsApp 0335 9955634</a><button class="btn primary" id="gsCheck" type="button">Check again</button><button class="btn" id="gsOut" type="button">Sign out</button></div>
     </div>
-    <div class="mini" style="margin-top:20px;text-align:center;line-height:1.7">Need access or help?<br>WhatsApp <a href="https://wa.me/923466006016?text=Hello%2C%20I%20am%20using%20RCM%20Mastery." target="_blank" rel="noopener" style="color:var(--accent)">0346 6006016</a><br><a href="mailto:khankhansmi261@gmail.com?subject=RCM%20Mastery" style="color:var(--accent)">khankhansmi261@gmail.com</a></div>
+    <div class="mini" style="margin-top:20px;text-align:center;line-height:1.7">Need access or help?<br>WhatsApp <a href="https://wa.me/923466006016?text=Hello%2C%20I%20am%20using%20RCM%20Mastery." target="_blank" rel="noopener" style="color:var(--accent)">0346 6006016</a> or <a href="https://wa.me/923359955634?text=Hello%2C%20I%20am%20using%20RCM%20Mastery." target="_blank" rel="noopener" style="color:var(--accent)">0335 9955634</a><br><a href="mailto:khankhansmi261@gmail.com?subject=RCM%20Mastery" style="color:var(--accent)">khankhansmi261@gmail.com</a></div>
   </div>
 </div>
 <div class="toast" id="toast"></div>
@@ -990,6 +1000,8 @@ const NOTIFY_ACCESS_KEY = '';
 /* ================================================================================================ */
 const OWNER_WHATSAPP = '923466006016';          // international format, no + or spaces
 const OWNER_WHATSAPP_SHOW = '0346 6006016';    // how the number is shown on screen
+const OWNER_WHATSAPP2 = '923359955634';
+const OWNER_WHATSAPP2_SHOW = '0335 9955634';
 const DOMAIN = '@rcm-mastery.app';   // usernames become fake emails: username@rcm-mastery.app
 const $g = function(id){return document.getElementById(id);};
 window.__gateReady = true;
@@ -1030,10 +1042,13 @@ function start(){
     $g('gsTitle').textContent = title; $g('gsText').textContent = text;
     $g('gsContact').style.display = contact ? 'block' : 'none';
     $g('gsWa').style.display = contact ? 'inline-flex' : 'none';
+    $g('gsWa2').style.display = contact ? 'inline-flex' : 'none';
     if(contact){
       const name = (auth.currentUser && auth.currentUser.email || '').split('@')[0];
-      $g('gsContact').textContent = 'Please contact the owner for access. WhatsApp: ' + OWNER_WHATSAPP_SHOW + '. Email: khankhansmi261@gmail.com';
-      $g('gsWa').href = 'https://wa.me/' + OWNER_WHATSAPP + '?text=' + encodeURIComponent('Hello, I requested access to RCM Mastery. My username is ' + name + '. Please approve my access.');
+      $g('gsContact').textContent = 'Please contact the owner for access. WhatsApp: ' + OWNER_WHATSAPP_SHOW + ' or ' + OWNER_WHATSAPP2_SHOW + '. Email: khankhansmi261@gmail.com';
+      const msg = encodeURIComponent('Hello, I requested access to RCM Mastery. My username is ' + name + '. Please approve my access.');
+      $g('gsWa').href = 'https://wa.me/' + OWNER_WHATSAPP + '?text=' + msg;
+      $g('gsWa2').href = 'https://wa.me/' + OWNER_WHATSAPP2 + '?text=' + msg;
     }
   }
   function fail(msg){ $g('gErr').textContent = msg; }
@@ -1167,7 +1182,7 @@ function start(){
     cacheAcc(user.uid, u, exp);
     if(u.status==='approved' && !(exp && exp < Date.now())) return enter(user, u, ref, false);
     if(u.status==='blocked') return showStatus('Access turned off', 'Your access has been turned off.', true);
-    if(u.status==='approved') return showStatus('Access expired', 'Your access period has ended.', true);
+    if(u.status==='approved') return showStatus('Access expired', 'Your free access has ended. Get lifetime access for Rs 200 by contacting the owner on WhatsApp.', true);
     showStatus('Waiting for approval', 'Your request was sent. Once the owner approves it, tap Check again.', true);
   }
 
@@ -1294,11 +1309,12 @@ function start(){
           ctl = '<div class="row-btns" style="margin-top:10px"><select class="inp" style="width:auto" data-sel="'+esc(r.id)+'">'+
             '<option value="0">No expiry</option><option value="1">24 hours</option><option value="30">30 days</option><option value="90">90 days</option><option value="365">1 year</option></select>'+
             '<button class="btn sm good" data-act="approve" data-uid="'+esc(r.id)+'">'+(r.status==='approved'?'Update':'Approve')+'</button>'+
+            (r.status==='approved'?'<button class="btn sm" data-act="revoke" data-uid="'+esc(r.id)+'">Revoke</button>':'')+
             (r.status==='blocked'?'':'<button class="btn sm bad" data-act="block" data-uid="'+esc(r.id)+'">Block</button>')+'</div>';
         }
         return '<div class="card" style="padding:16px"><div><b style="font-size:1.05rem">'+esc(r.username||'?')+'</b> '+
           '<span class="tag" style="background:'+(col[r.status]||'#64748b')+'">'+esc(r.status||'?')+(r.role==='owner'?' - owner':'')+'</span></div>'+
-          '<div class="mini">Last seen '+ago(r.lastSeen)+' - '+(r.sessions||0)+' sessions - '+(r.answered||0)+' answers ('+acc+') - '+(r.quizzes||0)+' quizzes - expires: '+exp+'</div>'+ctl+'</div>';
+          '<div class="mini">Last seen '+ago(r.lastSeen)+' - '+(r.sessions||0)+' sessions - '+(r.answered||0)+' answers ('+acc+') - '+(r.quizzes||0)+' quizzes - expires: '+exp+(r.approvedBy?' - approved by '+esc(r.approvedBy):'')+'</div>'+ctl+'</div>';
       }).join('') || '<p class="sub">No users yet.</p>';
     }catch(e){
       $g('admList').innerHTML = '<p class="sub">Could not load users. Check your Firestore rules.</p>';
@@ -1312,9 +1328,11 @@ function start(){
     try{
       if(act==='approve'){
         const days = parseInt($g('admList').querySelector('select[data-sel="'+uid+'"]').value, 10);
-        await updateDoc(doc(db,'users',uid), {status:'approved', expiresAt: days ? Timestamp.fromMillis(Date.now()+days*864e5) : null});
+        await updateDoc(doc(db,'users',uid), {status:'approved', expiresAt: days ? Timestamp.fromMillis(Date.now()+days*864e5) : null, approvedBy: ME.username, approvedAt: serverTimestamp()});
       } else if(act==='block'){
         await updateDoc(doc(db,'users',uid), {status:'blocked'});
+      } else if(act==='revoke'){
+        await updateDoc(doc(db,'users',uid), {status:'pending', expiresAt:null});
       }
       window.toast('Saved'); window.renderAdmin();
     }catch(err){ window.toast('Could not save'); b.disabled = false; }
