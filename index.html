@@ -208,6 +208,7 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
     <button class="nav-btn" data-view="learn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>Study</button>
     <button class="nav-btn" data-view="quiz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Practice</button>
     <button class="nav-btn" data-view="library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Look up</button>
+    <button class="nav-btn" data-view="videos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z"/></svg>Videos</button>
     <button class="nav-btn" data-view="contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg>Help</button>
     <button class="nav-btn" data-view="admin" id="navAdmin" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.5a3.5 3.5 0 010 7M18.5 14.5c1.7.7 3 2.4 3 5.5"/></svg>Admin</button>
     <div class="side-foot"><button class="icon-btn" id="themeBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 13A9 9 0 1111 3a7 7 0 0010 10z"/></svg>Theme</button><button class="icon-btn" id="logoutBtn" style="display:none;margin-top:8px">Sign out</button></div>
@@ -353,6 +354,17 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
         </div>
       </section>
 
+      <!-- VIDEOS -->
+      <section class="view" id="v-videos">
+        <div class="head"><div><h1 class="title">Videos</h1><p class="sub">Watch and learn. Download a video to watch it without internet.</p></div></div>
+        <div class="card" id="vPlayerCard" style="display:none">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px"><b id="vPlayerTitle"></b><button class="btn sm" id="vClose">Close</button></div>
+          <video id="vPlayer" controls playsinline preload="metadata" style="width:100%;border-radius:12px;background:#000;max-height:60vh"></video>
+        </div>
+        <div id="vList"></div>
+        <p class="note" id="vStorage"></p>
+      </section>
+
       <!-- CONTACT -->
       <section class="view" id="v-contact">
         <div class="head"><div><h1 class="title">Help</h1><p class="sub">How the app works, and how to reach us.</p></div></div>
@@ -367,7 +379,7 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
         </div>
         <div class="card">
           <h2>What is inside</h2>
-          <p class="sub" style="margin:0">69 denial codes with what to do, 122 billing words (coding, claims, payers, A/R, credentialing, dental) and 43 real-life questions.</p>
+          <p class="sub" style="margin:0">69 denial codes with what to do, 122 billing words (coding, claims, payers, A/R, credentialing, dental) 43 real-life questions and training videos.</p>
         </div>
         <div class="card faq">
           <h2>Common questions</h2>
@@ -376,6 +388,7 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
           <details><summary>I forgot my password</summary><p>Message us on WhatsApp with your username and we will help you get back in.</p></details>
           <details><summary>How long is it free?</summary><p>Free for 24 hours. After that it is Rs 200 for lifetime access. Message us on WhatsApp to upgrade.</p></details>
           <details><summary>What do CO and PR mean?</summary><p>CO means the provider writes it off. PR means the patient is responsible.</p></details>
+          <details><summary>How do I watch videos offline?</summary><p>Open Videos and tap "Download for offline" while you have internet. When it says "Saved offline", you can play it without internet. Use Wi-Fi to save mobile data.</p></details>
           <details><summary>Something is not working</summary><p>Close the app and open it again with internet on. If it still does not work, message us on WhatsApp.</p></details>
         </div>
         <div class="card">
@@ -403,6 +416,16 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
       <section class="view" id="v-admin">
         <div class="head"><div><h1 class="title">Admin</h1><p class="sub">Users, access and usage</p></div><button class="btn sm" id="admRefresh">Refresh</button></div>
         <div class="grid4" id="admStats"></div>
+        <div class="card">
+          <h2>Videos</h2>
+          <p class="sub" style="margin:0 0 12px">Upload the MP4 to your GitHub repo (next to index.html, under 25 MB), then add it here using its file name.</p>
+          <input class="inp" id="vTitle" placeholder="Title" style="margin-bottom:8px">
+          <input class="inp" id="vDesc" placeholder="Short description (optional)" style="margin-bottom:8px">
+          <input class="inp" id="vUrl" placeholder="File name, like billing-basics.mp4" autocapitalize="none" style="margin-bottom:8px">
+          <input class="inp" id="vSize" placeholder="File size in MB (optional)" inputmode="decimal" style="margin-bottom:12px">
+          <button class="btn primary sm" id="vAdd">Add video</button>
+          <div id="vAdminList" style="margin-top:14px"></div>
+        </div>
         <div id="admList"></div>
       </section>
 
@@ -763,6 +786,7 @@ function showView(v){
   if(v==='library') renderLib();
   if(v==='quiz') quizReset();
   if(v==='admin'&&window.renderAdmin) window.renderAdmin();
+  if(v==='videos'){ vCurrent=vLoadList(); vRefreshSaved().then(function(){renderVideos(vCurrent);}); if(window.onVideosOpen) window.onVideosOpen(); }
 }
 document.querySelectorAll('.nav-btn').forEach(function(b){b.onclick=function(){showView(b.getAttribute('data-view'));};});
 
@@ -1047,6 +1071,90 @@ $('qNew').onclick=quizReset;
 $('qHome').onclick=function(){showView('home');};
 
 /* ---------- INIT ---------- */
+/* ---------- VIDEOS (watch online, or save to watch without internet) ---------- */
+var VCACHE='rcm-videos', VLIST_KEY='rcm-videos-list', VSAVED={}, vCurrent=[];
+function vAbs(u){ try{ return new URL(u, location.href).href; }catch(e){ return u; } }
+function vFmt(b){ if(!b) return ''; return b>=1048576?(b/1048576).toFixed(1)+' MB':Math.max(1,Math.round(b/1024))+' KB'; }
+function vLoadList(){ try{ return JSON.parse(localStorage.getItem(VLIST_KEY)||'[]'); }catch(e){ return []; } }
+function vRefreshSaved(){
+  if(!window.caches) return Promise.resolve();
+  return caches.open(VCACHE).then(function(c){
+    return c.keys().then(function(keys){
+      var next={};
+      return Promise.all(keys.map(function(r){
+        return c.match(r).then(function(res){ next[r.url]=res?(parseInt(res.headers.get('content-length'),10)||0):0; });
+      })).then(function(){ VSAVED=next; });
+    });
+  }).catch(function(){});
+}
+function vStorageNote(){
+  var n=Object.keys(VSAVED).length, total=0; for(var k in VSAVED) total+=VSAVED[k];
+  $('vStorage').textContent=n?('Saved on this phone: '+n+' video'+(n>1?'s':'')+' ('+vFmt(total)+').'):'Tip: tap "Download for offline" to watch without internet. Use Wi-Fi to save mobile data.';
+}
+function renderVideos(list){
+  vCurrent=list||[]; var box=$('vList');
+  if(!vCurrent.length){ box.innerHTML='<div class="card"><p class="sub" style="margin:0">No videos yet. New videos will appear here.</p></div>'; vStorageNote(); return; }
+  box.innerHTML=vCurrent.map(function(v,i){
+    var saved=vAbs(v.url) in VSAVED;
+    return '<div class="card vcard" data-i="'+i+'">'+
+      '<div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><b style="font-size:1.05rem">'+esc(v.title)+'</b>'+(saved?'<span class="tag" style="background:#059669;white-space:nowrap">Saved offline</span>':'')+'</div>'+
+      (v.desc?'<p class="sub" style="margin:6px 0 12px">'+esc(v.desc)+'</p>':'<div style="height:12px"></div>')+
+      '<div class="bar vbar" style="display:none;margin-bottom:10px"><i></i></div><div class="vmsg mini" style="display:none;margin-bottom:10px"></div>'+
+      '<div class="row-btns" style="margin:0"><button class="btn primary sm" data-vact="play">Play</button>'+
+      (saved?'<button class="btn sm" data-vact="remove">Remove download</button>':'<button class="btn sm good" data-vact="save">Download for offline'+(v.size?' ('+vFmt(v.size)+')':'')+'</button>')+'</div></div>';
+  }).join('');
+  vStorageNote();
+}
+window.showVideos=function(list){ vRefreshSaved().then(function(){ renderVideos(list); }); };
+function vPlay(v){
+  var abs=vAbs(v.url);
+  if(!navigator.onLine && !(abs in VSAVED)){ toast('You are offline. Download this video first when you have internet.'); return; }
+  $('vPlayerCard').style.display='block'; $('vPlayerTitle').textContent=v.title;
+  var p=$('vPlayer'); p.src=abs; p.load(); var pr=p.play(); if(pr&&pr.catch) pr.catch(function(){});
+  $('vPlayerCard').scrollIntoView({behavior:'smooth',block:'start'});
+}
+async function vSave(v,card){
+  var abs=vAbs(v.url), bar=card.querySelector('.vbar'), fill=bar.firstElementChild, msg=card.querySelector('.vmsg'), btn=card.querySelector('[data-vact=save]');
+  if(!navigator.onLine){ toast('You need internet to download.'); return; }
+  btn.disabled=true; bar.style.display='block'; msg.style.display='block'; msg.textContent='Starting download...';
+  try{
+    if(navigator.storage&&navigator.storage.persist) navigator.storage.persist().catch(function(){});
+    var res=await fetch(abs,{cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    var ct=res.headers.get('content-type')||'';
+    if(ct && ct.indexOf('video')!==0 && ct.indexOf('octet-stream')!==0) throw new Error('not a video');
+    var total=parseInt(res.headers.get('content-length'),10)||v.size||0, chunks=[], got=0;
+    if(res.body&&res.body.getReader){
+      var rd=res.body.getReader();
+      for(;;){
+        var r=await rd.read(); if(r.done) break;
+        chunks.push(r.value); got+=r.value.length;
+        fill.style.width=(total?Math.min(100,got/total*100):50)+'%';
+        msg.textContent='Downloading '+vFmt(got)+(total?' of '+vFmt(total):'')+'...';
+      }
+    } else { var bl=await res.blob(); chunks=[bl]; got=bl.size; }
+    var type=ct.indexOf('video')===0?ct:'video/mp4';
+    var blob=new Blob(chunks,{type:type});
+    var c=await caches.open(VCACHE);
+    await c.put(abs,new Response(blob,{status:200,headers:{'Content-Type':type,'Content-Length':String(blob.size)}}));
+    toast('Saved. You can watch it without internet.');
+  }catch(err){
+    toast('Download failed. Check your internet and the file name, then try again.');
+  }
+  await vRefreshSaved(); renderVideos(vCurrent);
+}
+async function vRemove(v){
+  try{ var c=await caches.open(VCACHE); await c.delete(vAbs(v.url)); }catch(e){}
+  await vRefreshSaved(); renderVideos(vCurrent); toast('Download removed.');
+}
+$('vList').addEventListener('click',function(e){
+  var b=e.target.closest('button[data-vact]'); if(!b) return;
+  var card=b.closest('.vcard'), v=vCurrent[parseInt(card.getAttribute('data-i'),10)]; if(!v) return;
+  var act=b.getAttribute('data-vact');
+  if(act==='play') vPlay(v); else if(act==='save') vSave(v,card); else if(act==='remove') vRemove(v);
+});
+$('vClose').onclick=function(){ var p=$('vPlayer'); p.pause(); p.removeAttribute('src'); p.load(); $('vPlayerCard').style.display='none'; };
+
 libInit();
 showView('home');
 </script>
@@ -1062,7 +1170,7 @@ document.getElementById('installBtn').onclick=function(){var e=window.__bip;if(!
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {getFirestore,doc,getDoc,setDoc,updateDoc,collection,getDocs,serverTimestamp,increment,Timestamp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {getFirestore,doc,getDoc,setDoc,updateDoc,collection,getDocs,deleteDoc,serverTimestamp,increment,Timestamp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 /* ====== 1) PASTE YOUR FIREBASE WEB CONFIG HERE (Project settings > Your apps > Web) ====== */
 const firebaseConfig = {
@@ -1298,6 +1406,7 @@ function start(){
     if(ME.role==='owner'){ checkPending(); window.__pt = setInterval(checkPending, 120000); }
     pend.sessions++;
     flush();
+    if(navigator.onLine) window.onVideosOpen();
   }
 
   async function doOut(){
@@ -1364,6 +1473,7 @@ function start(){
   window.renderAdmin = async function(){
     if(!ME || ME.role!=='owner') return;
     $g('admList').innerHTML = '<p class="sub">Loading...</p>';
+    loadAdminVideos();
     try{
       const qs = await getDocs(collection(db,'users')); const rows = [];
       qs.forEach(function(d){ const o = d.data(); o.id = d.id; rows.push(o); });
@@ -1400,6 +1510,50 @@ function start(){
       $g('admList').innerHTML = '<p class="sub">Could not load users. Check your Firestore rules.</p>';
     }
   };
+  /* ---- videos: the list lives in Firestore; the owner manages it in Admin ---- */
+  const vSort = function(a, b){ return (a.order||0) - (b.order||0) || (ms(a.createdAt) - ms(b.createdAt)); };
+  async function fetchVideos(){
+    const qs = await withTimeout(getDocs(collection(db,'videos')), 8000); const list = [];
+    qs.forEach(function(d){ const o = d.data(); o.id = d.id; list.push(o); });
+    list.sort(vSort); return list;
+  }
+  window.onVideosOpen = async function(){
+    if(!ME || !navigator.onLine) return;
+    try{
+      const list = await fetchVideos();
+      try{ localStorage.setItem('rcm-videos-list', JSON.stringify(list.map(function(v){ return {id:v.id, title:v.title, desc:v.desc||'', url:v.url, size:v.size||0}; }))); }catch(e){}
+      window.showVideos(list);
+    }catch(e){}
+  };
+  async function loadAdminVideos(){
+    const box = $g('vAdminList'); if(!box) return;
+    try{
+      const list = await fetchVideos();
+      box.innerHTML = list.length ? list.map(function(v){
+        return '<div class="miss" style="display:flex;justify-content:space-between;gap:10px;align-items:center"><div><b>'+esc(v.title)+'</b><div class="mini">'+esc(v.url)+(v.size?' - '+(v.size/1048576).toFixed(1)+' MB':'')+'</div></div><button class="btn sm bad" data-vdel="'+esc(v.id)+'">Delete</button></div>';
+      }).join('') : '<p class="sub" style="margin:0">No videos added yet.</p>';
+    }catch(e){ box.innerHTML = '<p class="sub" style="margin:0">Could not load videos. Publish the new Firestore rules first.</p>'; }
+  }
+  $g('vAdd').onclick = async function(){
+    const title = $g('vTitle').value.trim(), desc = $g('vDesc').value.trim(), url = $g('vUrl').value.trim();
+    const mb = parseFloat($g('vSize').value);
+    if(!title || !url){ window.toast('Please enter a title and the video file name.'); return; }
+    if(!/^https?:\/\//i.test(url) && !/\.(mp4|webm|m4v)$/i.test(url)){ window.toast('The file name should end with .mp4'); return; }
+    $g('vAdd').disabled = true;
+    try{
+      const existing = await fetchVideos();
+      await setDoc(doc(collection(db,'videos')), {title:title, desc:desc, url:url, size:(mb>0 ? Math.round(mb*1048576) : 0), order:existing.length+1, createdAt:serverTimestamp()});
+      ['vTitle','vDesc','vUrl','vSize'].forEach(function(id){ $g(id).value = ''; });
+      window.toast('Video added'); loadAdminVideos();
+    }catch(e){ window.toast('Could not add. Publish the new Firestore rules first.'); }
+    $g('vAdd').disabled = false;
+  };
+  $g('vAdminList').addEventListener('click', async function(e){
+    const b = e.target.closest('button[data-vdel]'); if(!b) return;
+    b.disabled = true;
+    try{ await deleteDoc(doc(db,'videos',b.getAttribute('data-vdel'))); window.toast('Deleted'); loadAdminVideos(); }
+    catch(err){ window.toast('Could not delete'); b.disabled = false; }
+  });
   $g('admRefresh').onclick = function(){ window.renderAdmin(); };
   $g('admList').addEventListener('click', async function(e){
     const b = e.target.closest('button[data-act]'); if(!b) return;

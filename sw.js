@@ -1,5 +1,6 @@
-/* RCM Mastery service worker: makes the app open and work offline. */
-const V = 'rcm-v1';
+/* RCM Mastery service worker: makes the app open, and videos play, without internet. */
+const V = 'rcm-v2';                 // app files (replaced on every update)
+const VIDEO_CACHE = 'rcm-videos';   // saved videos (kept between updates)
 const SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 const FB = 'https://www.gstatic.com/firebasejs/10.12.2/';
 const MODS = [FB + 'firebase-app.js', FB + 'firebase-auth.js', FB + 'firebase-firestore.js'];
@@ -36,7 +37,7 @@ async function pre(c, url, seen, depth){
 self.addEventListener('activate', function(e){
   e.waitUntil((async function(){
     const keys = await caches.keys();
-    await Promise.all(keys.filter(function(k){ return k !== V; }).map(function(k){ return caches.delete(k); }));
+    await Promise.all(keys.filter(function(k){ return k !== V && k !== VIDEO_CACHE; }).map(function(k){ return caches.delete(k); }));
     await self.clients.claim();
   })());
 });
@@ -45,6 +46,7 @@ self.addEventListener('fetch', function(e){
   const req = e.request;
   if(req.method !== 'GET') return;
   const url = new URL(req.url);
+  if(url.origin === location.origin && /\.(mp4|webm|m4v|mov)$/i.test(url.pathname)){ e.respondWith(serveVideo(req)); return; }
   if(req.mode === 'navigate' && url.origin === location.origin){ e.respondWith(nav(req)); return; }
   if(url.origin === location.origin ||
      url.hostname === 'www.gstatic.com' || url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com'){
@@ -52,6 +54,33 @@ self.addEventListener('fetch', function(e){
   }
   // everything else (Firebase Auth / Firestore network calls) goes straight to the network
 });
+
+// videos: play the saved copy (with seeking support) if there is one, otherwise stream from the network
+async function serveVideo(req){
+  const c = await caches.open(VIDEO_CACHE);
+  const hit = await c.match(req.url);
+  if(!hit) return fetch(req);
+  const blob = await hit.blob();
+  const size = blob.size;
+  const type = hit.headers.get('Content-Type') || 'video/mp4';
+  const range = req.headers.get('range');
+  if(!range){
+    return new Response(blob, {status:200, headers:{'Content-Type':type, 'Content-Length':String(size), 'Accept-Ranges':'bytes'}});
+  }
+  const m = /bytes=(\d*)-(\d*)/.exec(range);
+  let start = 0, end = size - 1;
+  if(m){
+    if(m[1] !== '' ){ start = parseInt(m[1], 10); if(m[2] !== '') end = parseInt(m[2], 10); }
+    else if(m[2] !== ''){ start = Math.max(0, size - parseInt(m[2], 10)); }
+  }
+  if(isNaN(start) || isNaN(end) || start >= size || end < start){
+    return new Response(null, {status:416, headers:{'Content-Range':'bytes */' + size}});
+  }
+  end = Math.min(end, size - 1);
+  return new Response(blob.slice(start, end + 1), {status:206, headers:{
+    'Content-Type':type, 'Content-Length':String(end - start + 1),
+    'Content-Range':'bytes ' + start + '-' + end + '/' + size, 'Accept-Ranges':'bytes'}});
+}
 
 // pages: network first (so updates arrive), fall back to the saved copy when offline
 async function nav(req){
