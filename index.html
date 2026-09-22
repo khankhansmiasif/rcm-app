@@ -171,8 +171,21 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-.gate{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:20px;overflow-y:auto}
-.gate-card{width:100%;max-width:380px;background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:28px;box-shadow:var(--shadow)}
+.gate{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:#1e1b4b;padding:20px;overflow-y:auto}
+.gate-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.gate-bg svg{width:100%;height:100%;display:block}
+.gate-card{position:relative;z-index:1;width:100%;max-width:380px;background:rgba(12,16,34,0.62);border:1px solid rgba(255,255,255,0.16);border-radius:22px;padding:28px;box-shadow:0 25px 70px rgba(0,0,0,0.5);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.gate-card, .gate-card .sub, .gate-card .mini, .gate-card .ur{color:#f1f5f9}
+.gate-card .sub, .gate-card .mini{color:#cbd5e1}
+.gate-card .inp{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.22);color:#f8fafc}
+.gate-card .inp::placeholder{color:#94a3b8}
+.gate-card .chip{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.22);color:#e2e8f0}
+.gate-card .chip.on{background:rgba(129,140,248,0.28);border-color:#a5b4fc;color:#fff}
+.gate-card .pricebox{background:rgba(129,140,248,0.22);border-color:rgba(165,180,252,0.6);color:#fff}
+.gate-card .btn.good{background:rgba(52,211,153,0.22);border-color:#6ee7b7;color:#6ee7b7}
+.gate-card .btn.primary{box-shadow:0 10px 26px rgba(192,38,211,0.35)}
+.gate-card .btn:not(.primary):not(.good){background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.24);color:#f1f5f9}
+.gate-card .gerr{color:#fca5a5}
 .gbrand{font-size:1.7rem;font-weight:800;background:linear-gradient(90deg,var(--accent),var(--primary));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2px}
 .gerr{color:var(--bad);font-size:.88rem;min-height:1.2em;margin-bottom:10px}
 .urow select.inp{padding:8px 10px}
@@ -459,6 +472,75 @@ h2 .ur, .title+.ur, .head .ur{margin-top:2px}
   </main>
 </div>
 <div class="netbanner" id="netBanner" style="display:none">Offline - your progress is saved on this device and will sync when you are back online.</div>
+<div class="gate-bg"><svg viewBox="0 0 380 760" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><title>Medical and dental billing illustration</title>
+<defs>
+<linearGradient id="ghSky" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0" stop-color="#1e1b4b"/><stop offset="0.5" stop-color="#4c1d95"/><stop offset="1" stop-color="#5b21b6"/></linearGradient>
+<linearGradient id="ghGlow" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#c026d3"/></linearGradient>
+<linearGradient id="ghCard" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdfdff"/><stop offset="1" stop-color="#e2e8f0"/></linearGradient>
+<linearGradient id="ghCoin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fde68a"/><stop offset="1" stop-color="#d97706"/></linearGradient>
+<radialGradient id="ghHalo" cx="0.5" cy="0.22" r="0.55"><stop offset="0" stop-color="#67e8f9" stop-opacity="0.55"/><stop offset="1" stop-color="#67e8f9" stop-opacity="0"/></radialGradient>
+<radialGradient id="ghHalo2" cx="0.2" cy="0.85" r="0.4"><stop offset="0" stop-color="#f472b6" stop-opacity="0.4"/><stop offset="1" stop-color="#f472b6" stop-opacity="0"/></radialGradient>
+</defs>
+<rect x="0" y="0" width="380" height="760" fill="url(#ghSky)"/>
+<circle cx="190" cy="150" r="220" fill="url(#ghHalo)"/>
+<circle cx="70" cy="660" r="220" fill="url(#ghHalo2)"/>
+<circle cx="55" cy="60" r="2.8" fill="#e0e7ff" opacity="0.85"/>
+<circle cx="330" cy="44" r="2.2" fill="#e0e7ff" opacity="0.7"/>
+<circle cx="352" cy="110" r="1.8" fill="#e0e7ff" opacity="0.6"/>
+<circle cx="26" cy="130" r="2" fill="#e0e7ff" opacity="0.6"/>
+<circle cx="300" cy="20" r="1.6" fill="#e0e7ff" opacity="0.55"/>
+<circle cx="340" cy="620" r="2.4" fill="#e0e7ff" opacity="0.6"/>
+<circle cx="24" cy="700" r="1.8" fill="#e0e7ff" opacity="0.5"/>
+<g transform="translate(22,40)">
+<rect x="0" y="0" width="100" height="142" rx="14" fill="url(#ghGlow)" opacity="0.92" transform="rotate(-8 50 71)"/>
+<g transform="rotate(-8 50 71)">
+<line x1="17" y1="26" x2="17" y2="114" stroke="#0e2a30" stroke-width="3.5" stroke-linecap="round" opacity="0.35"/>
+<circle cx="17" cy="26" r="7.5" fill="none" stroke="#0e2a30" stroke-width="3.5" opacity="0.35"/>
+<circle cx="17" cy="114" r="8.5" fill="#0e2a30" opacity="0.35"/>
+<circle cx="17" cy="114" r="4.2" fill="#22d3ee"/>
+</g>
+</g>
+<g transform="translate(120,26) rotate(2 90 130)">
+<rect x="0" y="0" width="150" height="170" rx="16" fill="url(#ghCard)"/>
+<rect x="42" y="-12" width="66" height="26" rx="10" fill="#cbd5e1"/>
+<circle cx="120" cy="28" r="21" fill="url(#ghGlow)"/>
+<path d="M109 28 L117 36 L132 20" fill="none" stroke="#0e2a30" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="18" y="62" width="68" height="8" rx="3" fill="#a5b4fc"/>
+<rect x="18" y="80" width="96" height="6" rx="3" fill="#cbd5e1"/>
+<rect x="18" y="94" width="78" height="6" rx="3" fill="#cbd5e1"/>
+<line x1="18" y1="112" x2="132" y2="112" stroke="#e2e8f0" stroke-width="2"/>
+<polyline points="18,156 38,140 58,148 78,124 98,132 128,110" fill="none" stroke="#7c3aed" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="128" cy="110" r="4.5" fill="#c026d3"/>
+</g>
+<g transform="translate(300,180)">
+<circle cx="0" cy="0" r="28" fill="url(#ghCoin)"/>
+<text x="0" y="7" text-anchor="middle" font-size="24" font-weight="700" fill="#78350f" font-family="Georgia,serif">$</text>
+</g>
+<g transform="translate(332,210)">
+<circle cx="0" cy="0" r="18" fill="url(#ghCoin)" opacity="0.92"/>
+<text x="0" y="5" text-anchor="middle" font-size="15" font-weight="700" fill="#78350f" font-family="Georgia,serif">$</text>
+</g>
+<g transform="translate(58,200)">
+<path d="M16 3 C8 3 3 11 3 21 C3 33 8 48 13 48 C16 48 16 37 21 37 C26 37 26 48 29 48 C35 48 40 33 40 21 C40 11 35 3 27 3 C23 3 22 7 21 10 C20 7 19 3 16 3 Z" fill="#f8fafc"/>
+</g>
+<g transform="translate(300,290) rotate(6 0 0)" opacity="0.9">
+<circle cx="0" cy="0" r="16" fill="none" stroke="#67e8f9" stroke-width="2.5"/>
+<path d="M-16 0 A16 16 0 0 1 0 -16" fill="none" stroke="#f472b6" stroke-width="2.5"/>
+</g>
+<g transform="translate(30,600)" opacity="0.95">
+<rect x="0" y="0" width="118" height="86" rx="12" fill="url(#ghCard)" opacity="0.9" transform="rotate(-4 59 43)"/>
+<g transform="rotate(-4 59 43)">
+<rect x="14" y="16" width="60" height="6" rx="2.5" fill="#a5b4fc"/>
+<rect x="14" y="30" width="80" height="5" rx="2.5" fill="#cbd5e1"/>
+<rect x="14" y="42" width="70" height="5" rx="2.5" fill="#cbd5e1"/>
+<rect x="14" y="60" width="40" height="14" rx="6" fill="#22d3ee" opacity="0.85"/>
+</g>
+</g>
+<g transform="translate(320,690)">
+<circle cx="0" cy="0" r="22" fill="url(#ghCoin)"/>
+<text x="0" y="6" text-anchor="middle" font-size="19" font-weight="700" fill="#78350f" font-family="Georgia,serif">$</text>
+</g>
+</svg></div>
 <div class="gate" id="gate">
   <div class="gate-card">
     <div class="gbrand">RCM Mastery</div>
