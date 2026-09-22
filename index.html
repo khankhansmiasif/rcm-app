@@ -198,6 +198,11 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
 .faq summary{color:var(--text)}
 .faq p{color:var(--muted);margin-top:8px;font-size:.93rem}
 .ur{direction:rtl;text-align:right;font-family:'Noto Nastaliq Urdu','Jameel Noori Nastaleeq',sans-serif;color:var(--muted);font-size:.9rem;line-height:1.9;margin-top:4px}
+[data-lang="en"] .ur{display:none}
+[data-lang="ur"] .bi-en{display:none}
+[data-lang="ur"] .ur{color:var(--text);font-size:1rem}
+.langrow{display:flex;gap:8px;margin-bottom:18px}
+.langrow .chip{flex:1;text-align:center}
 h2 .ur, .title+.ur, .head .ur{margin-top:2px}
 .bigopt .ur{font-size:.82rem;margin-top:2px}
 .card>.ur:first-child{margin-top:-4px;margin-bottom:10px}
@@ -223,8 +228,13 @@ h2 .ur, .title+.ur, .head .ur{margin-top:2px}
 
       <!-- HOME -->
       <section class="view active" id="v-home">
+        <div class="langrow" id="langRow">
+          <button class="chip" data-lg="en">English</button>
+          <button class="chip" data-lg="both">English + اردو</button>
+          <button class="chip" data-lg="ur">اردو</button>
+        </div>
         <div class="head">
-          <div><h1 class="title" id="homeTitle">Welcome</h1><p class="sub" id="homeSub"></p><p class="ur" id="homeSubUr"></p></div>
+          <div><h1 class="title bi-en" id="homeTitle">Welcome</h1><p class="sub bi-en" id="homeSub"></p><p class="ur" id="homeSubUr"></p></div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end"><button class="icon-btn" id="installBtn" style="display:none">Install app</button><button class="icon-btn" id="logoutBtn2" style="display:none">Sign out</button></div>
         </div>
         <div id="welcome"></div>
@@ -232,12 +242,12 @@ h2 .ur, .title+.ur, .head .ur{margin-top:2px}
           <div class="split">
             <svg class="ring" viewBox="0 0 100 100" id="ring"></svg>
             <div>
-              <h2>Ready to learn?</h2>
-              <p class="ur" style="margin-bottom:2px">آپ روز صرف 10 منٹ دیں تو بہت فرق پڑے گا۔</p>
-              <p class="sub" style="margin-bottom:14px">Just 10 minutes a day makes a big difference.</p>
+              <h2 class="bi-en">Ready to learn?</h2>
+              <p class="ur" style="margin-bottom:2px">روزانہ صرف 10 منٹ دیں تو بہت فرق پڑے گا۔ آئیں شروع کریں۔</p>
+              <p class="sub bi-en" style="margin-bottom:14px">Just 10 minutes a day makes a big difference.</p>
               <div class="row-btns">
-                <button class="btn primary" id="goLearn">Start studying</button>
-                <button class="btn" id="goQuiz">Take a quick quiz</button>
+                <button class="btn primary" id="goLearn"><span class="bi-en">Start studying</span><span class="ur" style="margin:0;color:inherit">پڑھنا شروع کریں</span></button>
+                <button class="btn" id="goQuiz"><span class="bi-en">Take a quick quiz</span><span class="ur" style="margin:0;color:inherit">فوری کوئز دیں</span></button>
               </div>
             </div>
           </div>
@@ -264,11 +274,11 @@ h2 .ur, .title+.ur, .head .ur{margin-top:2px}
 
       <!-- LEARN -->
       <section class="view" id="v-learn">
-        <div class="head"><div><h1 class="title">Study</h1><p class="sub">One card at a time. Tap the card to see the answer.</p></div><span class="counter" id="lCount"></span></div>
+        <div class="head"><div><h1 class="title bi-en">Study</h1><p class="sub bi-en">One card at a time. Tap the card to see the answer.</p><p class="ur">ایک وقت میں ایک کارڈ۔ جواب دیکھنے کے لیے کارڈ پر ٹیپ کریں۔</p></div><span class="counter" id="lCount"></span></div>
         <div id="lSetup" class="card">
-          <h2>What do you want to study?</h2>
+          <h2 class="bi-en">What do you want to study?</h2>
           <p class="ur" style="margin:-4px 0 6px">ایک آپشن پر ٹیپ کریں۔ ہر بار 10 کارڈ آئیں گے۔</p>
-          <p class="sub">Tap a choice. You get 10 cards at a time.</p>
+          <p class="sub bi-en">Tap a choice. You get 10 cards at a time.</p>
           <div class="bigopts">
             <button class="bigopt" data-l="All"><b>Everything</b><span>A mix of all cards</span><span class="ur">سب کچھ ملا کر</span></button>
             <button class="bigopt" data-l="Codes"><b>Denial codes</b><span>CO-45, PR-1 and more</span><span class="ur">ڈینائل کوڈز</span></button>
@@ -285,15 +295,15 @@ h2 .ur, .title+.ur, .head .ur{margin-top:2px}
           <div class="bar" style="margin-bottom:20px"><i id="lBar"></i></div>
           <div class="fc" id="fc">
             <div class="fc-in">
-              <div class="fc-face fc-front"><div class="mid"><div id="fcTag" style="margin-bottom:12px"></div><div class="big" id="fcCode"></div><div class="hint">Tap to see the answer</div></div></div>
+              <div class="fc-face fc-front"><div class="mid"><div id="fcTag" style="margin-bottom:12px"></div><div class="big" id="fcCode"></div><div class="hint bi-en">Tap to see the answer</div><div class="hint ur" style="margin-top:2px">جواب دیکھنے کے لیے ٹیپ کریں</div></div></div>
               <div class="fc-face fc-back"><div class="mid"><p class="desc" id="fcDesc"></p><div class="tipbox" id="fcTip"></div></div></div>
             </div>
           </div>
           <div class="row-btns center">
-            <button class="btn bad off" id="lAgain">Not yet</button>
-            <button class="btn good off" id="lGot">I knew it</button>
+            <button class="btn bad off" id="lAgain"><span class="bi-en">Not yet</span><span class="ur" style="margin:0;color:inherit">ابھی نہیں</span></button>
+            <button class="btn good off" id="lGot"><span class="bi-en">I knew it</span><span class="ur" style="margin:0;color:inherit">مجھے آتا ہے</span></button>
           </div>
-          <p class="note" style="text-align:center">Tap the card to see the answer, then choose one.</p>
+          <p class="note bi-en" style="text-align:center">Tap the card to see the answer, then choose one.</p><p class="ur note" style="text-align:center">کارڈ ٹیپ کر کے جواب دیکھیں، پھر ایک آپشن چنیں۔</p>
         </div>
         <div id="lDone" class="card" style="display:none;text-align:center">
           <h2>Session complete</h2>
@@ -305,7 +315,7 @@ h2 .ur, .title+.ur, .head .ur{margin-top:2px}
 
       <!-- LIBRARY -->
       <section class="view" id="v-library">
-        <div class="head"><div><h1 class="title">Look up</h1><p class="sub" id="libCount"></p></div></div>
+        <div class="head"><div><h1 class="title bi-en">Look up</h1><p class="sub bi-en" id="libCount"></p></div></div>
         <div class="filters">
           <input class="inp" id="libQ" type="search" placeholder="Search a code or word, like 45 or deductible">
           <select class="inp" id="libCat"></select>
@@ -317,11 +327,11 @@ h2 .ur, .title+.ur, .head .ur{margin-top:2px}
 
       <!-- QUIZ -->
       <section class="view" id="v-quiz">
-        <div class="head"><div><h1 class="title">Practice</h1><p class="sub">Test yourself. You see the right answer after each question.</p></div><span class="counter" id="qCount"></span></div>
+        <div class="head"><div><h1 class="title bi-en">Practice</h1><p class="sub bi-en">Test yourself. You see the right answer after each question.</p><p class="ur">خود کو پرکھیں۔ ہر سوال کے بعد صحیح جواب دکھایا جائے گا۔</p></div><span class="counter" id="qCount"></span></div>
         <div id="qSetup" class="card">
-          <h2>Choose a quiz</h2>
+          <h2 class="bi-en">Choose a quiz</h2>
           <p class="ur" style="margin:-4px 0 6px">ہر کوئز میں 10 سوال ہوں گے۔ آرام سے کریں۔</p>
-          <p class="sub">10 questions each. Take your time.</p>
+          <p class="sub bi-en">10 questions each. Take your time.</p>
           <div class="bigopts">
             <button class="bigopt" data-qp="mix"><b>Quick quiz</b><span>Codes and billing words</span><span class="ur">فوری کوئز</span></button>
             <button class="bigopt" data-qp="scen"><b>Real-life questions</b><span>What would you do?</span><span class="ur">روزمرہ کے سوالات</span></button>
@@ -363,7 +373,7 @@ h2 .ur, .title+.ur, .head .ur{margin-top:2px}
 
       <!-- VIDEOS -->
       <section class="view" id="v-videos">
-        <div class="head"><div><h1 class="title">Videos</h1><p class="sub">Watch and learn. Download a video to watch it without internet.</p><p class="ur">ویڈیو دیکھیں اور سیکھیں۔ انٹرنیٹ کے بغیر دیکھنے کے لیے ڈاؤن لوڈ کریں۔</p></div></div>
+        <div class="head"><div><h1 class="title bi-en">Videos</h1><p class="sub bi-en">Watch and learn. Download a video to watch it without internet.</p><p class="ur">ویڈیو دیکھیں اور سیکھیں۔ انٹرنیٹ کے بغیر دیکھنے کے لیے ڈاؤن لوڈ کریں۔</p></div></div>
         <div class="card" id="vPlayerCard" style="display:none">
           <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px"><b id="vPlayerTitle"></b><button class="btn sm" id="vClose">Close</button></div>
           <video id="vPlayer" controls playsinline preload="metadata" style="width:100%;border-radius:12px;background:#000;max-height:60vh"></video>
@@ -488,6 +498,247 @@ var CATS = {
   'Payments & Posting':{c:'#16a34a'}, 'A/R & Collections':{c:'#e11d48'}, 'Denial Mgmt':{c:'#dc2626'}, Credentialing:{c:'#0e7490'},
   'Dental Billing':{c:'#c026d3'}, Compliance:{c:'#64748b'}
 };
+var DENIALS_UR = [
+"مریض یہ رقم دے گا۔ ایلیجیبلٹی چیک میں ڈیڈکٹیبل معلوم کریں اور وزٹ پر وصول کریں۔",
+"یہ مریض کا حصہ ہے۔ انشورنس کی ادائیگی کے بعد بل کریں۔ ڈینٹل پلانز اکثر 100/80/50 فیصد میں بٹتے ہیں۔",
+"طے شدہ کوپے۔ وزٹ کے وقت وصول کریں، معاف نہ کریں۔",
+"موڈیفائر غلط یا غائب ہے (ڈینٹل میں دانت، سطح، کواڈرنٹ دیکھیں)۔ درست کر کے دوبارہ بھیجیں۔",
+"پلیس آف سروس کوڈ غلط ہے۔ کلیم پر درست کریں۔",
+"مریض کی تاریخ پیدائش اور کوڈ کی عمر کی حد چیک کریں (سیلنٹس، فلورائیڈ، آرتھو)۔ درست کریں یا ریکارڈ کے ساتھ اپیل کریں۔",
+"سسٹم میں مریض کی جنس پیئر کے ریکارڈ سے ملائیں؛ رجسٹریشن درست کر کے دوبارہ بھیجیں۔",
+"رینڈرنگ پرووائیڈر کی ٹیکسونومی (CAQH/PECOS) اور بلڈ کوڈ ملائیں۔",
+"تاریخ پیدائش اور تشخیص چیک کریں۔ کلیم درست کریں یا ریکارڈ کے ساتھ اپیل کریں۔",
+"مریض کی جنس اور تشخیص چیک کریں۔ کلیم درست کر کے دوبارہ بھیجیں۔",
+"تشخیص کو پروسیجر سے ملائیں۔ معاون تشخیصی کوڈ شامل یا درست کریں۔",
+"تصدیق کریں کہ پرووائیڈر اس تشخیص کے لیے موزوں ہے۔ کلیم درست کریں یا صحیح پرووائیڈر کو بھیجیں۔",
+"اتھارائزیشن نمبر بلڈ کوڈ، تاریخ اور پرووائیڈر سے ملتا ہے یا نہیں تصدیق کریں۔ نمبر درست کر کے دوبارہ بھیجیں۔",
+"منسلک ریمارک کوڈ (RARC) پڑھیں کہ کیا چیز غائب ہے۔ درست کر کے دوبارہ بھیجیں، صرف دوبارہ نہ بھیجیں۔",
+"چیک کریں کہ اصل کلیم ادا ہوا یا زیرِ التوا ہے۔ درستی کے لیے نیا کلیم نہیں، ری پلیسمنٹ کلیم بھیجیں۔",
+"ورکرز کمپ کلیم نمبر اور ایڈجسٹر معلوم کریں؛ اسی کیریئر کو بل کریں۔",
+"لائبیلٹی کیریئر کو بل کریں؛ مریض سے حادثے کی تفصیل لیں۔",
+"مریض سے پرائمری/سیکنڈری ترتیب تصدیق کریں، COB اپ ڈیٹ کریں، اور صحیح پیئر کو بل کریں۔",
+"عام طور پر سیکنڈری کلیم پر صرف معلوماتی ہے۔ پرائمری کی ادائیگی اور ایڈجسٹمنٹ درست پوسٹ کریں۔",
+"کیپیٹیٹڈ پلان یا IPA کو بل کریں۔ مریض صرف کوپے دے گا۔",
+"کوریج شروع ہونے کی تاریخ چیک کریں۔ پہلے کی کوریج تلاش کریں ورنہ مریض ذمہ دار ہے۔",
+"کوریج ختم ہونے کی تاریخ چیک کریں اور نئی کوریج تلاش کریں۔ نہ ملے تو مریض ذمہ دار ہے۔",
+"پیئر کی ٹائملی فائلنگ کی حد چیک کریں۔ ٹائملی ثبوت (کلیئرنگ ہاؤس یا پرانا EOB) کے ساتھ اپیل کریں۔",
+"ممبر ID، نام کی ہجے، تاریخ پیدائش اور گروپ نمبر تصدیق کریں؛ پیئر سے کنفرم کریں۔",
+"پیئر اور سبسکرائبر سے ڈیپنڈنٹ کی حیثیت اور عمر کی حد تصدیق کریں۔ ریکارڈ اپ ڈیٹ کریں۔",
+"مریض ذمہ دار ہے۔ آرتھوڈونٹک لائف ٹائم میکسیمم میں عام ہے۔",
+"ڈینائل کی وجہ دیکھیں؛ پیئر ٹو پیئر یا کلینیکل دستاویزات کے ساتھ اپیل کریں۔",
+"ان-نیٹ ورک ہو تو یہ کنٹریکچوئل رائٹ آف ہے، فرق مریض سے نہ لیں۔ کنٹریکٹ ریٹ تصدیق کریں۔",
+"تشخیص (پریوینٹو بمقابلہ پرابلم) اور مناسب موڈیفائر چیک کریں۔",
+"کلینیکل نوٹس، ریڈیوگراف اور نریٹو کے ساتھ اپیل کریں۔ ضرورت پڑے تو پیئر ریویو مانگیں۔",
+"کلینیکل لٹریچر اور دستاویزات کے ساتھ اپیل کریں، یا مریض کو ذمہ داری بتائیں۔",
+"پلیس آف سروس کوڈ تصدیق اور درست کریں، یا اگر صحیح تھا تو اپیل کریں۔",
+"ملٹیپل پروسیجر کمی۔ عام طور پر صرف معلوماتی؛ ادائیگی درست ہے یہ تصدیق کریں۔",
+"RARC پڑھیں۔ پلان کی خارج شدہ سروس تصدیق کریں؛ مریض کی ذمہ داری کنٹریکٹ پر منحصر ہے۔",
+"بنڈلنگ ہے۔ NCCI/CDT بنڈلنگ قواعد چیک کریں؛ موڈیفائر یا دستاویزات کے ساتھ اپیل کریں۔",
+"غلط پیئر۔ کیریئر اور پیئر ID تصدیق کر کے صحیح پیئر کو دوبارہ بھیجیں۔",
+"سالانہ میکسیمم ختم ہو گیا۔ مریض کو بل کریں، ری سیٹ کی تاریخ نوٹ کریں، علاج مرحلوں میں کرنے پر غور کریں۔",
+"RARC میں مخصوص غلطی پڑھیں، کلیم درست کر کے دوبارہ بھیجیں۔",
+"کنٹریکچوئل ڈسکاؤنٹ۔ ایڈجسٹمنٹ کے طور پر پوسٹ کریں۔",
+"اپیل کی ڈیڈلائن اور طریقہ چیک کریں۔ اکثر حتمی ہوتا ہے؛ اگر درست ہو تو پیئر ریپ تک بڑھائیں۔",
+"نام اور ID کو انشورنس کارڈ کے مطابق بالکل درست کریں۔",
+"ICD-10 کوڈ کی درستگی اور مؤثر تاریخ چیک کریں۔",
+"فریکوئنسی کی حد (ڈینٹل میں پروفی، بائٹ ونگز، FMX)۔ ہسٹری چیک کریں؛ صرف طبی ضرورت پر اپیل کریں۔",
+"کوڈنگ کی درستگی تصدیق کریں۔ اگر صحیح ہے تو یہ تشخیص پلان میں خارج ہے۔",
+"پرووائیڈر کی قسم اہل نہیں۔ کریڈنشلنگ اور ٹیکسونومی تصدیق کریں۔",
+"سروس کی تاریخ پر کوڈ غلط یا میعاد ختم تھا۔ موجودہ سال کا CDT/CPT کوڈ استعمال کریں۔",
+"سروس کی تاریخ کے لیے درست موڈیفائر استعمال کر کے دوبارہ بھیجیں۔",
+"پرووائیڈر کی انرولمنٹ اور کریڈنشلنگ کی تاریخ سروس کی تاریخ سے تصدیق کریں۔",
+"اگر اجازت ہو تو ریٹرو-اتھارائزیشن مانگیں یا اپیل کریں۔ ڈینٹل میں بڑے کام کے لیے پری ڈیٹرمینیشن استعمال کریں۔",
+"اتھارائز شدہ حد سے زیادہ سروس ہوئی۔ اتھارائزیشن میں توسیع یا ترمیم مانگیں۔",
+"پلان کا استثناء ہے۔ فوائد تصدیق کریں؛ اگر مریض کو بتایا گیا تھا تو وہ ذمہ دار ہے۔",
+"بلنگ یا رینڈرنگ NPI شامل کر کے دوبارہ بھیجیں۔",
+"10 ہندسوں کا NPI درست کر کے دوبارہ بھیجیں۔",
+"NPI پیئر کے ریکارڈ سے نہیں ملتا۔ انرولمنٹ اور ٹیکسونومی چیک کریں۔",
+"یونٹ کی حد پوری ہو گئی۔ کنٹریکٹ کی حد دیکھیں اور طبی ضرورت پر اپیل کریں۔",
+"مطلوبہ دستاویزات پیئر کی ڈیڈلائن کے اندر بھیجیں۔",
+"مریض سے غائب معلومات لیں (COB فارم، حادثے کی تفصیل)۔",
+"بنڈلڈ یا ضمنی ہے۔ کنٹریکٹ کے مطابق رائٹ آف کریں۔",
+"NCCI طرز کا ایڈٹ ہے۔ کوڈ جوڑا چیک کریں؛ صرف دستاویزات کی حمایت ہونے پر موڈیفائر لگائیں۔",
+"آؤٹ آف نیٹ ورک ہے۔ نیٹ ورک کی حیثیت اور ریفرل کی ضرورت چیک کریں۔",
+"PCP سے ریفرل یا اتھارائزیشن درکار ہے۔ حاصل کر کے اپیل کریں۔",
+"ایکس رے، نریٹو یا پیریو چارٹنگ اٹیچمنٹ پورٹل کے ذریعے بھیج کر دوبارہ بھیجیں۔",
+"سیکوسٹریشن ایڈجسٹمنٹ پوسٹ کریں۔ مریض کو بل نہ کریں۔",
+"مینیجڈ کیئر کنٹریکٹ دیکھیں؛ عام طور پر رائٹ آف ہوتا ہے۔",
+"پرووائیڈر کی کریڈنشلنگ کی مؤثر تاریخ سروس کی تاریخ سے تصدیق کریں۔",
+"سروس ٹرمینل تشخیص سے غیر متعلق نہ ہو تو ہاسپس کو بل کریں۔",
+"دوبارہ بل کرنے سے پہلے پرانی ریمٹنسز میں ادائیگی تلاش کریں۔",
+"کلیم ترتیب چیک کریں۔ کوئی ضروری پہلی سروس غائب یا مسترد ہو سکتی ہے۔",
+"مریض حال ہی میں اسی گروپ یا اسپیشلٹی میں آیا تھا۔ اسٹیبلشڈ پیشنٹ کوڈ استعمال کریں۔"
+];
+var TERMS_UR = [
+"مریض کے وزٹ سے لے کر ادائیگی وصول ہونے تک کا پورا عمل۔",
+"علاج سے پہلے کا کام: شیڈولنگ، رجسٹریشن، انشورنس تصدیق۔",
+"علاج اور بلنگ کے درمیان: چارج کیپچر اور کوڈنگ۔",
+"کلیم بھیجنا، ادائیگی پوسٹ کرنا اور ڈینائل حل کرنا۔",
+"وزٹ میں دی گئی ہر سروس ریکارڈ کرنا تاکہ بل ہو سکے۔",
+"وہ کلیم جس میں کوئی غلطی نہیں، پہلی بار میں پراسیس ہو جاتا ہے۔",
+"پہلی بار میں صحیح ادا ہونے والے کلیمز کی شرح۔",
+"ادائیگی وصول کرنے میں اوسطاً کتنے دن لگتے ہیں۔",
+"کنٹریکچوئل ایڈجسٹمنٹ کے بعد جتنی رقم وصول ہونی چاہیے، اس کا کتنا حصہ ملا۔",
+"کل چارجز میں سے کتنا وصول ہوا، ایڈجسٹمنٹ سے پہلے۔",
+"پیئر کتنے فیصد کلیمز مسترد کرتے ہیں۔",
+"وزٹ کی سروسز اور تشخیص کا فارم جس سے چارج بنتا ہے۔",
+"پریکٹس کا اپنا معیاری ریٹ ہر سروس کے لیے۔",
+"وزٹ کے وقت کوپے اور ڈیڈکٹیبل وصول کرنا۔",
+"طبی سروسز اور پروسیجرز بیان کرنے والے کوڈز۔",
+"سامان، آلات اور دوائیں بیان کرنے والے کوڈز۔",
+"مریض کی تشخیص بیان کرنے والے کوڈز۔",
+"صرف ہاسپٹل کے پروسیجرز کے لیے استعمال ہونے والے کوڈز۔",
+"ڈینٹل پروسیجرز کے کوڈز، D سے شروع ہوتے ہیں۔",
+"کوڈ میں مزید تفصیل شامل کرنے والا دو حروف کا اضافہ۔",
+"اسی دن دوسرے پروسیجر کے ساتھ الگ E/M سروس ظاہر کرتا ہے۔",
+"دکھاتا ہے کہ ایک پروسیجر دوسرے سے الگ تھا۔",
+"مریض کی وزٹ رپورٹ کرنے والے کوڈز۔",
+"وہ قواعد جو غلط جوڑا بنے کوڈز کو ادا ہونے سے روکتے ہیں۔",
+"وہ سروس جو علاج کے لیے ضروری اور جائز ہو۔",
+"ایک مکمل کوڈ کے حصے الگ الگ بل کرنا۔",
+"دستاویزات سے زیادہ مہنگا کوڈ رپورٹ کرنا۔",
+"سروس کہاں ہوئی، اس کا دو ہندسوں کا کوڈ۔",
+"پرووائیڈر کی قسم اور اسپیشلٹی بتانے والا کوڈ۔",
+"ڈاکٹروں کا کلیم فارم۔",
+"ہاسپٹل کا کلیم فارم۔",
+"ڈینٹل کا معیاری کلیم فارم۔",
+"پرووائیڈر سے پیئر کو بھیجا جانے والا الیکٹرانک کلیم۔",
+"ادائیگی کی تفصیل بتانے والی الیکٹرانک رپورٹ۔",
+"کوریج تصدیق کرنے کی درخواست اور جواب۔",
+"کلیم کی حیثیت پوچھنے کی درخواست اور جواب۔",
+"پرووائیڈر اور پیئر کے درمیان کلیم چیک اور بھیجنے والا واسطہ۔",
+"بھیجنے سے پہلے کلیم میں غلطی چیک کرنے والا سافٹ ویئر۔",
+"پیئر کی طرف سے مریض کو ملنے والی رپورٹ۔",
+"کلیم کا مقصد بتانے والا ہندسہ: اصل، تبدیل شدہ یا منسوخ۔",
+"سروس کے بعد کلیم بھیجنے کی آخری تاریخ۔",
+"پیئر جتنی رقم تسلیم کرتا ہے، اس کی زیادہ سے زیادہ حد۔",
+"بلڈ چارج اور اجازت شدہ رقم کا فرق جو رائٹ آف کرنا ہوتا ہے۔",
+"مریض سے فرق کی رقم بل کرنا، جو ان-نیٹ ورک میں منع ہے۔",
+"جب مریض کے پاس دو پلان ہوں تو کون پہلے ادا کرے گا۔",
+"بچے کا پلان اس والدین کا استعمال ہوتا ہے جس کی سالگرہ سال میں پہلے آتی ہے۔",
+"صرف نیٹ ورک میں علاج، اکثر پی سی پی ریفرل ضروری۔",
+"کم قیمت ان-نیٹ ورک میں، باہر بھی کچھ کوریج، ریفرل کی ضرورت نہیں۔",
+"صرف نیٹ ورک کوریج، ریفرل ضروری نہیں۔",
+"مریض ہر سال شروع میں یہ رقم خود دیتا ہے۔",
+"وزٹ کے لیے مریض کی طے شدہ رقم۔",
+"ڈیڈکٹیبل کے بعد مریض کا فیصد حصہ۔",
+"سال میں مریض زیادہ سے زیادہ کتنا خود دے گا۔",
+"سروس سے پہلے پیئر کی منظوری درکار۔",
+"فی مریض ماہانہ طے شدہ رقم کی ادائیگی۔",
+"ہر سروس کے لیے الگ ادائیگی کا طریقہ۔",
+"پیئر کو براہ راست پرووائیڈر کو ادائیگی کی اجازت۔",
+"میڈیکیئر مریض کو بتاتا ہے کہ ادائیگی نہیں ہو سکتی، اس لیے وہ ذمہ دار ہو سکتا ہے۔",
+"وہ پرووائیڈر جو پیئر کی طے شدہ رقم قبول کرتا ہے۔",
+"میڈیکیئر کے مختلف حصے: ہاسپٹل، میڈیکل، ایڈوانٹیج، دوائیں۔",
+"کم آمدنی والوں کے لیے پروگرام، آخری ادائیگی کنندہ۔",
+"ERA اور EOB سے ادائیگی مریض کے اکاؤنٹ میں درج کرنا۔",
+"کلیم ایڈجسٹ یا مسترد ہونے کی وجہ بتانے والا کوڈ۔",
+"CARC میں مزید تفصیل شامل کرنے والا کوڈ۔",
+"کون ذمہ دار ہے بتانے والے دو حروف: CO، PR، OA وغیرہ۔",
+"رقم اکاؤنٹ سے ہٹانا، معاہدے کے تحت یا ناقابل وصول۔",
+"کوشش کے باوجود وصول نہ ہونے والی رقم۔",
+"جب ادائیگی واجب رقم سے زیادہ ہو۔",
+"پیئر کا پرانی ادائیگی واپس لینا۔",
+"835 میں کلیم سے الگ ایڈجسٹمنٹ کی رپورٹ۔",
+"بقایا رقم کو عمر کے حساب سے گروپ کرنا۔",
+"غیر ادا شدہ کلیمز کے بارے میں پیئر سے رابطہ۔",
+"پورٹل یا کال سے کلیم کی حیثیت معلوم کرنا۔",
+"طے شدہ ریٹ سے کم ادائیگی۔",
+"باقی رقم کے لیے مریض کو بل بھیجنا۔",
+"مریض کو قسطوں میں ادائیگی کی اجازت۔",
+"بقایا رقم وصول کرنے والی تیسری فریق۔",
+"ڈینائل ٹریک، درست اور روکنے کا عمل۔",
+"غلطی کی وجہ سے شروع میں مسترد کلیم، اپیل کی ضرورت نہیں۔",
+"وہ ڈینائل جو درست ہو کر ادا ہو سکتا ہے۔",
+"وہ ڈینائل جسے پلٹنا مشکل ہو۔",
+"ڈینائل کے پیٹرن کا مطالعہ تاکہ اصل وجہ معلوم ہو۔",
+"ڈینائل واپس لینے کی باضابطہ درخواست۔",
+"غلطی درست کر کے دوبارہ بھیجا گیا کلیم۔",
+"پرووائیڈر کی قابلیت کی تصدیق۔",
+"پرووائیڈر کو پیئر کے ساتھ رجسٹر کروانا۔",
+"کریڈنشلنگ کی معلومات رکھنے والا آن لائن ڈیٹابیس۔",
+"CAQH ڈیٹا درست ہونے کی تصدیق، ہر 120 دن میں۔",
+"میڈیکیئر کا انرولمنٹ سسٹم۔",
+"انفرادی پرووائیڈر کے لیے میڈیکیئر انرولمنٹ فارم۔",
+"گروپ کو ادائیگی کے لیے فارم۔",
+"پرووائیڈر کا منفرد 10 ہندسوں کا شناختی نمبر۔",
+"جہاں NPI جاری ہوتا ہے۔",
+"لائسنس براہ راست ذریعے سے تصدیق کرنا۔",
+"ہر تین سال بعد دوبارہ تصدیق۔",
+"جب سے پرووائیڈر ادائیگی کا اہل ہوتا ہے۔",
+"پیئر گروپ کو خود کریڈنشل کرنے کی اجازت دیتا ہے۔",
+"D0 تشخیصی، D1 پریوینٹو، D2 ریسٹوریٹو وغیرہ کیٹیگریز۔",
+"مستقل دانت 1-32، دودھ کے دانت A-T۔",
+"دانت کی سطحیں: M، D، O، I، B، F، L۔",
+"منہ کے حصے: UR، UL، LL، LR۔",
+"سال میں پلان زیادہ سے زیادہ کتنا ادا کرے گا۔",
+"انرولمنٹ کے بعد کچھ سروسز کے لیے انتظار کا وقت۔",
+"کوریج سے پہلے کھویا دانت دوبارہ لگانے کا استثناء۔",
+"کتنی بار سروس کوریج میں شامل ہے۔",
+"پلان سستے علاج کی رقم ادا کرتا ہے، فرق مریض دیتا ہے۔",
+"علاج سے پہلے پیئر کا تخمینہ، ادائیگی کی گارنٹی نہیں۔",
+"پریوینٹو، بیسک اور میجر کیٹیگریز۔",
+"سیکنڈری پلان صرف اضافی فرق ادا کرتا ہے۔",
+"طبی ضرورت پر ڈینٹل کام میڈیکل انشورنس کو بل کرنا۔",
+"ریڈیوگراف، پیریو چارٹ اور نریٹو کلیم کی حمایت کے لیے۔",
+"صفائی اور چیک اپ کے کوڈز، فریکوئنسی کی حد ہوتی ہے۔",
+"D4341 چار یا زیادہ دانت، D4342 ایک سے تین دانت۔",
+"مریض کی معلومات کی حفاظت کرنے والا قانون۔",
+"مریض سے متعلق محفوظ صحت کی معلومات۔",
+"صرف ضروری معلومات استعمال یا شیئر کرنے کا اصول۔",
+"سرکاری پروگرام کو جھوٹا کلیم بھیجنے پر سزا کا قانون۔",
+"ریفرل کے بدلے کچھ لینے یا دینے پر پابندی۔",
+"سرکاری پروگرام سے خارج افراد کی فہرست۔",
+"غیر متوقع بلوں سے مریض کو بچانے والا قانون۔",
+"میڈیکیئر کی غلط ادائیگیوں کی جانچ۔",
+"اضافی ادائیگی 60 دن میں واپس کرنے کی شرط۔"
+];
+var SCEN_UR = [
+"CO-16 درست ہونے والی غلطی ہے۔ ڈیٹا درست کریں (RARC میں چیز بتائی ہوتی ہے) اور دوبارہ بھیجیں۔ یہ مریض کی ذمہ داری نہیں۔",
+"کوائنشورنس اجازت شدہ رقم کا 20% ہے ($80 کا 20% = $16)۔ ایڈجسٹمنٹ بلڈ مائنس اجازت شدہ ($120-$80=$40)۔ پیئر $64 ادا کرے گا۔",
+"برتھ ڈے رول میں صرف مہینہ اور تاریخ دیکھی جاتی ہے، سال نہیں۔ جس والدین کی سالگرہ سال میں پہلے آئے وہ پرائمری ہے۔",
+"فریکوئنسی کوڈ 7 پرانے کلیم کی جگہ لیتا ہے اور اصل کلیم نمبر شامل ہونا چاہیے۔ کوڈ 8 کلیم منسوخ کرتا ہے۔",
+"CMS-1500 (837P) پروفیشنل سروسز کے لیے ہے۔ UB-04 ہاسپٹل اور ADA فارم ڈینٹل کے لیے ہے۔",
+"835 الیکٹرانک ادائیگی کی رپورٹ ہے۔ 837 کلیم، 270/271 ایلیجیبلٹی اور 276/277 کلیم کی حیثیت ہے۔",
+"سروس سے پہلے کوریج درست کرنے سے ایلیجیبلٹی ڈینائل رک جاتا ہے۔ کوریج نہ ملے تو مریض سے سیلف پے پر بات کریں۔",
+"ٹائملی فائلنگ کا ثبوت (کلیئرنگ ہاؤس، پرانا EOB یا پورٹل ٹائم اسٹیمپ) ڈینائل پلٹنے کی بنیاد ہے۔",
+"فل ماؤتھ سیریز میں عام طور پر بائٹ ونگز شامل ہوتی ہیں، اس لیے یہ رائٹ آف ہے، مریض کی ذمہ داری نہیں۔",
+"D0120 پیریوڈک ایگزام ہے۔ D0150 کمپری ہینسو، D0140 محدود اور D1110 بالغ صفائی ہے۔",
+"D4342 ایک سے تین دانت، D4341 چار یا زیادہ دانت فی کواڈرنٹ کے لیے ہے۔",
+"آلٹرنیٹ بینیفٹ کم قیمت علاج کے حساب سے ادا کرتا ہے۔ مریض کو تخمینے میں بتائیں۔",
+"سالانہ میکسیمم پر فوائد رک جاتے ہیں۔ پہلے درست تخمینہ دیں اور علاج مرحلوں میں کرنے پر غور کریں۔",
+"پیئرز CAQH سے ڈیٹا لیتے ہیں۔ میعاد ختم اٹیسٹیشن کریڈنشلنگ روک سکتی ہے۔",
+"CAQH کو ہر 120 دن میں دوبارہ اٹیسٹ کرنا ضروری ہے۔",
+"PECOS میڈیکیئر کا انرولمنٹ سسٹم ہے۔ NPPES NPI جاری کرتا ہے، CAQH کمرشل پیئرز سے ڈیٹا شیئر کرتا ہے۔",
+"Type 1 انفرادی، Type 2 گروپ یا کلینک جیسے اداروں کے لیے ہے۔",
+"کوریج اکثر بدلتی ہے۔ ہر وزٹ سے پہلے تصدیق سے ٹرمینیشن اور تبدیلی معلوم ہو جاتی ہے۔",
+"رقم اور ڈیڈلائن کے خطرے کے حساب سے کام کریں تاکہ زیادہ رقم نہ کھوئیں۔",
+"زیادہ ادائیگی واپس کرنی ہوتی ہے۔ میڈیکیئر کو 60 دن میں رپورٹ اور واپس کرنا ضروری ہے۔",
+"اپکوڈنگ کا مطلب دستاویزات سے زیادہ مہنگا کوڈ لگانا ہے، یہ سنگین خلاف ورزی ہے۔",
+"ان بنڈلنگ سے ادائیگی بڑھ جاتی ہے اور NCCI پکڑ لیتا ہے۔",
+"OIG کی خارج شدہ افراد کی فہرست ہر مہینے چیک ہونی چاہیے۔",
+"PHI کا ممکنہ افشا واقعے کے عمل سے گزرنا چاہیے۔",
+"Part A ہاسپٹل، Part B میڈیکل، Part C ایڈوانٹیج، Part D دوائیں ہیں۔",
+"میڈیکیڈ دوسری کوریج کے بعد ادا کرتا ہے۔",
+"HMO میں عام طور پر PCP اور ریفرل ضروری ہے، باہر کی کوریج کم یا نہیں۔",
+"ABN مریض کو بتاتا ہے کہ وہ ذمہ دار ہو سکتا ہے، اگر میڈیکیئر انکار کرے۔",
+"ریجیکشن پراسیس ہی نہیں ہوا: درست کر کے دوبارہ بھیجیں۔ ڈینائل پراسیس ہو چکا، درستی یا اپیل چاہیے۔",
+"پیٹرن کسی بڑی وجہ کی نشاندہی کرتا ہے، جیسے پالیسی تبدیلی۔ جڑ سے درست کریں۔",
+"CO-4 کا مطلب موڈیفائر غائب یا غلط ہے۔ دستاویزات تصدیق کر کے درست کریں۔",
+"PR مطلب مریض ذمہ دار، CARC 1 ڈیڈکٹیبل ہے۔ پہلے سیکنڈری انشورنس، ورنہ مریض کو بل کریں۔",
+"POS 11 آفس ہے۔ 21 ان پیشنٹ، 22 آؤٹ پیشنٹ اور 23 ایمرجنسی روم ہے۔",
+"موڈیفائر 25 اسی دن الگ E/M سروس کے لیے ہے۔ موڈیفائر 59 الگ پروسیجر کے لیے۔",
+"میڈیکیئر عام طور پر ایک سال کے اندر کلیم مانگتا ہے۔ کمرشل پیئرز کی حد اکثر کم ہوتی ہے۔",
+"ان-نیٹ ورک پرووائیڈر کو فرق رائٹ آف کرنا ہوتا ہے، صرف مریض کا حصہ بل کر سکتے ہیں۔",
+"کل بقایا رقم کو اوسط روزانہ چارجز سے تقسیم کرنے سے وصولی کا وقت معلوم ہوتا ہے۔",
+"یہ بتاتا ہے کہ کتنے کلیمز پہلی بار میں صحیح ادا ہوئے۔",
+"پری ڈیٹرمینیشن تخمینہ ہے، اس وقت کی ایلیجیبلٹی اور حد پر منحصر ہے۔",
+"سلیپ ایپنیا آلات عام طور پر میڈیکل پلان سے بل ہوتے ہیں، یہ میڈیکل-ڈینٹل کراس کوڈنگ ہے۔",
+"CO مطلب پرووائیڈر رائٹ آف۔ PR مریض کی ذمہ داری۔ OA دیگر۔ PI پیئر کی طرف سے۔ CR درستی۔",
+"CARC وجہ بتاتا ہے؛ RARC اضافی تفصیل دیتا ہے، اکثر N یا M سے شروع ہوتا ہے۔",
+"پیئرز مؤثر تاریخ سے ادا کرتے ہیں۔ تاخیر سے CARC B7 یا 185 جیسی ڈینائل آتی ہے۔"
+];
+
 var RAW = [
  ['1','PR','Patient','Deductible amount.','Patient owes this. Verify remaining deductible at eligibility check and collect at the visit.'],
  ['2','PR','Patient','Coinsurance amount.','Patient share of the allowed amount. Bill after insurance posts. Dental plans often split 100/80/50 by procedure class.'],
@@ -559,7 +810,7 @@ var RAW = [
  ['B15','CO','Coverage','This service/procedure requires that a qualifying service/procedure be received and covered. The qualifying other service/procedure has not been received/adjudicated.','Check the claim sequence. A prerequisite procedure may be missing or denied.'],
  ['B16','CO','Coding','\'New Patient\' qualifications were not met.','Patient was seen recently by the same group or specialty. Use an established patient code.']
 ];
-var DENIALS = RAW.map(function(r){return {id:r[0],kind:'code',grp:r[1],label:r[1]+'-'+r[0],cat:r[2],desc:r[3],tip:r[4]};});
+var DENIALS = RAW.map(function(r,i){return {id:r[0],kind:'code',grp:r[1],label:r[1]+'-'+r[0],cat:r[2],desc:r[3],tip:r[4],u:DENIALS_UR[i]};});
 /* ---------- CONCEPT CARDS: [term, topic, definition, in practice] ---------- */
 var TERMS_RAW = [
 ["Revenue Cycle Management (RCM)","RCM Basics","The end-to-end process of tracking a patient encounter from scheduling and registration through coding, billing, payment and account resolution.","Three phases: front end (before care), mid-cycle (documentation and coding), back end (claims, posting, A/R, denials)."],
@@ -694,7 +945,7 @@ var TERMS_RAW = [
 ["RAC Audit","Compliance","A Recovery Audit Contractor review that finds improper Medicare payments.","Keep documentation ready and respond within deadlines."],
 ["Medicare 60-Day Rule","Compliance","Overpayments must be reported and returned within 60 days of being identified.","Applies to Medicare and Medicaid overpayments."]
 ];
-var TERMS = TERMS_RAW.map(function(r,i){return {id:'k'+(i+1),kind:'term',label:r[0],cat:r[1],desc:r[2],tip:r[3]};});
+var TERMS = TERMS_RAW.map(function(r,i){return {id:'k'+(i+1),kind:'term',label:r[0],cat:r[1],desc:r[2],tip:r[3],u:TERMS_UR[i]};});
 
 /* ---------- SCENARIO QUESTIONS: [topic, question, options, correct index, explanation] ---------- */
 var SCEN_RAW = [
@@ -742,7 +993,8 @@ var SCEN_RAW = [
 ["Payments & Posting","Which code type gives the general reason for an adjustment, and which adds supplemental detail?",["RARC general, CARC supplemental","CARC general, RARC supplemental","Both are the same","Neither appears on the ERA"],1,"The CARC explains the adjustment reason; the RARC adds remark detail and often begins with N or M."],
 ["Credentialing","A provider sees patients before their payer effective date. What is the likely result?",["Payment is retroactive automatically","Claims for earlier dates of service may deny","No impact","Claims pay at a higher rate"],1,"Payers pay from the effective date. Delays cause denials such as CARC B7 or 185, so track enrollment dates."]
 ];
-var SCEN = SCEN_RAW.map(function(r,i){return {id:'s'+(i+1),kind:'scen',cat:r[0],q:r[1],opts:r[2],a:r[3],why:r[4]};});
+var SCEN = SCEN_RAW.map(function(r,i){return {id:'s'+(i+1),kind:'scen',cat:r[0],q:r[1],opts:r[2],a:r[3],why:r[4],u:SCEN_UR[i]};});
+
 
 var CODES = DENIALS.concat(TERMS);
 var BYID = {}; CODES.forEach(function(c){BYID[c.id]=c;});
@@ -779,9 +1031,8 @@ function record(id,ok){
   S.days[t]=(S.days[t]||0)+1;
   save();
 }
-var GRPNOTE={CO:'CO means the provider writes this off. The patient is not billed.',PR:'PR means the patient is responsible for this amount.'};
-var GRPNOTE_UR={CO:'CO کا مطلب: یہ رقم ڈاکٹر معاف کرتا ہے، مریض سے نہیں لی جاتی۔',PR:'PR کا مطلب: یہ رقم مریض کو دینی ہوتی ہے۔'};
-function tipHtml(c){return (c.kind==='term'?'<b>In practice:</b> ':'<b>What to do:</b> ')+esc(c.tip)+((c.kind==='code'&&GRPNOTE[c.grp])?'<div class="mini" style="margin-top:8px">'+GRPNOTE[c.grp]+'</div><div class="ur mini">'+GRPNOTE_UR[c.grp]+'</div>':'');}
+
+function tipHtml(c){return (c.kind==='term'?'<b>In practice:</b> ':'<b>What to do:</b> ')+esc(c.tip)+(c.u?'<div class="ur" style="margin-top:8px">'+esc(c.u)+'</div>':'');}
 
 /* ---------- THEME ---------- */
 function effectiveTheme(){
@@ -900,7 +1151,12 @@ function pool(cat){
 function startLearn(){
   var p=pool(L.cat);
   if(!p.length){toast(L.cat==='Weak'?'No weak cards yet. Great! Try Everything.':'No cards match yet.');return;}
-  p=shuffle(p).sort(function(a,b){var sa=st(a.id),sb=st(b.id);return sa.b-sb.b||sa.t-sb.t;}).slice(0,10);
+  if(L.cat==='All'){
+    p=shuffle(p).sort(function(a,b){return (a.cat==='RCM Basics'?0:1)-(b.cat==='RCM Basics'?0:1)||st(a.id).b-st(b.id).b;});
+  } else {
+    p=shuffle(p).sort(function(a,b){var sa=st(a.id),sb=st(b.id);return sa.b-sb.b||sa.t-sb.t;});
+  }
+  p=p.slice(0,10);
   L.queue=shuffle(p); L.i=0; L.got=0; L.again=0; L.active=true;
   $('lSetup').style.display='none'; $('lDone').style.display='none'; $('lSession').style.display='block';
   loadCard(true);
@@ -1021,7 +1277,9 @@ $('qStart').onclick=function(){
 function startPreset(kind){
   var p;
   if(kind==='scen'){ startQuiz(SCEN.slice(),'scen',10); return; }
-  if(kind==='codes') p=DENIALS.slice(); else if(kind==='weak') p=pool('Weak'); else p=CODES.slice();
+  if(kind==='codes'){ p=DENIALS.slice(); }
+  else if(kind==='weak'){ p=pool('Weak'); }
+  else { p=shuffle(CODES.slice()).sort(function(a,b){return (a.cat==='RCM Basics'?0:1)-(b.cat==='RCM Basics'?0:1)||st(a.id).b-st(b.id).b;}); }
   if(!p.length){toast('No weak items yet. Try a quick quiz first.');return;}
   startQuiz(p,'mix',10);
 }
@@ -1065,7 +1323,7 @@ function answerQ(i){
   record(q.c.id,ok);
   if(ok) Q.score++; else Q.missed.push(q.c);
   $('qFb').innerHTML=q.type==='scen'
-    ? '<div class="fb '+(ok?'ok':'no')+'"><h4>'+(ok?'Correct':'Not quite')+'</h4><p>'+esc(q.c.why)+'</p></div>'
+    ? '<div class="fb '+(ok?'ok':'no')+'"><h4>'+(ok?'Correct':'Not quite')+'</h4><p>'+esc(q.c.why)+'</p>'+(q.c.u?'<p class="ur" style="margin-top:6px">'+esc(q.c.u)+'</p>':'')+'</div>'
     : '<div class="fb '+(ok?'ok':'no')+'"><h4>'+(ok?'Correct':'Not quite')+' - '+esc(q.c.label)+'</h4><p>'+esc(q.c.desc)+'</p><p style="margin-top:6px">'+tipHtml(q.c)+'</p></div>';
   var last=Q.i===Q.qs.length-1;
   $('qNext').textContent=last?'See results':'Next question'; $('qNext').style.display='inline-flex';
@@ -1174,6 +1432,24 @@ $('vList').addEventListener('click',function(e){
   if(act==='play') vPlay(v); else if(act==='save') vSave(v,card); else if(act==='remove') vRemove(v);
 });
 $('vClose').onclick=function(){ var p=$('vPlayer'); p.pause(); p.removeAttribute('src'); p.load(); $('vPlayerCard').style.display='none'; };
+
+var LANG = 'both';
+try{ LANG = localStorage.getItem('rcm-lang') || 'both'; }catch(e){}
+var NAV_UR = {home:'ہوم', learn:'پڑھیں', quiz:'کوئز', library:'تلاش', videos:'ویڈیو', contact:'مدد', admin:'ایڈمن'};
+var NAV_EN = {home:'Home', learn:'Study', quiz:'Practice', library:'Look up', videos:'Videos', contact:'Help', admin:'Admin'};
+function setLang(l){
+  LANG = l; try{ localStorage.setItem('rcm-lang', l); }catch(e){}
+  document.documentElement.setAttribute('data-lang', l);
+  document.querySelectorAll('#langRow .chip').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-lg')===l); });
+  document.querySelectorAll('.nav-btn[data-view]').forEach(function(b){
+    var v=b.getAttribute('data-view'); if(!NAV_UR[v]) return;
+    var last=b.lastChild;
+    if(last&&last.nodeType===3) last.textContent=(l==='ur'?NAV_UR[v]:NAV_EN[v]);
+  });
+  if(document.getElementById('v-home').classList.contains('active')) renderHome();
+}
+document.querySelectorAll('#langRow .chip').forEach(function(b){ b.onclick=function(){ setLang(b.getAttribute('data-lg')); }; });
+setLang(LANG);
 
 libInit();
 showView('home');
