@@ -171,21 +171,8 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-.gate{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:#1e1b4b;padding:20px;overflow-y:auto}
-.gate-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
-.gate-bg svg{width:100%;height:100%;display:block}
-.gate-card{position:relative;z-index:1;width:100%;max-width:380px;background:rgba(12,16,34,0.62);border:1px solid rgba(255,255,255,0.16);border-radius:22px;padding:28px;box-shadow:0 25px 70px rgba(0,0,0,0.5);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
-.gate-card, .gate-card .sub, .gate-card .mini, .gate-card .ur{color:#f1f5f9}
-.gate-card .sub, .gate-card .mini{color:#cbd5e1}
-.gate-card .inp{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.22);color:#f8fafc}
-.gate-card .inp::placeholder{color:#94a3b8}
-.gate-card .chip{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.22);color:#e2e8f0}
-.gate-card .chip.on{background:rgba(129,140,248,0.28);border-color:#a5b4fc;color:#fff}
-.gate-card .pricebox{background:rgba(129,140,248,0.22);border-color:rgba(165,180,252,0.6);color:#fff}
-.gate-card .btn.good{background:rgba(52,211,153,0.22);border-color:#6ee7b7;color:#6ee7b7}
-.gate-card .btn.primary{box-shadow:0 10px 26px rgba(192,38,211,0.35)}
-.gate-card .btn:not(.primary):not(.good){background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.24);color:#f1f5f9}
-.gate-card .gerr{color:#fca5a5}
+.gate{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:20px;overflow-y:auto}
+.gate-card{width:100%;max-width:380px;background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:28px;box-shadow:var(--shadow)}
 .gbrand{font-size:1.7rem;font-weight:800;background:linear-gradient(90deg,var(--accent),var(--primary));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2px}
 .gerr{color:var(--bad);font-size:.88rem;min-height:1.2em;margin-bottom:10px}
 .urow select.inp{padding:8px 10px}
@@ -472,75 +459,6 @@ h2 .ur, .title+.ur, .head .ur{margin-top:2px}
   </main>
 </div>
 <div class="netbanner" id="netBanner" style="display:none">Offline - your progress is saved on this device and will sync when you are back online.</div>
-<div class="gate-bg"><svg viewBox="0 0 380 760" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><title>Medical and dental billing illustration</title>
-<defs>
-<linearGradient id="ghSky" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0" stop-color="#1e1b4b"/><stop offset="0.5" stop-color="#4c1d95"/><stop offset="1" stop-color="#5b21b6"/></linearGradient>
-<linearGradient id="ghGlow" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#c026d3"/></linearGradient>
-<linearGradient id="ghCard" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdfdff"/><stop offset="1" stop-color="#e2e8f0"/></linearGradient>
-<linearGradient id="ghCoin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fde68a"/><stop offset="1" stop-color="#d97706"/></linearGradient>
-<radialGradient id="ghHalo" cx="0.5" cy="0.22" r="0.55"><stop offset="0" stop-color="#67e8f9" stop-opacity="0.55"/><stop offset="1" stop-color="#67e8f9" stop-opacity="0"/></radialGradient>
-<radialGradient id="ghHalo2" cx="0.2" cy="0.85" r="0.4"><stop offset="0" stop-color="#f472b6" stop-opacity="0.4"/><stop offset="1" stop-color="#f472b6" stop-opacity="0"/></radialGradient>
-</defs>
-<rect x="0" y="0" width="380" height="760" fill="url(#ghSky)"/>
-<circle cx="190" cy="150" r="220" fill="url(#ghHalo)"/>
-<circle cx="70" cy="660" r="220" fill="url(#ghHalo2)"/>
-<circle cx="55" cy="60" r="2.8" fill="#e0e7ff" opacity="0.85"/>
-<circle cx="330" cy="44" r="2.2" fill="#e0e7ff" opacity="0.7"/>
-<circle cx="352" cy="110" r="1.8" fill="#e0e7ff" opacity="0.6"/>
-<circle cx="26" cy="130" r="2" fill="#e0e7ff" opacity="0.6"/>
-<circle cx="300" cy="20" r="1.6" fill="#e0e7ff" opacity="0.55"/>
-<circle cx="340" cy="620" r="2.4" fill="#e0e7ff" opacity="0.6"/>
-<circle cx="24" cy="700" r="1.8" fill="#e0e7ff" opacity="0.5"/>
-<g transform="translate(22,40)">
-<rect x="0" y="0" width="100" height="142" rx="14" fill="url(#ghGlow)" opacity="0.92" transform="rotate(-8 50 71)"/>
-<g transform="rotate(-8 50 71)">
-<line x1="17" y1="26" x2="17" y2="114" stroke="#0e2a30" stroke-width="3.5" stroke-linecap="round" opacity="0.35"/>
-<circle cx="17" cy="26" r="7.5" fill="none" stroke="#0e2a30" stroke-width="3.5" opacity="0.35"/>
-<circle cx="17" cy="114" r="8.5" fill="#0e2a30" opacity="0.35"/>
-<circle cx="17" cy="114" r="4.2" fill="#22d3ee"/>
-</g>
-</g>
-<g transform="translate(120,26) rotate(2 90 130)">
-<rect x="0" y="0" width="150" height="170" rx="16" fill="url(#ghCard)"/>
-<rect x="42" y="-12" width="66" height="26" rx="10" fill="#cbd5e1"/>
-<circle cx="120" cy="28" r="21" fill="url(#ghGlow)"/>
-<path d="M109 28 L117 36 L132 20" fill="none" stroke="#0e2a30" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="18" y="62" width="68" height="8" rx="3" fill="#a5b4fc"/>
-<rect x="18" y="80" width="96" height="6" rx="3" fill="#cbd5e1"/>
-<rect x="18" y="94" width="78" height="6" rx="3" fill="#cbd5e1"/>
-<line x1="18" y1="112" x2="132" y2="112" stroke="#e2e8f0" stroke-width="2"/>
-<polyline points="18,156 38,140 58,148 78,124 98,132 128,110" fill="none" stroke="#7c3aed" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="128" cy="110" r="4.5" fill="#c026d3"/>
-</g>
-<g transform="translate(300,180)">
-<circle cx="0" cy="0" r="28" fill="url(#ghCoin)"/>
-<text x="0" y="7" text-anchor="middle" font-size="24" font-weight="700" fill="#78350f" font-family="Georgia,serif">$</text>
-</g>
-<g transform="translate(332,210)">
-<circle cx="0" cy="0" r="18" fill="url(#ghCoin)" opacity="0.92"/>
-<text x="0" y="5" text-anchor="middle" font-size="15" font-weight="700" fill="#78350f" font-family="Georgia,serif">$</text>
-</g>
-<g transform="translate(58,200)">
-<path d="M16 3 C8 3 3 11 3 21 C3 33 8 48 13 48 C16 48 16 37 21 37 C26 37 26 48 29 48 C35 48 40 33 40 21 C40 11 35 3 27 3 C23 3 22 7 21 10 C20 7 19 3 16 3 Z" fill="#f8fafc"/>
-</g>
-<g transform="translate(300,290) rotate(6 0 0)" opacity="0.9">
-<circle cx="0" cy="0" r="16" fill="none" stroke="#67e8f9" stroke-width="2.5"/>
-<path d="M-16 0 A16 16 0 0 1 0 -16" fill="none" stroke="#f472b6" stroke-width="2.5"/>
-</g>
-<g transform="translate(30,600)" opacity="0.95">
-<rect x="0" y="0" width="118" height="86" rx="12" fill="url(#ghCard)" opacity="0.9" transform="rotate(-4 59 43)"/>
-<g transform="rotate(-4 59 43)">
-<rect x="14" y="16" width="60" height="6" rx="2.5" fill="#a5b4fc"/>
-<rect x="14" y="30" width="80" height="5" rx="2.5" fill="#cbd5e1"/>
-<rect x="14" y="42" width="70" height="5" rx="2.5" fill="#cbd5e1"/>
-<rect x="14" y="60" width="40" height="14" rx="6" fill="#22d3ee" opacity="0.85"/>
-</g>
-</g>
-<g transform="translate(320,690)">
-<circle cx="0" cy="0" r="22" fill="url(#ghCoin)"/>
-<text x="0" y="6" text-anchor="middle" font-size="19" font-weight="700" fill="#78350f" font-family="Georgia,serif">$</text>
-</g>
-</svg></div>
 <div class="gate" id="gate">
   <div class="gate-card">
     <div class="gbrand">RCM Mastery</div>
@@ -1025,7 +943,74 @@ var TERMS_RAW = [
 ["OIG LEIE","Compliance","The OIG List of Excluded Individuals/Entities barred from federal healthcare programs.","Screen staff and providers monthly."],
 ["No Surprises Act","Compliance","Federal law protecting patients from certain surprise out-of-network bills, such as emergency care.","Also requires good faith estimates for uninsured or self-pay patients."],
 ["RAC Audit","Compliance","A Recovery Audit Contractor review that finds improper Medicare payments.","Keep documentation ready and respond within deadlines."],
-["Medicare 60-Day Rule","Compliance","Overpayments must be reported and returned within 60 days of being identified.","Applies to Medicare and Medicaid overpayments."]
+["Medicare 60-Day Rule","Compliance","Overpayments must be reported and returned within 60 days of being identified.","Applies to Medicare and Medicaid overpayments."],
+
+["Patient (Billing Definition)","RCM Basics","The person who receives treatment from a provider for an illness, checkup or procedure.","The patient and the insurance guarantor are not always the same person."],
+["Provider","RCM Basics","The doctor or facility that delivers treatment and bills the payer for it.","Also called the rendering provider on a claim."],
+["Payer","RCM Basics","The insurance company that covers the patient and reimburses the provider after a claim is filed.","Government and commercial payers follow different rules and timelines."],
+["Guarantor (Subscriber)","RCM Basics","The person who holds the insurance policy, who may be different from the patient, such as a parent covering a child.","Demographic entry must capture both the patient and the guarantor accurately."],
+["Practice","RCM Basics","The physical location, such as a clinic or hospital, where the provider delivers services.","Practice information (address, Tax ID, NPI) must match enrollment records."],
+["Primary Care Physician (PCP)","RCM Basics","The doctor a patient sees first for any health concern, often required by HMO plans.","If a PCP cannot treat an issue, they refer the patient to a specialist."],
+["Specialist","RCM Basics","A doctor who focuses on one organ, disease or field, such as cardiology or pediatrics.","Specialist visits often require a referral from the PCP under HMO plans."],
+["Referral","RCM Basics","A PCP's authorization allowing a patient to see a specialist.","Missing a required referral is a common cause of claim denial."],
+["Policy/Plan Maximum","RCM Basics","The total benefit amount a plan will pay a patient or family within a calendar or plan year.","Once reached, the patient is responsible for remaining charges."],
+["New Patient","RCM Basics","A patient who has not received professional services from the provider or another same-specialty provider in the same group within the past three years.","New patient visits use CPT 99202-99205; established patient codes cannot be used."],
+["Established Patient","RCM Basics","A patient who has received professional services from the same provider or specialty group within the past three years.","Seeing a different specialty within the same group still counts as a new patient visit."],
+["Emergency, Observation and Inpatient Services","RCM Basics","Emergency care is unscheduled ED treatment; observation monitors a patient for up to 24-48 hours to decide on admission; inpatient is for stays generally over 24 hours.","Each setting uses different code families and billing rules."],
+["EHR vs. Practice Management (PM) System","RCM Basics","An EHR stores clinical documentation (history, diagnoses, medications, labs); a PM system handles scheduling, billing and claims.","Some software combines both; either way they must stay in sync for accurate billing."],
+
+["Modifier 22","Coding Systems","Increased procedural services: used when a procedure required significantly more time or effort than usual.","Requires documentation explaining what made the service unusual."],
+["Modifier 24","Coding Systems","An unrelated E/M service by the same physician during a postoperative period.","Needs a different diagnosis than the original surgery to justify separate payment."],
+["Modifier 26","Coding Systems","Professional component: used in radiology and pathology to bill only the interpretation, not the equipment or facility.","Pairs with the technical component (TC) billed by the facility."],
+["Modifier 50","Coding Systems","Bilateral procedure: the same procedure was performed on both sides of the body.","Check payer rules; some want one line with modifier 50, others want two lines with RT and LT."],
+["Modifier 51","Coding Systems","Multiple procedures: reports more than one procedure performed in the same session.","Helps prevent denials when several distinct services are billed together."],
+["Modifier 52","Coding Systems","Reduced services: the procedure was partially reduced compared to its full code description.","Document what portion of the service was actually performed."],
+["Modifier 53","Coding Systems","Discontinued procedure: a surgical or diagnostic procedure stopped early for patient safety or complications.","Different from modifier 52; 53 means the procedure was not completed."],
+["Modifier 57","Coding Systems","Decision for surgery: used on an E/M visit when the decision to perform major surgery was made that day.","Justifies separate payment for the consult that led to surgery."],
+["Modifier 58","Coding Systems","Staged or related procedure by the same physician during the postoperative period, such as a planned follow-up stage.","Common with multi-stage treatments like fracture care."],
+["Modifier 62","Coding Systems","Two surgeons: reports a procedure performed by co-surgeons, each with a distinct part.","Both surgeons bill the same code with modifier 62."],
+["Modifier 76/77","Coding Systems","76 is a repeat procedure by the same physician; 77 is a repeat procedure by a different physician, same day.","Needed to avoid a duplicate-claim denial for a legitimately repeated service."],
+["Modifier 78/79","Coding Systems","78 is an unplanned return to the OR for a related procedure during the global period; 79 is an unrelated procedure by the same physician during that period.","78 is tied to the original surgery; 79 needs a different diagnosis."],
+["X-Modifiers (XE, XP, XS, XU)","Coding Systems","Medicare 2015 replacements for overused modifier 59: XE separate encounter, XP separate practitioner, XS separate structure, XU unusual non-overlapping service.","More specific than 59, which can lower audit risk and speed appeals."],
+["RT/LT Modifiers","Coding Systems","Right side and left side modifiers used for procedures on paired body parts.","Required by many payers to avoid a duplicate-service denial."],
+["Modifier GW/GV","Coding Systems","Hospice modifiers: GW marks a service unrelated to the terminal diagnosis; GV marks a related service performed by an independent attending physician.","Used to bypass automatic CO-B9 hospice denials on Medicare Part B claims."],
+["Modifier QW","Coding Systems","Marks a lab test as CLIA-waived, allowing a lab without full CLIA certification to bill for it.","Confirm the CPT code is actually on the CLIA-waived list before applying it."],
+["Modifier JW/JZ","Coding Systems","JW reports discarded drug amount from a single-dose vial; JZ confirms zero amount was discarded.","Required by CMS since July 2023 on all single-dose injection claims."],
+["Global Period","Coding Systems","The window around a surgery, often 0 to 90 days, during which related pre- and post-op care is bundled into the surgical payment.","Services billed separately within this window are denied unless a modifier applies."],
+["New Patient E/M Codes (99202-99205)","Coding Systems","Office visit codes for new patients, leveled by medical decision making or time (99202 straightforward through 99205 high level).","99201 was deleted and is no longer valid."],
+["Established Patient E/M Codes (99211-99215)","Coding Systems","Office visit codes for returning patients, from 99211 (minimal, may not need the physician) to 99215 (high level).","Level is set by medical decision making or total time spent."],
+["Preventive Medicine Codes","Coding Systems","Age-banded wellness visit codes: 99381-99387 for new patients, 99391-99397 for established patients.","Primary diagnosis must be Z00.00 for these visits to process correctly."],
+["Medicare Annual Wellness Visit Codes","Coding Systems","G0438 is the initial AWV (billed once ever), G0439 is for subsequent AWVs; G0402 (IPPE) applies in a patient's first 12 months on Medicare.","Billing G0438 too early, before 12 months of enrollment, causes a denial; use G0402 instead."],
+["Chronic Care Management (CCM) Codes","Coding Systems","G0506 covers the one-time care-plan setup; 99490 covers the first 20 minutes of monthly clinical staff time; 99439 adds each extra 20 minutes.","Requires two or more chronic conditions expected to last 12+ months and 24/7 patient access to the care team."],
+["Remote Patient Monitoring (RPM) Codes","Coding Systems","99453 covers initial device setup, 99454 covers 30 days of data with 16+ reading days, 99457/99458 cover monitoring time in 20-minute increments.","Keep at least a 30-day gap between 99454 billing cycles."],
+["ICD-10 Chapter Ranges","Coding Systems","ICD-10-CM is organized into 21 chapters by body system or condition type, such as C00-D49 for neoplasms and I00-I99 for circulatory diseases.","Knowing the chapter range helps quickly sanity-check whether a diagnosis code fits the documented condition."],
+["CPT Code Range by Specialty","Coding Systems","CPT is organized into ranges by specialty, such as 10004-19499 integumentary, 20100-29999 musculoskeletal and 70010-79999 radiology.","Helps quickly spot a code that doesn't match the service described."],
+["HCPCS Letter Prefixes","Coding Systems","HCPCS Level II codes start with a letter that hints at the category, such as J for drugs, E for durable medical equipment and G for procedures/services.","Useful for quickly sanity-checking whether a code matches the item billed."],
+["NDC (National Drug Code)","Coding Systems","A 10-digit, three-segment FDA code identifying a drug's manufacturer, strength/formulation and package size.","Always confirm the NDC from the actual product label, since segment formats vary (5-4-1, 5-3-2, etc.)."],
+["Common POS Codes","Coding Systems","Place of service codes beyond 11 (office) include 02 telehealth, 12 home, 21 inpatient hospital, 22 outpatient hospital, 23 emergency room and 31 skilled nursing facility.","An incorrect POS can change the payer's allowed amount or trigger a denial."],
+
+["Professional vs. Institutional Billing","Claims & Forms","Professional billing covers physician services (CMS-1500/837P) at typically lower dollar amounts; institutional billing covers facility charges (UB-04/837I) which can run much higher.","Professional claims usually bill Medicare Part B; institutional claims usually bill Part A."],
+
+["Tax ID (TIN)","Credentialing","A 9-digit IRS number identifying a business or individual for tax purposes; required on claims (Box 25 of the CMS-1500).","Different from the taxonomy code, which describes the provider's specialty, not taxes."],
+["W-9 Form","Credentialing","An IRS form confirming a provider's legal name, address and Tax ID, submitted during payer credentialing.","Also used by payers to set up electronic payment and banking details."],
+
+["COBRA","Payer & Contracts","A federal law letting employees and dependents keep employer health coverage for a limited time after leaving a job, if they pay the premium themselves.","Covers medical, dental and vision but not life or disability insurance."],
+["Medicaid Spend Down","Payer & Contracts","Lets a person whose income is slightly above the Medicaid limit qualify by subtracting medical expenses from income until it falls under the threshold.","Eligibility is temporary and must be re-evaluated periodically, often monthly."],
+
+["Payment Methods (EFT, Check, VCC)","Payments & Posting","Payers pay via Electronic Funds Transfer, paper check, direct patient reimbursement, or virtual credit card, a one-time card number processed like a regular card payment.","Each method needs the paid date, allowed amount, paid amount and patient responsibility recorded to close the claim."],
+["Overpayment, Offset and Refund","Payments & Posting","An overpayment is money paid beyond what was owed; an offset/reversal recovers it by deducting from a future payment; a refund is a direct check request when no future claim is available to offset.","Medicare overpayments must be reported and returned within 60 days of discovery."],
+
+["Claim Not on File","A/R & Collections","The payer has no record of receiving a claim, usually checked after 30 days with no response.","For electronic claims check the EDI rejection report and payer ID; for paper claims verify the mailing address and Payer ID before resending."],
+
+["Medicare Secondary Payer (MSP)","Denial Mgmt","Situations where another plan, such as an employer group plan, auto insurance or workers' comp, must pay before Medicare.","Billing Medicare first in an MSP situation causes a denial stating Medicare is secondary."],
+["Crossover Claim","Denial Mgmt","When a primary payer like Medicare automatically forwards claim data to a secondary payer such as Medicaid.","If the remittance shows the claim was forwarded, do not also file the secondary claim manually."],
+["CO-109 (Wrong Payer/Medicare Advantage)","Denial Mgmt","Occurs when a claim is filed to Traditional Medicare but the patient has actually moved to a Medicare Advantage plan.","Check the Medicare portal's plan coverage section, then rebill the correct payer as a fresh, original claim."],
+["CO-22 (Coordination of Benefits)","Denial Mgmt","Medicare or another payer states it should not be primary because another plan should pay first.","Use the payer portal's MSP or COB tab to find the actual primary payer, then bill that payer first."],
+["Hospice Denial (CO-B9)","Denial Mgmt","Physician services under Medicare Part B are automatically denied when a patient is enrolled in hospice under Part A.","Use modifier GW for unrelated services or GV for related services from an independent physician."],
+["Medical Necessity Denial Workflow (CO-50)","Denial Mgmt","Occurs when the diagnosis does not support the billed procedure in the payer's coverage policy.","Check the Medicare Coverage Database for LCD/NCD approved diagnoses, rebill with a compatible code, or appeal with clinical documentation."],
+
+["CLIA","Compliance","The Clinical Laboratory Improvement Amendments of 1988, which sets quality standards for any lab testing human specimens.","A lab must be CLIA-certified before it can bill for most lab tests."],
+["CLIA-Waived Test","Compliance","A simple, low-risk test (such as basic glucose or pregnancy tests) that the FDA allows to be run without full CLIA certification.","Bill with modifier QW; the list of waived tests changes periodically, so verify it for the date of service."]
 ];
 var TERMS = TERMS_RAW.map(function(r,i){return {id:'k'+(i+1),kind:'term',label:r[0],cat:r[1],desc:r[2],tip:r[3],u:TERMS_UR[i]};});
 
@@ -1073,7 +1058,33 @@ var SCEN_RAW = [
 ["Dental Billing","A dental oral appliance for obstructive sleep apnea is most often billed to which payer?",["Dental insurance","Medical insurance","Both automatically","Patient only"],1,"Sleep apnea appliances are usually covered under the medical plan with medical codes and diagnosis. This is medical-dental cross coding."],
 ["Payments & Posting","A CO group code on an adjustment means what?",["Patient responsibility","Contractual obligation, so the provider is liable","Correction","Payer initiated reduction"],1,"CO = contractual obligation (provider write-off). PR = patient responsibility, OA = other adjustment, PI = payer initiated, CR = correction or reversal."],
 ["Payments & Posting","Which code type gives the general reason for an adjustment, and which adds supplemental detail?",["RARC general, CARC supplemental","CARC general, RARC supplemental","Both are the same","Neither appears on the ERA"],1,"The CARC explains the adjustment reason; the RARC adds remark detail and often begins with N or M."],
-["Credentialing","A provider sees patients before their payer effective date. What is the likely result?",["Payment is retroactive automatically","Claims for earlier dates of service may deny","No impact","Claims pay at a higher rate"],1,"Payers pay from the effective date. Delays cause denials such as CARC B7 or 185, so track enrollment dates."]
+["Credentialing","A provider sees patients before their payer effective date. What is the likely result?",["Payment is retroactive automatically","Claims for earlier dates of service may deny","No impact","Claims pay at a higher rate"],1,"Payers pay from the effective date. Delays cause denials such as CARC B7 or 185, so track enrollment dates."],
+
+["RCM Basics","A patient sees Dr. Smith, a cardiologist, for the first time. She was already established with Dr. Smith's group but only for an annual physical from a family doctor. How should this visit be billed?",["Established patient","New patient","Consultation only","Cannot be billed"],1,"A different specialty within the same group counts as a new patient encounter because it requires a fresh assessment."],
+["RCM Basics","Which of these best matches 'Guarantor' in medical billing?",["The doctor providing care","The insurance company","The person financially responsible for the account, who may not be the patient","The clinic location"],2,"The guarantor holds the policy and is financially responsible; a child's guarantor is often a parent."],
+["RCM Basics","A patient is observed in the hospital for 30 hours to decide whether admission is needed. What service category is this?",["Emergency","Observation","Inpatient","Outpatient office visit"],1,"Observation services monitor a patient, typically for up to 24-48 hours, before an admit/discharge decision."],
+["Coding Systems","A surgeon performs a much more difficult and lengthy version of a standard procedure. Which modifier best reflects this?",["Modifier 22","Modifier 52","Modifier 53","Modifier 76"],0,"Modifier 22 (increased procedural services) is used when a service took significantly more time or effort than usual, with supporting documentation."],
+["Coding Systems","A radiologist only interprets an X-ray taken at an outside facility. Which modifier reports just that interpretation?",["Modifier 26","Modifier 50","Modifier TC","Modifier 51"],0,"Modifier 26 reports the professional component (interpretation only); the facility bills the technical component (TC)."],
+["Coding Systems","Under the 2015 Medicare update, which modifier is the more specific choice for two joint injections done on different anatomical structures the same day?",["Modifier 59","Modifier XS","Modifier 51","Modifier 76"],1,"XS (Separate Structure) is the more specific X-modifier that replaced overuse of modifier 59 in this exact scenario."],
+["Coding Systems","A patient returns to the OR two days after surgery for a complication directly related to the original procedure. Which modifier applies?",["Modifier 78","Modifier 79","Modifier 58","Modifier 24"],0,"Modifier 78 covers an unplanned return to the OR for a related procedure during the global period."],
+["Coding Systems","What is the global period for most major surgeries?",["10 days","30 days","90 days","180 days"],2,"Major surgeries typically carry a 90-day global period; minor procedures are usually 10 days."],
+["Coding Systems","A 45-year-old established patient comes in for a routine annual physical with no complaints. What should the primary diagnosis code be?",["The most recent chronic condition","Z00.00","An R00-R99 symptom code","Left blank"],1,"Z00.00 (encounter for general adult medical exam without abnormal findings) must be the primary diagnosis for preventive visits."],
+["Coding Systems","A Medicare patient enrolled 6 months ago is due for their first wellness visit. Which code should be billed?",["G0438","G0439","G0402","99397"],2,"G0402 (IPPE) applies within the first 12 months of Medicare enrollment; G0438 would deny as billed too early."],
+["Coding Systems","Which CCM code covers each additional 20 minutes of monthly care management time beyond the first 20 minutes covered by 99490?",["G0506","99439","99457","99454"],1,"99439 is the add-on code for additional 20-minute increments of chronic care management time."],
+["Coding Systems","In Remote Patient Monitoring, how many days of readings are required within a 30-day period to bill 99454?",["At least 8 days","At least 16 days","All 30 days","No minimum"],1,"99454 requires at least 16 days of transmitted readings within the 30-day billing cycle."],
+["Coding Systems","Which ICD-10 chapter range covers diseases of the circulatory system?",["A00-B99","I00-I99","J00-J99","M00-M99"],1,"I00-I99 covers circulatory system diseases; A00-B99 is infectious/parasitic, J00-J99 respiratory, M00-M99 musculoskeletal."],
+["Coding Systems","Which HCPCS letter prefix generally identifies injectable drugs?",["A","E","G","J"],3,"J-codes identify drugs and injections (e.g., J3420 for Vitamin B12); E-codes are DME, G-codes are procedures/services, A-codes are miscellaneous/transport."],
+["Claims & Forms","A hospital bills for a 3-day inpatient stay. Which form and transaction set are used?",["CMS-1500 / 837P","UB-04 / 837I","ADA form / 837D","No claim form needed"],1,"Institutional (facility) claims use the UB-04 paper form and the 837I electronic format."],
+["Credentialing","Which document confirms a provider's legal name, address and Tax ID for payer credentialing?",["NPI application","W-9 form","CAQH attestation","Superbill"],1,"The W-9 confirms tax identification details and is required during the credentialing process."],
+["Payer & Contracts","An employee loses their job and wants to keep their employer health plan temporarily by paying the premium themselves. What law allows this?",["HIPAA","COBRA","No Surprises Act","ERISA"],1,"COBRA lets qualifying employees and dependents continue employer coverage for a limited time by paying the premium."],
+["Payer & Contracts","A person's income is above the Medicaid limit, but high medical bills reduce their disposable income below the threshold. What is this arrangement called?",["Capitation","Medicaid spend down","Coordination of benefits","Crossover claim"],1,"A Medicaid spend down subtracts medical expenses from income so a person can temporarily qualify."],
+["Payments & Posting","An insurer pays a claim but the practice later finds it was paid twice by mistake. With no future claims to offset against, what does the payer typically request?",["A write-off","A direct refund","A new claim","A denial"],1,"Without a future claim to offset the overpayment against, the payer requests a direct refund from the provider."],
+["Denial Mgmt","A Medicare claim denies stating an employer group health plan should have paid first. What situation does this describe?",["Timely filing","Medicare Secondary Payer (MSP)","Crossover claim","Capitation"],1,"MSP situations, like an active employer group plan, require billing that plan before Medicare."],
+["Denial Mgmt","A Medicare remittance shows 'Claim forwarded to state Medicaid agency.' What should the biller do next?",["File the secondary claim manually right away","Nothing further is usually needed since it is a crossover claim","Call the patient","Appeal the claim"],1,"That message indicates a crossover claim was triggered automatically, so a manual secondary filing is not usually needed."],
+["Denial Mgmt","A physician bills an E/M service for a hospice patient's unrelated flu diagnosis. Which modifier prevents an automatic hospice-related denial?",["GV","GW","GY","GZ"],1,"Modifier GW indicates the service is unrelated to the patient's terminal hospice diagnosis."],
+["Denial Mgmt","A claim denies for medical necessity (CO-50). What is the best first step?",["Bill the patient immediately","Check the Medicare Coverage Database for an approved diagnosis (LCD/NCD)","Write the claim off","Resubmit unchanged"],1,"Checking the LCD/NCD database shows whether a compatible diagnosis exists to rebill or appeal with."],
+["Compliance","A lab wants to bill a simple, low-risk glucose test without full CLIA certification. What must be true and what modifier applies?",["The test must be CLIA-waived; use modifier QW","Any test qualifies with modifier 59","No modifier is needed","The test cannot be billed at all"],0,"Only CLIA-waived tests can be billed this way, using modifier QW to indicate waived status."],
+["A/R & Collections","Thirty days after filing an electronic claim, the payer shows no record of it. What should be checked first?",["The patient's diagnosis","The clearinghouse EDI rejection report and payer ID","The provider's NPI only","The fee schedule"],1,"Electronic claims usually reach payers in days, so a missing claim after 30 days often means an EDI rejection or wrong payer ID."]
 ];
 var SCEN = SCEN_RAW.map(function(r,i){return {id:'s'+(i+1),kind:'scen',cat:r[0],q:r[1],opts:r[2],a:r[3],why:r[4],u:SCEN_UR[i]};});
 
