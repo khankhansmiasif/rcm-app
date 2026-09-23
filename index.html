@@ -15,24 +15,30 @@
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0b0906; --surface:#171310; --surface2:#231b13; --border:rgba(245,190,80,.18);
-  --text:#fdf3e0; --muted:#c9a877; --primary:#A7861B; --primary2:#ea580c; --primary-soft:rgba(245,158,11,.16);
-  --accent:#cd7f32; --good:#84cc16; --good-soft:rgba(132,204,22,.14); --bad:#ef4444; --bad-soft:rgba(239,68,68,.13);
-  --warn:#f59e0b; --shadow:0 10px 30px rgba(0,0,0,.5); color-scheme:dark;
+  --bg:#f4f5fb; --surface:#ffffff; --surface2:#eceefa; --border:rgba(15,23,42,.12);
+  --text:#0f172a; --muted:#5b6785; --primary:#6d28d9; --primary2:#db2777; --primary-soft:rgba(109,40,217,.12);
+  --accent:#0891b2; --good:#059669; --good-soft:rgba(5,150,105,.12); --bad:#dc2626; --bad-soft:rgba(220,38,38,.10);
+  --warn:#d97706; --shadow:0 10px 30px rgba(15,23,42,.08); color-scheme:light;
+}
+:root[data-theme="light"]{
+  --bg:#f4f5fb; --surface:#ffffff; --surface2:#eceefa; --border:rgba(15,23,42,.12);
+  --text:#0f172a; --muted:#5b6785; --primary:#6d28d9; --primary2:#db2777; --primary-soft:rgba(109,40,217,.12);
+  --accent:#0891b2; --good:#059669; --good-soft:rgba(5,150,105,.12); --bad:#dc2626; --bad-soft:rgba(220,38,38,.10);
+  --warn:#d97706; --shadow:0 10px 30px rgba(15,23,42,.08); color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0b0906; --surface:#171310; --surface2:#231b13; --border:rgba(245,190,80,.18);
-    --text:#fdf3e0; --muted:#c9a877; --primary:#A7861B; --primary2:#ea580c; --primary-soft:rgba(245,158,11,.16);
-    --accent:#cd7f32; --good:#84cc16; --good-soft:rgba(132,204,22,.14); --bad:#ef4444; --bad-soft:rgba(239,68,68,.13);
-    --warn:#f59e0b; --shadow:0 10px 30px rgba(0,0,0,.5); color-scheme:dark;
+    --bg:#0f0a1f; --surface:#1c1333; --surface2:#271a44; --border:rgba(232,197,255,.14);
+    --text:#f7f0ff; --muted:#b9a6d9; --primary:#a78bfa; --primary2:#f472b6; --primary-soft:rgba(167,139,250,.18);
+    --accent:#22d3ee; --good:#34d399; --good-soft:rgba(52,211,153,.14); --bad:#f87171; --bad-soft:rgba(248,113,113,.13);
+    --warn:#fbbf24; --shadow:0 10px 30px rgba(0,0,0,.5); color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0b0906; --surface:#171310; --surface2:#231b13; --border:rgba(245,190,80,.18);
-  --text:#fdf3e0; --muted:#c9a877; --primary:#A7861B; --primary2:#ea580c; --primary-soft:rgba(245,158,11,.16);
-  --accent:#cd7f32; --good:#84cc16; --good-soft:rgba(132,204,22,.14); --bad:#ef4444; --bad-soft:rgba(239,68,68,.13);
-  --warn:#f59e0b; --shadow:0 10px 30px rgba(0,0,0,.5); color-scheme:dark;
+  --bg:#0f0a1f; --surface:#1c1333; --surface2:#271a44; --border:rgba(232,197,255,.14);
+  --text:#f7f0ff; --muted:#b9a6d9; --primary:#a78bfa; --primary2:#f472b6; --primary-soft:rgba(167,139,250,.18);
+  --accent:#22d3ee; --good:#34d399; --good-soft:rgba(52,211,153,.14); --bad:#f87171; --bad-soft:rgba(248,113,113,.13);
+  --warn:#fbbf24; --shadow:0 10px 30px rgba(0,0,0,.5); color-scheme:dark;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
@@ -242,7 +248,7 @@ h2 .ur, .title+.ur, .head .ur{margin-top:2px}
         </div>
         <div class="head">
           <div><h1 class="title bi-en" id="homeTitle">Welcome</h1><p class="sub bi-en" id="homeSub"></p><p class="ur" id="homeSubUr"></p></div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end"><button class="icon-btn" id="installBtn" style="display:none">Install app</button><button class="icon-btn" id="logoutBtn2" style="display:none">Sign out</button></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end"><button class="icon-btn" id="themeBtn2b">Theme</button><button class="icon-btn" id="installBtn" style="display:none">Install app</button><button class="icon-btn" id="logoutBtn2" style="display:none">Sign out</button></div>
         </div>
         <div id="welcome"></div>
         <div class="dashgrid" id="dashGrid">
@@ -1086,7 +1092,9 @@ function effectiveTheme(){
   return (window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';
 }
 function applyTheme(){if(S.theme) document.documentElement.setAttribute('data-theme',S.theme);}
-$('themeBtn').onclick=function(){S.theme=effectiveTheme()==='dark'?'light':'dark';applyTheme();save();};
+function toggleTheme(){S.theme=effectiveTheme()==='dark'?'light':'dark';applyTheme();save();}
+$('themeBtn').onclick=toggleTheme;
+$('themeBtn2b').onclick=toggleTheme;
 applyTheme();
 
 /* ---------- NAV ---------- */
