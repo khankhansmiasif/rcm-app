@@ -16,30 +16,57 @@
 <style>
 @font-face{font-family:'Jameel Noori Nastaleeq Local';src:url('jameel-noori-nastaleeq.ttf') format('truetype');font-display:swap;}
 :root{
-  --bg:#f3f9f7; --surface:#ffffff; --surface2:#e6f2ee; --border:rgba(6,78,59,.12);
-  --text:#0b1f1a; --muted:#4b6b62; --primary:#0d9488; --primary2:#059669; --primary-soft:rgba(13,148,136,.12);
-  --accent:#d97706; --good:#16a34a; --good-soft:rgba(22,163,74,.12); --bad:#dc2626; --bad-soft:rgba(220,38,38,.10);
-  --warn:#d97706; --shadow:0 10px 30px rgba(6,78,59,.08); color-scheme:light;
+  --bg:#f9f9fb; --surface:#ffffff; --surface2:#f1f3f4; --border:rgba(60,64,67,.12);
+  --text:#202124; --muted:#5f6368;
+  --blue:#4285F4; --red:#EA4335; --yellow:#FBBC05; --green:#34A853;
+  --primary:#4285F4; --primary2:#1967D2; --primary-soft:rgba(66,133,244,.12);
+  --accent:#FBBC05; --good:#34A853; --good-soft:rgba(52,168,83,.12);
+  --bad:#EA4335; --bad-soft:rgba(234,67,53,.10);
+  --warn:#FBBC05; --shadow:0 10px 30px rgba(60,64,67,.10); color-scheme:light;
 }
 :root[data-theme="light"]{
-  --bg:#f3f9f7; --surface:#ffffff; --surface2:#e6f2ee; --border:rgba(6,78,59,.12);
-  --text:#0b1f1a; --muted:#4b6b62; --primary:#0d9488; --primary2:#059669; --primary-soft:rgba(13,148,136,.12);
-  --accent:#d97706; --good:#16a34a; --good-soft:rgba(22,163,74,.12); --bad:#dc2626; --bad-soft:rgba(220,38,38,.10);
-  --warn:#d97706; --shadow:0 10px 30px rgba(6,78,59,.08); color-scheme:light;
+  --bg:#f9f9fb; --surface:#ffffff; --surface2:#f1f3f4; --border:rgba(60,64,67,.12);
+  --text:#202124; --muted:#5f6368;
+  --primary:#4285F4; --primary2:#1967D2; --primary-soft:rgba(66,133,244,.12);
+  --accent:#FBBC05; --good:#34A853; --good-soft:rgba(52,168,83,.12);
+  --bad:#EA4335; --bad-soft:rgba(234,67,53,.10);
+  --warn:#FBBC05; --shadow:0 10px 30px rgba(60,64,67,.10); color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#08160f; --surface:#0f2a20; --surface2:#153a2c; --border:rgba(167,243,208,.14);
-    --text:#ecfdf5; --muted:#8fc4ad; --primary:#2dd4bf; --primary2:#34d399; --primary-soft:rgba(45,212,191,.16);
-    --accent:#fbbf24; --good:#4ade80; --good-soft:rgba(74,222,128,.14); --bad:#f87171; --bad-soft:rgba(248,113,113,.13);
-    --warn:#fbbf24; --shadow:0 10px 30px rgba(0,0,0,.5); color-scheme:dark;
+    --bg:#131314; --surface:#1e1f20; --surface2:#28292a; --border:rgba(232,234,237,.14);
+    --text:#e8eaed; --muted:#9aa0a6;
+    --primary:#8ab4f8; --primary2:#aecbfa; --primary-soft:rgba(138,180,248,.16);
+    --accent:#fdd663; --good:#81c995; --good-soft:rgba(129,201,149,.14);
+    --bad:#f28b82; --bad-soft:rgba(242,139,130,.13);
+    --warn:#fdd663; --shadow:0 10px 30px rgba(0,0,0,.5); color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#08160f; --surface:#0f2a20; --surface2:#153a2c; --border:rgba(167,243,208,.14);
-  --text:#ecfdf5; --muted:#8fc4ad; --primary:#2dd4bf; --primary2:#34d399; --primary-soft:rgba(45,212,191,.16);
-  --accent:#fbbf24; --good:#4ade80; --good-soft:rgba(74,222,128,.14); --bad:#f87171; --bad-soft:rgba(248,113,113,.13);
-  --warn:#fbbf24; --shadow:0 10px 30px rgba(0,0,0,.5); color-scheme:dark;
+  --bg:#131314; --surface:#1e1f20; --surface2:#28292a; --border:rgba(232,234,237,.14);
+  --text:#e8eaed; --muted:#9aa0a6;
+  --primary:#8ab4f8; --primary2:#aecbfa; --primary-soft:rgba(138,180,248,.16);
+  --accent:#fdd663; --good:#81c995; --good-soft:rgba(129,201,149,.14);
+  --bad:#f28b82; --bad-soft:rgba(242,139,130,.13);
+  --warn:#fdd663; --shadow:0 10px 30px rgba(0,0,0,.5); color-scheme:dark;
+}
+
+body{
+  font-family:'Outfit',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  color:var(--text);
+  line-height:1.45; overflow:hidden;
+  background: linear-gradient(120deg,
+    color-mix(in srgb, var(--blue) 18%, var(--bg)) 0%,
+    color-mix(in srgb, var(--green) 14%, var(--bg)) 30%,
+    color-mix(in srgb, var(--yellow) 14%, var(--bg)) 60%,
+    color-mix(in srgb, var(--red) 16%, var(--bg)) 100%);
+  background-size: 300% 300%;
+  animation: gShift 18s ease infinite;
+}
+@keyframes gShift{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
