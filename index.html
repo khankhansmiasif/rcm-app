@@ -20,57 +20,39 @@
   --text:#202124; --muted:#5f6368;
   --blue:#4285F4; --red:#EA4335; --yellow:#FBBC05; --green:#34A853;
   --primary:#4285F4; --primary2:#1967D2; --primary-soft:rgba(66,133,244,.12);
-  --accent:#FBBC05; --good:#34A853; --good-soft:rgba(52,168,83,.12);
-  --bad:#EA4335; --bad-soft:rgba(234,67,53,.10);
+  --accent:#FBBC05; --good:#34A853; --good-soft:rgba(52,168,83,.12); --bad:#EA4335; --bad-soft:rgba(234,67,53,.10);
   --warn:#FBBC05; --shadow:0 10px 30px rgba(60,64,67,.10); color-scheme:light;
 }
 :root[data-theme="light"]{
   --bg:#f9f9fb; --surface:#ffffff; --surface2:#f1f3f4; --border:rgba(60,64,67,.12);
   --text:#202124; --muted:#5f6368;
+  --blue:#4285F4; --red:#EA4335; --yellow:#FBBC05; --green:#34A853;
   --primary:#4285F4; --primary2:#1967D2; --primary-soft:rgba(66,133,244,.12);
-  --accent:#FBBC05; --good:#34A853; --good-soft:rgba(52,168,83,.12);
-  --bad:#EA4335; --bad-soft:rgba(234,67,53,.10);
+  --accent:#FBBC05; --good:#34A853; --good-soft:rgba(52,168,83,.12); --bad:#EA4335; --bad-soft:rgba(234,67,53,.10);
   --warn:#FBBC05; --shadow:0 10px 30px rgba(60,64,67,.10); color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --bg:#131314; --surface:#1e1f20; --surface2:#28292a; --border:rgba(232,234,237,.14);
     --text:#e8eaed; --muted:#9aa0a6;
+    --blue:#8ab4f8; --red:#f28b82; --yellow:#fdd663; --green:#81c995;
     --primary:#8ab4f8; --primary2:#aecbfa; --primary-soft:rgba(138,180,248,.16);
-    --accent:#fdd663; --good:#81c995; --good-soft:rgba(129,201,149,.14);
-    --bad:#f28b82; --bad-soft:rgba(242,139,130,.13);
+    --accent:#fdd663; --good:#81c995; --good-soft:rgba(129,201,149,.14); --bad:#f28b82; --bad-soft:rgba(242,139,130,.13);
     --warn:#fdd663; --shadow:0 10px 30px rgba(0,0,0,.5); color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --bg:#131314; --surface:#1e1f20; --surface2:#28292a; --border:rgba(232,234,237,.14);
   --text:#e8eaed; --muted:#9aa0a6;
+  --blue:#8ab4f8; --red:#f28b82; --yellow:#fdd663; --green:#81c995;
   --primary:#8ab4f8; --primary2:#aecbfa; --primary-soft:rgba(138,180,248,.16);
-  --accent:#fdd663; --good:#81c995; --good-soft:rgba(129,201,149,.14);
-  --bad:#f28b82; --bad-soft:rgba(242,139,130,.13);
+  --accent:#fdd663; --good:#81c995; --good-soft:rgba(129,201,149,.14); --bad:#f28b82; --bad-soft:rgba(242,139,130,.13);
   --warn:#fdd663; --shadow:0 10px 30px rgba(0,0,0,.5); color-scheme:dark;
-}
-
-body{
-  font-family:'Outfit',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
-  color:var(--text);
-  line-height:1.45; overflow:hidden;
-  background: linear-gradient(120deg,
-    color-mix(in srgb, var(--blue) 18%, var(--bg)) 0%,
-    color-mix(in srgb, var(--green) 14%, var(--bg)) 30%,
-    color-mix(in srgb, var(--yellow) 14%, var(--bg)) 60%,
-    color-mix(in srgb, var(--red) 16%, var(--bg)) 100%);
-  background-size: 300% 300%;
-  animation: gShift 18s ease infinite;
-}
-@keyframes gShift{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
-body{font-family:'Outfit',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.45;overflow:hidden}
+body{font-family:'Outfit',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;background:linear-gradient(120deg,#4285F4 0%,#34A853 33%,#FBBC05 66%,#EA4335 100%);background-size:300% 300%;animation:gShift 18s ease infinite;color:var(--text);line-height:1.45;overflow:hidden}
+@keyframes gShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
 
