@@ -14,31 +14,68 @@
 <meta name="apple-mobile-web-app-title" content="RCM Mastery">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#f4f5fb; --surface:#ffffff; --surface2:#eceefa; --border:rgba(15,23,42,.12);
-  --text:#0f172a; --muted:#5b6785; --primary:#6d28d9; --primary2:#db2777; --primary-soft:rgba(109,40,217,.12);
-  --accent:#0891b2; --good:#059669; --good-soft:rgba(5,150,105,.12); --bad:#dc2626; --bad-soft:rgba(220,38,38,.10);
-  --warn:#d97706; --shadow:0 10px 30px rgba(15,23,42,.08); color-scheme:light;
+:root,
+:root[data-theme="light"] {
+  --bg: #f4f7f6;
+  --surface: #ffffff;
+  --surface2: #e8f0ec;
+  --border: rgba(18, 43, 37, 0.08);
+  --text: #122b25;
+  --muted: #506b63;
+  --primary: #0d9488;
+  --primary2: #059669;
+  --primary-soft: rgba(13, 148, 136, 0.12);
+  --accent: #2563eb;
+  --good: #10b981;
+  --good-soft: rgba(16, 185, 129, 0.12);
+  --bad: #e11d48;
+  --bad-soft: rgba(225, 29, 72, 0.10);
+  --warn: #d97706;
+  --shadow: 0 10px 25px -5px rgba(18, 43, 37, 0.08);
+  color-scheme: light;
 }
-:root[data-theme="light"]{
-  --bg:#f4f5fb; --surface:#ffffff; --surface2:#eceefa; --border:rgba(15,23,42,.12);
-  --text:#0f172a; --muted:#5b6785; --primary:#6d28d9; --primary2:#db2777; --primary-soft:rgba(109,40,217,.12);
-  --accent:#0891b2; --good:#059669; --good-soft:rgba(5,150,105,.12); --bad:#dc2626; --bad-soft:rgba(220,38,38,.10);
-  --warn:#d97706; --shadow:0 10px 30px rgba(15,23,42,.08); color-scheme:light;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#0f0a1f; --surface:#1c1333; --surface2:#271a44; --border:rgba(232,197,255,.14);
-    --text:#f7f0ff; --muted:#b9a6d9; --primary:#a78bfa; --primary2:#f472b6; --primary-soft:rgba(167,139,250,.18);
-    --accent:#22d3ee; --good:#34d399; --good-soft:rgba(52,211,153,.14); --bad:#f87171; --bad-soft:rgba(248,113,113,.13);
-    --warn:#fbbf24; --shadow:0 10px 30px rgba(0,0,0,.5); color-scheme:dark;
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0a1412;
+    --surface: #12221e;
+    --surface2: #1b332d;
+    --border: rgba(230, 244, 241, 0.08);
+    --text: #e6f4f1;
+    --muted: #8aa8a0;
+    --primary: #14b8a6;
+    --primary2: #34d399;
+    --primary-soft: rgba(20, 184, 166, 0.18);
+    --accent: #60a5fa;
+    --good: #34d399;
+    --good-soft: rgba(52, 211, 153, 0.15);
+    --bad: #fb7185;
+    --bad-soft: rgba(251, 113, 133, 0.15);
+    --warn: #fbbf24;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.50);
+    color-scheme: dark;
   }
 }
-:root[data-theme="dark"]{
-  --bg:#0f0a1f; --surface:#1c1333; --surface2:#271a44; --border:rgba(232,197,255,.14);
-  --text:#f7f0ff; --muted:#b9a6d9; --primary:#a78bfa; --primary2:#f472b6; --primary-soft:rgba(167,139,250,.18);
-  --accent:#22d3ee; --good:#34d399; --good-soft:rgba(52,211,153,.14); --bad:#f87171; --bad-soft:rgba(248,113,113,.13);
-  --warn:#fbbf24; --shadow:0 10px 30px rgba(0,0,0,.5); color-scheme:dark;
+
+:root[data-theme="dark"] {
+  --bg: #0a1412;
+  --surface: #12221e;
+  --surface2: #1b332d;
+  --border: rgba(230, 244, 241, 0.08);
+  --text: #e6f4f1;
+  --muted: #8aa8a0;
+  --primary: #14b8a6;
+  --primary2: #34d399;
+  --primary-soft: rgba(20, 184, 166, 0.18);
+  --accent: #60a5fa;
+  --good: #34d399;
+  --good-soft: rgba(52, 211, 153, 0.15);
+  --bad: #fb7185;
+  --bad-soft: rgba(251, 113, 133, 0.15);
+  --warn: #fbbf24;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.50);
+  color-scheme: dark;
+}
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
