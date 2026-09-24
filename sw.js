@@ -1,7 +1,7 @@
 /* RCM Mastery service worker: makes the app open, and videos play, without internet. */
 const V = 'rcm-v2';                 // app files (replaced on every update)
 const VIDEO_CACHE = 'rcm-videos';   // saved videos (kept between updates)
-const SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
+const SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './jameel-noori-nastaleeq.ttf'];
 const FB = 'https://www.gstatic.com/firebasejs/10.12.2/';
 const MODS = [FB + 'firebase-app.js', FB + 'firebase-auth.js', FB + 'firebase-firestore.js'];
 
