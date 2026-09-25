@@ -558,7 +558,7 @@ h2 .ur, .title+.ur, .head .ur{margin-top:2px}
       <input class="inp" id="gPass2" type="password" placeholder="Type the password again" autocomplete="new-password" style="margin-bottom:10px;display:none">
       <label class="showpw"><input type="checkbox" id="gShow"> Show password</label>
       <div class="gerr" id="gErr"></div>
-      <div class="mini" id="gReq" style="display:none;margin:-4px 0 12px;line-height:1.7"><b>How it works:</b><br>1. Create your account here.<br>2. Send us a WhatsApp message (0346 6006016 or 0335 9955634).<br>3. We approve you, then you start learning.<div class="ur" style="margin-top:8px">1. یہاں اکاؤنٹ بنائیں۔<br>2. ہمیں واٹس ایپ پر پیغام بھیجیں (0346 6006016 یا 0335 9955634)۔<br>3. منظوری کے بعد سیکھنا شروع کریں۔</div></div>
+      <div class="mini" id="gReq" style="display:none;margin:-4px 0 12px;line-height:1.7"><b>How it works:</b><br>1. Create your account here.<br>2. Send us a WhatsApp message (0346 6006016).<br>3. We approve you, then you start learning.<div class="ur" style="margin-top:8px">1. یہاں اکاؤنٹ بنائیں۔<br>2. ہمیں واٹس ایپ پر پیغام بھیجیں (0346 6006016)۔<br>3. منظوری کے بعد سیکھنا شروع کریں۔</div></div>
       <div class="mini" id="gHint" style="display:none;margin:-4px 0 12px">You are offline. You can sign in with a username you have already used on this device.</div>
       <button class="btn primary" id="gGo" type="button" style="width:100%">Sign in</button>
     </div>
@@ -567,9 +567,9 @@ h2 .ur, .title+.ur, .head .ur{margin-top:2px}
       <p class="sub" id="gsText"></p>
       <p class="ur" id="gsTextUr"></p>
       <p class="sub" id="gsContact" style="display:none;font-weight:600;color:var(--text)"></p>
-      <div class="row-btns"><a class="btn good" id="gsWa" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none">WhatsApp 0346 6006016</a><a class="btn good" id="gsWa2" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none">WhatsApp 0335 9955634</a><button class="btn primary" id="gsCheck" type="button">Open app</button><button class="btn" id="gsOut" type="button">Use another account</button></div>
+      <div class="row-btns"><a class="btn good" id="gsWa" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none">WhatsApp 0346 6006016</a><button class="btn primary" id="gsCheck" type="button">Open app</button><button class="btn" id="gsOut" type="button">Use another account</button></div>
     </div>
-    <div class="mini" style="margin-top:20px;text-align:center;line-height:1.7">Need access or help?<br>WhatsApp <a href="https://wa.me/923466006016?text=Hello%2C%20I%20am%20using%20RCM%20Mastery." target="_blank" rel="noopener" style="color:var(--accent)">0346 6006016</a> or <a href="https://wa.me/923359955634?text=Hello%2C%20I%20am%20using%20RCM%20Mastery." target="_blank" rel="noopener" style="color:var(--accent)">0335 9955634</a><br><a href="mailto:khankhansmi261@gmail.com?subject=RCM%20Mastery" style="color:var(--accent)">khankhansmi261@gmail.com</a></div>
+    <div class="mini" style="margin-top:20px;text-align:center;line-height:1.7">Need access or help?<br>WhatsApp <a href="https://wa.me/923466006016?text=Hello%2C%20I%20am%20using%20RCM%20Mastery." target="_blank" rel="noopener" style="color:var(--accent)">0346 6006016</a></div>
   </div>
 </div>
 <div class="toast" id="toast"></div>
@@ -1693,13 +1693,11 @@ function start(){
     var urEl = $g('gsTextUr'); if(urEl) urEl.textContent = parts[1] || '';
     $g('gsContact').style.display = contact ? 'block' : 'none';
     $g('gsWa').style.display = contact ? 'inline-flex' : 'none';
-    $g('gsWa2').style.display = contact ? 'inline-flex' : 'none';
     if(contact){
       const name = (auth.currentUser && auth.currentUser.email || '').split('@')[0];
-      $g('gsContact').innerHTML = 'Please contact the owner for access. WhatsApp: ' + OWNER_WHATSAPP_SHOW + ' or ' + OWNER_WHATSAPP2_SHOW + '. Email: khankhansmi261@gmail.com<div class="ur" style="margin-top:6px;font-weight:400">رسائی کے لیے واٹس ایپ یا ای میل پر رابطہ کریں۔</div>';
+      $g('gsContact').innerHTML = 'Please contact the owner for access. WhatsApp: ' + OWNER_WHATSAPP_SHOW + '.<div class="ur" style="margin-top:6px;font-weight:400">رسائی کے لیے واٹس ایپ پر رابطہ کریں۔</div>';
       const msg = encodeURIComponent('Hello, I requested access to RCM Mastery. My username is ' + name + '. Please approve my access.');
       $g('gsWa').href = 'https://wa.me/' + OWNER_WHATSAPP + '?text=' + msg;
-      $g('gsWa2').href = 'https://wa.me/' + OWNER_WHATSAPP2 + '?text=' + msg;
     }
   }
   function fail(msg){ $g('gErr').textContent = msg; }
