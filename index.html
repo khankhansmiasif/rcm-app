@@ -201,12 +201,10 @@ details summary{cursor:pointer;font-weight:600;color:var(--muted);padding:6px 0}
 .pricebox{background:var(--primary-soft);border:1px solid var(--primary);border-radius:12px;padding:10px 12px;font-size:.92rem;margin-bottom:16px;text-align:center;font-weight:600}
 #gate{background:#07070b}
 .gate-rings{position:absolute;top:50%;left:50%;width:min(90vw,560px);height:min(90vw,560px);transform:translate(-50%,-50%);pointer-events:none;z-index:0}
-.gate-ring{position:absolute;inset:0;will-change:transform;transform:translateZ(0)}
-.gate-ring.r1{border:5px solid #ff2d6a;border-radius:38% 62% 63% 37% / 41% 44% 56% 59%;box-shadow:0 0 18px 3px rgba(255,45,106,.5),0 0 40px 8px rgba(255,45,106,.2);animation:gRing1 6s linear infinite}
-.gate-ring.r2{border:5px solid #ffd400;border-radius:41% 44% 56% 59% / 38% 62% 63% 37%;box-shadow:0 0 18px 3px rgba(255,212,0,.5),0 0 40px 8px rgba(255,212,0,.2);animation:gRing2 10s linear infinite}
-.gate-ring.r3{border:5px solid #38e07a;border-radius:41% 44% 56% 59% / 38% 62% 63% 37%;box-shadow:0 0 18px 3px rgba(56,224,122,.45),0 0 40px 8px rgba(56,224,122,.18);animation:gRing1 4s linear infinite}
-@keyframes gRing1{0%{transform:translateZ(0) rotate(0deg)}100%{transform:translateZ(0) rotate(360deg)}}
-@keyframes gRing2{0%{transform:translateZ(0) rotate(360deg)}100%{transform:translateZ(0) rotate(0deg)}}
+.gate-ring{position:absolute;inset:0;will-change:transform}
+.gate-ring.r1{border:5px solid #ff2d6a;border-radius:38% 62% 63% 37% / 41% 44% 56% 59%;box-shadow:0 0 18px 3px rgba(255,45,106,.5),0 0 40px 8px rgba(255,45,106,.2)}
+.gate-ring.r2{border:5px solid #ffd400;border-radius:41% 44% 56% 59% / 38% 62% 63% 37%;box-shadow:0 0 18px 3px rgba(255,212,0,.5),0 0 40px 8px rgba(255,212,0,.2)}
+.gate-ring.r3{border:5px solid #38e07a;border-radius:41% 44% 56% 59% / 38% 62% 63% 37%;box-shadow:0 0 18px 3px rgba(56,224,122,.45),0 0 40px 8px rgba(56,224,122,.18)}
 #gate .gate-card{position:relative;z-index:1;background:rgba(10,10,14,.92);border:1px solid rgba(255,255,255,.08);box-shadow:0 20px 60px rgba(0,0,0,.5)}
 #gate .gbrand{background:none;-webkit-text-fill-color:#fff;color:#fff;text-align:center;font-size:1.9rem}
 #gate .sub{color:#c7c7d1;text-align:center}
@@ -548,6 +546,26 @@ h2 .ur, .title+.ur, .head .ur{margin-top:2px}
     <div class="gate-ring r2"></div>
     <div class="gate-ring r3"></div>
   </div>
+  <script>
+  (function(){
+    var r1 = document.querySelector('.gate-ring.r1');
+    var r2 = document.querySelector('.gate-ring.r2');
+    var r3 = document.querySelector('.gate-ring.r3');
+    var a1=0, a2=0, a3=0, last=null;
+    function tick(ts){
+      if(last===null) last = ts;
+      var dt = ts - last; last = ts;
+      a1 = (a1 + dt/6000*360) % 360;
+      a2 = (a2 - dt/10000*360 + 36000) % 360;
+      a3 = (a3 + dt/4000*360) % 360;
+      if(r1) r1.style.transform = 'rotate(' + a1 + 'deg)';
+      if(r2) r2.style.transform = 'rotate(' + a2 + 'deg)';
+      if(r3) r3.style.transform = 'rotate(' + a3 + 'deg)';
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
+  </script>
   <div class="gate-card">
     <div class="gbrand">RCM Mastery</div>
     <p class="sub" style="margin-bottom:12px">Medical &amp; dental billing trainer</p>
