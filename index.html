@@ -276,7 +276,7 @@ h2 .ur, .title+.ur, .head .ur{margin-top:2px}
         </div>
         <div class="head">
           <div><h1 class="title bi-en" id="homeTitle">🏠 Welcome</h1><p class="sub bi-en" id="homeSub"></p><p class="ur" id="homeSubUr"></p></div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end"><button class="icon-btn" id="themeBtn2b">Theme</button><button class="icon-btn" id="installBtn" style="display:none">Install app</button><button class="icon-btn" id="logoutBtn2" style="display:none">Sign out</button></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end"><button class="icon-btn" id="themeBtn2b">Theme</button><button class="icon-btn" id="installBtn" style="display:none">Install app</button><a class="icon-btn" href="https://whatsapp.com/channel/0029Vb8N6Zv9Gv7OZ3mFOG2m" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center">📢 Follow Channel</a><button class="icon-btn" id="logoutBtn2" style="display:none">Sign out</button></div>
         </div>
         <div id="welcome"></div>
         <div class="dashgrid" id="dashGrid">
@@ -577,7 +577,6 @@ h2 .ur, .title+.ur, .head .ur{margin-top:2px}
       <input class="inp" id="gPass" type="password" placeholder="Password" autocomplete="current-password" style="margin-bottom:10px">
       <input class="inp" id="gPass2" type="password" placeholder="Type the password again" autocomplete="new-password" style="margin-bottom:10px;display:none">
       <label class="showpw"><input type="checkbox" id="gShow"> Show password</label>
-      <div class="gerr" id="gErr"></div>
       <div class="mini" id="gReq" style="display:none;margin:-4px 0 12px;line-height:1.7"><b>How it works:</b><br>1. Create your account here.<br>2. Send us a WhatsApp message (0346 6006016).<br>3. We approve you, then you start learning.<div class="ur" style="margin-top:8px">1. یہاں اکاؤنٹ بنائیں۔<br>2. ہمیں واٹس ایپ پر پیغام بھیجیں (0346 6006016)۔<br>3. منظوری کے بعد سیکھنا شروع کریں۔</div></div>
       <div class="mini" id="gHint" style="display:none;margin:-4px 0 12px">You are offline. You can sign in with a username you have already used on this device.</div>
       <button class="btn primary" id="gGo" type="button" style="width:100%">Sign in</button>
@@ -588,6 +587,12 @@ h2 .ur, .title+.ur, .head .ur{margin-top:2px}
       <p class="ur" id="gsTextUr"></p>
       <p class="sub" id="gsContact" style="display:none;font-weight:600;color:var(--text)"></p>
       <div class="row-btns"><a class="btn good" id="gsWa" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none">WhatsApp 0346 6006016</a><button class="btn primary" id="gsCheck" type="button">Open app</button><button class="btn" id="gsOut" type="button">Use another account</button></div>
+      <div id="gsChannel" style="display:none;margin-top:16px;padding:14px;border-radius:14px;background:var(--primary-soft);border:1px solid var(--primary)">
+        <p style="font-weight:600;margin-bottom:4px">📢 Follow our WhatsApp Channel</p>
+        <p class="sub" style="margin-bottom:2px">Get practical classes — how to use the software and more.</p>
+        <p class="ur" style="margin-bottom:10px">پریکٹیکل کلاسز کے لیے ہمارا واٹس ایپ چینل فالو کریں — سافٹ ویئر استعمال کرنے کا طریقہ اور مزید۔</p>
+        <a class="btn primary" href="https://whatsapp.com/channel/0029Vb8N6Zv9Gv7OZ3mFOG2m" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex">Follow the Channel</a>
+      </div>
     </div>
     <div class="mini" style="margin-top:20px;text-align:center;line-height:1.7">Need access or help?<br>WhatsApp <a href="https://wa.me/923466006016?text=Hello%2C%20I%20am%20using%20RCM%20Mastery." target="_blank" rel="noopener" style="color:var(--accent)">0346 6006016</a></div>
   </div>
@@ -1706,13 +1711,14 @@ function start(){
     $g('gReq').style.display = m==='up' ? 'block' : 'none';
   }
   function showForm(){ $g('gate').style.display='flex'; $g('gForm').style.display='block'; $g('gStatus').style.display='none'; }
-  function showStatus(title, text, contact){
+  function showStatus(title, text, contact, channel){
     $g('gate').style.display='flex'; $g('gForm').style.display='none'; $g('gStatus').style.display='block';
     var parts = (text||'').split('||');
     $g('gsTitle').textContent = title; $g('gsText').textContent = parts[0];
     var urEl = $g('gsTextUr'); if(urEl) urEl.textContent = parts[1] || '';
     $g('gsContact').style.display = contact ? 'block' : 'none';
     $g('gsWa').style.display = contact ? 'inline-flex' : 'none';
+    $g('gsChannel').style.display = channel ? 'block' : 'none';
     if(contact){
       const name = (auth.currentUser && auth.currentUser.email || '').split('@')[0];
       $g('gsContact').innerHTML = 'Please contact the owner for access. WhatsApp: ' + OWNER_WHATSAPP_SHOW + '.<div class="ur" style="margin-top:6px;font-weight:400">رسائی کے لیے واٹس ایپ پر رابطہ کریں۔</div>';
@@ -1852,7 +1858,7 @@ function start(){
     if(u.status==='approved' && !(exp && exp < Date.now())) return enter(user, u, ref, false);
     if(u.status==='blocked') return showStatus('Access turned off', 'Your access has been turned off.||آپ کی رسائی بند کر دی گئی ہے۔', true);
     if(u.status==='approved') return showStatus('Access expired', 'Your free access has ended. Get lifetime access for Rs 200 by contacting the owner on WhatsApp.||آپ کی مفت رسائی ختم ہو گئی ہے۔ ہمیشہ کے لیے صرف 200 روپے میں واٹس ایپ پر رابطہ کریں۔', true);
-    showStatus('Almost there!', 'Your account is created. Next: send us a WhatsApp message using a button below. When we approve you, tap Open app.||آپ کا اکاؤنٹ بن گیا ہے۔ اب نیچے دیے گئے بٹن سے واٹس ایپ پیغام بھیجیں۔ منظوری کے بعد Open app پر ٹیپ کریں۔', true);
+    showStatus('Almost there!', 'Your account is created. Next: send us a WhatsApp message using a button below. When we approve you, tap Open app.||آپ کا اکاؤنٹ بن گیا ہے۔ اب نیچے دیے گئے بٹن سے واٹس ایپ پیغام بھیجیں۔ منظوری کے بعد Open app پر ٹیپ کریں۔', true, true);
   }
 
   async function verifyAccess(){
